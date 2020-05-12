@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:background="@color/colorSecondary"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.DepartureByDestActivity">
+
+    <com.github.florent37.shapeofview.shapes.DiagonalView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:shape_diagonal_angle="10"
+        app:shape_diagonal_direction="right"
+        app:shape_diagonal_position="bottom">
+
+        <FrameLayout
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+    </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/pilih_travel"
+        android:layout_marginTop="30sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:text="@string/silahkan_pilih_travel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="10dp"
+        android:layout_below="@id/pilih_travel"
+        android:id="@+id/card_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:textFontWeight="2"
+                android:background="@color/colorSecondary"
+                android:textColor="#fff"
+                android:text="reset"
+                android:layout_weight="3"
+                android:id="@+id/btn_reset"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:hint="Mau Pergi Kapan?"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:textColorHint="@color/colorPrimaryDark"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1"
+                android:id="@+id/txt_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <Button
+                android:background="@color/colorSecondary"
+                android:textColor="#fff"
+                android:text="cari"
+                android:layout_weight="3"
+                android:id="@+id/btn_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/card_search"
+        android:id="@+id/rv_car_by_destination"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_departure_by_destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>
