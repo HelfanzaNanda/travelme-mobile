@@ -161,7 +161,7 @@
         android:visibility="invisible"
         android:progress="0"
         android:layout_centerInParent="true"
-        android:id="@+id/pb_login"
+        android:id="@+id/pb_register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

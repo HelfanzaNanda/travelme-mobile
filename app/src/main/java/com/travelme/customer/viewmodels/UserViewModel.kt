@@ -44,9 +44,9 @@ class UserViewModel : ViewModel(){
         })
     }
 
-    fun register(name: String, email: String, password: String){
+    fun register(name: String, email: String, password: String, phone: String){
         state.value = UserState.IsLoading(false)
-        api.register(name, email, password).enqueue(object : Callback<WrappedResponse<User>>{
+        api.register(name, email, password, phone).enqueue(object : Callback<WrappedResponse<User>>{
             override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
                 println("OnFailure : "+t.message)
             }
@@ -97,7 +97,7 @@ class UserViewModel : ViewModel(){
         })
     }
 
-    fun validate(name: String?, email: String, password: String, confirmPassword : String?): Boolean{
+    fun validate(name: String?, email: String, password: String, confirmPassword : String?, telp : String?): Boolean{
         state.value = UserState.Reset
         if (name != null){
             if (name.isEmpty()){
@@ -109,6 +109,15 @@ class UserViewModel : ViewModel(){
                 return false
             }
         }
+        if (telp != null){
+            if (telp.isEmpty()){
+                state.value = UserState.ShowToast("no telepon harus di isi")
+            }
+            if (telp.length < 11 || telp.length > 11){
+                state.value = UserState.ShowToast("no telepon setidaknya 11 sampai 13 karakter")
+            }
+        }
+
         if (email.isEmpty() || password.isEmpty()){
             state.value = UserState.ShowToast("mohon isi semua form")
             return false
@@ -146,7 +155,8 @@ sealed class UserState{
         var name : String? = null,
         var email : String? = null,
         var password : String? = null,
-        var confirmPassword : String? = null
+        var confirmPassword : String? = null,
+        var telp : String? = null
     ) : UserState()
     data class Success(var token : String) :UserState()
 }
