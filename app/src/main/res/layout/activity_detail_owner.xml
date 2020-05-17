@@ -23,25 +23,16 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <com.github.florent37.shapeofview.shapes.CutCornerView
-                android:id="@+id/clipCorner"
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/iv_photo_detail_owner"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:elevation="4dp"
-                app:shape_cutCorner_bottomRightSize="20dp">
-
-                <com.synnapps.carouselview.CarouselView
-                    android:id="@+id/iv_photo_detail_owner"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:fillColor="#FFFFFFFF"
-                    app:pageColor="#00000000"
-                    app:radius="6dp"
-                    app:slideInterval="3000"
-                    app:strokeColor="#FF777777"
-                    app:strokeWidth="1dp"/>
-
-            </com.github.florent37.shapeofview.shapes.CutCornerView>
+                app:fillColor="#FFFFFFFF"
+                app:pageColor="#00000000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -55,13 +46,18 @@
 
     <include layout="@layout/content_detail_owner" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
-        app:layout_anchor="@id/app_bar"
-        app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+    <RelativeLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_alignParentBottom="true"
+            android:textColor="#fff"
+            android:background="@drawable/oval_bg"
+            android:id="@+id/btn_order"
+            android:text="@string/pesan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

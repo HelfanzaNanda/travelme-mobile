@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:layout_margin="15dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,98 +7,163 @@
     android:layout_height="match_parent"
     tools:context=".activities.RegisterActivity">
 
-    <TextView
-        android:layout_marginTop="30dp"
-        android:id="@+id/txt_register"
-        android:gravity="center_horizontal"
-        android:textStyle="bold"
-        android:textSize="28dp"
-        android:text="Register"
+    <com.github.florent37.shapeofview.shapes.ArcView
+        android:elevation="4dp"
+        app:shape_arc_cropDirection="outside"
+        app:shape_arc_height="60dp"
+        app:shape_arc_position="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="440dp">
 
-    <View
-        android:layout_below="@id/txt_register"
-        android:background="@android:color/darker_gray"
-        android:layout_height="2dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent" />
+        <FrameLayout
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <LinearLayout
+        </FrameLayout>
+
+    </com.github.florent37.shapeofview.shapes.ArcView>
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="10dp"
+        app:cardBackgroundColor="@android:color/white"
+        android:background="?android:attr/selectableItemBackground"
+        android:elevation="3dp"
+        app:cardPreventCornerOverlap="true"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
+        app:cardCornerRadius="20dp"
+        app:cardUseCompatPadding="true"
+        app:cardElevation="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginBottom="5dp"
-            android:id="@+id/til_name"
+        <LinearLayout
+            android:layout_margin="20dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_name"
-                android:hint="Nama Anda"
+            <TextView
+                android:layout_marginBottom="10dp"
+                android:id="@+id/txt_register"
+                android:textStyle="bold"
+                android:textSize="28dp"
+                android:text="Register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginBottom="5dp"
-            android:id="@+id/til_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/til_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_email"
-                android:hint="Email Anda"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_name"
+                    android:hint="Nama Anda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/til_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_email"
+                    android:hint="Email Anda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/til_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPassword"
+                    android:id="@+id/et_password"
+                    android:hint="Password Anda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/til_confirmpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="textPassword"
+                    android:id="@+id/et_confirmpassword"
+                    android:hint="Konfirmasi Password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_marginBottom="30dp"
+                android:id="@+id/til_telp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:inputType="phone"
+                    android:id="@+id/et_telp"
+                    android:hint="Nomor Hp Anda"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:textColor="@android:color/white"
+                android:background="@drawable/oval_bg"
+                android:text="register"
+                android:layout_alignParentBottom="true"
+                android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginBottom="5dp"
-            android:id="@+id/til_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    </androidx.cardview.widget.CardView>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="textPassword"
-                android:id="@+id/et_password"
-                android:hint="Password Anda"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_marginBottom="5dp"
-            android:id="@+id/til_confirmpassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:inputType="textPassword"
-                android:id="@+id/et_confirmpassword"
-                android:hint="Konfirmasi Password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-    </LinearLayout>
-
-    <Button
-        android:textColor="@android:color/white"
-        android:background="@drawable/oval_bg"
-        android:text="register"
+    <TextView
+        android:clickable="true"
+        android:id="@+id/txt_login"
+        android:layout_marginBottom="40dp"
+        android:gravity="center_horizontal"
+        android:textSize="22sp"
+        android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:id="@+id/btn_register"
+        android:text="Sudah Punya Akun?"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:indeterminate="true"
+        android:visibility="invisible"
+        android:progress="0"
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 
 </RelativeLayout>

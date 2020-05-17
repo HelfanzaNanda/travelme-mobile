@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    android:background="@color/colorSecondary"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -50,8 +49,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:textFontWeight="2"
-                android:background="@color/colorSecondary"
+                android:background="@color/colorPrimary"
                 android:textColor="#fff"
                 android:text="reset"
                 android:layout_weight="3"
@@ -72,7 +70,7 @@
                 android:layout_height="wrap_content"/>
 
             <Button
-                android:background="@color/colorSecondary"
+                android:background="@color/colorPrimary"
                 android:textColor="#fff"
                 android:text="cari"
                 android:layout_weight="3"

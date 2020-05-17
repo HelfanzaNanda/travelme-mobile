@@ -69,6 +69,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_pickup_location"
+                        android:inputType="textMultiLine"
                         android:hint="Lokasi Penjemputan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -83,6 +84,7 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_destination_location"
+                        android:inputType="textMultiLine"
                         android:hint="Lokasi Tujuan"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
@@ -164,14 +166,16 @@
                             android:text="Jam Berangkat"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
-                        <Spinner
-                            android:id="@+id/sp_hour"
+
+                        <TextView
+                            android:id="@+id/txt_hour"
+                            android:gravity="end"
+                            android:textSize="18sp"
+                            android:text="18:00 WIB"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
                     </LinearLayout>
-
-
 
                 </LinearLayout>
 
@@ -183,6 +187,97 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent" />
+
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="Perjalanan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="Harga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="Jumlah Kursi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:background="@android:color/darker_gray"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent" />
+
+                    <TextView
+                        android:textSize="20sp"
+                        android:text="Total Harga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/txt_departure"
+                        android:textSize="20sp"
+                        android:text="hgg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/txt_price"
+                        android:textSize="20sp"
+                        android:text="Harga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/txt_total_seat"
+                        android:textSize="20sp"
+                        android:text="Jumlah Kursi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:background="@android:color/darker_gray"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent" />
+
+                    <TextView
+                        android:id="@+id/txt_total_price"
+                        android:textSize="20sp"
+                        android:text="Total Harga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 

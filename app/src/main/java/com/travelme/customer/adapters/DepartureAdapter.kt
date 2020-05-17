@@ -29,10 +29,12 @@ class DepartureAdapter (private var departures : MutableList<Departure>, private
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         fun bind(departure: Departure, context: Context){
-            itemView.tv_name_owner_by_destination.text = departure.owner.business_name
-            itemView.iv_picture_departure_by_destination.load("https://travelme-project.herokuapp.com/uploads/owner/car/"+departure.owner.cars.joinToString { car -> car.photo.toString() })
-            itemView.tv_destination_departure_by_destination.text = "${departure.from} - ${departure.destination}"
-            itemView.tv_price_departure_by_destination.text = "Harga ${Constants.setToIDR(departure.price!!)}"
+
+            itemView.tv_name_owner.text = departure.owner.business_name
+            itemView.iv_car.load("https://travelme-project.herokuapp.com/uploads/owner/car/"+departure.owner.cars.joinToString { car -> car.photo.toString() })
+            itemView.tv_destination.text = "${departure.from} - ${departure.destination}"
+            itemView.tv_price.text = "Harga ${Constants.setToIDR(departure.price!!)}"
+
             itemView.setOnClickListener {
                 Toast.makeText(context, departure.owner.business_name, Toast.LENGTH_SHORT).show()
                 context.startActivity(Intent(context, DetailOwnerActivity::class.java).apply {
@@ -40,6 +42,10 @@ class DepartureAdapter (private var departures : MutableList<Departure>, private
                     //putParcelableArrayListExtra("CARS", departure.owner.cars as ArrayList<Car>)
                 })
             }
+
+            //itemView.tv_date.text = departure.date.date
+            /*itemView.tv_hour.text = "Jam : ${departure.date.hour.hour} WIB"
+            itemView.tv_remaining_seat.text = "Sisa Kursi : ${departure.date.hour.remaining_seat}"*/
         }
     }
     fun changelist(c : List<Departure>){

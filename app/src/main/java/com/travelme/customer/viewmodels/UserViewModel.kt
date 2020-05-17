@@ -1,5 +1,6 @@
 package com.travelme.customer.viewmodels
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
@@ -11,6 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class UserViewModel : ViewModel(){
+    private var user = MutableLiveData<User>()
     private var state : SingleLiveEvent<UserState> = SingleLiveEvent()
     private var api = ApiClient.instance()
 
@@ -27,7 +29,7 @@ class UserViewModel : ViewModel(){
                 if (response.isSuccessful){
                     val body = response.body()
                     if (body?.status!!){
-                        val token = body.data!!.api_token
+                        val token = body.data!!.token
                         state.value = UserState.ShowToast("selamat datang $email")
                         state.value = UserState.Success(token!!)
                     }else{
@@ -61,6 +63,33 @@ class UserViewModel : ViewModel(){
                     }
                 }else{
                     println("email sudah terdaftar, silahkan pakai email lainnya! "+response.message())
+                }
+                state.value = UserState.IsLoading(false)
+            }
+
+        })
+    }
+
+    fun getUserIsLogin(token: String){
+        println("token : " +token)
+        state.value = UserState.IsLoading(true)
+        api.getUserIsLogin(token).enqueue(object : Callback<WrappedResponse<User>>{
+            override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
+                println("onFailure : "+t.message)
+                state.value = UserState.IsLoading(false)
+            }
+
+            override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        val data = body.data
+                        user.postValue(data)
+                    }else{
+                        state.value = UserState.ShowToast("tidak dapat memuat info")
+                    }
+                }else{
+                    state.value = UserState.ShowToast("Kesalahan saat mengambil info user")
                 }
                 state.value = UserState.IsLoading(false)
             }
@@ -106,6 +135,7 @@ class UserViewModel : ViewModel(){
     }
 
     fun getState() = state
+    fun getUser() = user
 }
 
 sealed class UserState{

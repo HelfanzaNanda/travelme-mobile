@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
 import com.travelme.customer.adapters.DepartureAdapter
+import com.travelme.customer.models.DateOfDeparture
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.DepartureState
 import com.travelme.customer.viewmodels.DepartureViewModel
@@ -31,7 +32,7 @@ class DepartureByDestActivity : AppCompatActivity() {
             adapter = DepartureAdapter(mutableListOf(), this@DepartureByDestActivity)
         }
         departureViewModel = ViewModelProvider(this).get(DepartureViewModel::class.java)
-        departureViewModel.getDepartureByDest(Constants.token, getPassedDestination())
+        departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
         search()
         departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer {
             rv_car_by_destination.adapter?.let { adapter ->
@@ -47,6 +48,7 @@ class DepartureByDestActivity : AppCompatActivity() {
         reset()
         handleUI()
     }
+    
 
     private fun handleUI(){
         departureViewModel.getState().observer(this, Observer {
@@ -87,14 +89,14 @@ class DepartureByDestActivity : AppCompatActivity() {
     private fun search(){
         btn_search.setOnClickListener {
             val date = txt_date.text.toString()
-            departureViewModel.searchDeparture(Constants.token, getPassedDestination(), date)
+            departureViewModel.searchDeparture(Constants.getToken(this@DepartureByDestActivity), getPassedDestination(), date)
         }
     }
 
     private fun reset(){
         btn_reset.setOnClickListener {
             txt_date.text = ""
-            departureViewModel.getDepartureByDest(Constants.token, getPassedDestination())
+            departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
         }
     }
 

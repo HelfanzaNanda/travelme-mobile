@@ -8,14 +8,12 @@ import java.util.*
 class Constants {
     companion object{
         val END_POINT = "https://travelme-project.herokuapp.com/api/"
-        val token = "Bearer EiBxBgjt1afSMsvFcoCLoNxLmxWwt4hA4FPO2JVdvjj27gzMh2TTxFwxGmBmgFLz45OF9hkFX2F9oGni"
+        //val token = "Bearer EiBxBgjt1afSMsvFcoCLoNxLmxWwt4hA4FPO2JVdvjj27gzMh2TTxFwxGmBmgFLz45OF9hkFX2F9oGni"
 
 
         fun getToken(c : Context) : String {
             val s = c.getSharedPreferences("USER", MODE_PRIVATE)
-            //val token = "Bearer jNzoYlbGSuBw65WT29zv9qcOw2sVjc89ZjvbZl3wCTe4S9LNsWglQvQTkQPc5FQqOBy1RsctMaJsngIL"
-            val token = s?.getString("TOKEN",
-                "UNDEFINED")
+            val token = s?.getString("TOKEN", "UNDEFINED")
             return token!!
         }
 

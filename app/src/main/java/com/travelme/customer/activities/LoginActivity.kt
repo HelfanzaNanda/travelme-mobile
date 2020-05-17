@@ -27,6 +27,10 @@ class LoginActivity : AppCompatActivity() {
             handleUI(it)
         })
         doLogin()
+
+        txt_register.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        }
     }
 
     private fun handleUI(it : UserState){

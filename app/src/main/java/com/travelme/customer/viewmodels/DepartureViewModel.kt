@@ -80,6 +80,7 @@ class DepartureViewModel : ViewModel() {
                     if (body?.status!!){
                         val data = body.data
                         departures.postValue(data)
+
                     }else{
                         println("response is not successfull "+response.message())
                     }
