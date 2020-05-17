@@ -17,10 +17,11 @@ class DepartureViewModel : ViewModel() {
 
 
     fun getDestination(token : String){
-        state.value = DepartureState.IsLoading(false)
+        state.value = DepartureState.IsLoading(true)
         api.getDestination(token).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
                 println("onFailure : "+t.message)
+                state.value = DepartureState.IsLoading(false)
             }
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
                 if (response.isSuccessful){
@@ -41,10 +42,11 @@ class DepartureViewModel : ViewModel() {
     }
 
     fun getDepartureByDest(token : String, destination : String){
-        state.value = DepartureState.IsLoading(false)
+        state.value = DepartureState.IsLoading(true)
         api.getDepartureByDest(token, destination).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
                 println("onFailure : "+t.message)
+                state.value = DepartureState.IsLoading(false)
             }
 
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
@@ -68,10 +70,12 @@ class DepartureViewModel : ViewModel() {
     fun searchDeparture(token: String, destination: String, date : String){
         println(date)
         println(destination)
-        state.value = DepartureState.IsLoading(false)
+        state.value = DepartureState.IsLoading(true)
         api.searchDeparture(token, destination, date).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
                 println("onFailure : "+t.message)
+                state.value = DepartureState.ShowToast(t.message.toString())
+                state.value = DepartureState.IsLoading(false)
             }
 
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
@@ -80,9 +84,6 @@ class DepartureViewModel : ViewModel() {
                     if (body?.status!!){
                         val data = body.data
                         departures.postValue(data)
-
-                    }else{
-                        println("response is not successfull "+response.message())
                     }
                 }else{
                     println("response is not successfull, Try Again! "+response.message())

@@ -13,45 +13,49 @@ import com.travelme.customer.R
 import com.travelme.customer.activities.DetailOwnerActivity
 import com.travelme.customer.models.Car
 import com.travelme.customer.models.Departure
+import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.item_departure_by_dest.view.*
 import java.util.ArrayList
 
-class DepartureAdapter (private var departures : MutableList<Departure>, private var context: Context)
+class DepartureAdapter (private var hourAlts : MutableList<HourOfDepartureAlternative>, private var context: Context)
     : RecyclerView.Adapter<DepartureAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_departure_by_dest, parent, false))
     }
 
-    override fun getItemCount(): Int = departures.size
+    override fun getItemCount(): Int = hourAlts.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(departures[position], context)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(hourAlts[position], context)
 
-    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        fun bind(departure: Departure, context: Context){
-
-            itemView.tv_name_owner.text = departure.owner.business_name
-            itemView.iv_car.load("https://travelme-project.herokuapp.com/uploads/owner/car/"+departure.owner.cars.joinToString { car -> car.photo.toString() })
-            itemView.tv_destination.text = "${departure.from} - ${departure.destination}"
-            itemView.tv_price.text = "Harga ${Constants.setToIDR(departure.price!!)}"
-
-            itemView.setOnClickListener {
-                Toast.makeText(context, departure.owner.business_name, Toast.LENGTH_SHORT).show()
-                context.startActivity(Intent(context, DetailOwnerActivity::class.java).apply {
-                    putExtra("DEPARTURE", departure)
-                    //putParcelableArrayListExtra("CARS", departure.owner.cars as ArrayList<Car>)
-                })
-            }
-
-            //itemView.tv_date.text = departure.date.date
-            /*itemView.tv_hour.text = "Jam : ${departure.date.hour.hour} WIB"
-            itemView.tv_remaining_seat.text = "Sisa Kursi : ${departure.date.hour.remaining_seat}"*/
-        }
-    }
-    fun changelist(c : List<Departure>){
-        departures.clear()
-        departures.addAll(c)
+    fun changelist(c : List<HourOfDepartureAlternative>){
+        hourAlts.clear()
+        hourAlts.addAll(c)
         notifyDataSetChanged()
+    }
+
+    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+        fun bind(hourAlt: HourOfDepartureAlternative, context: Context) {
+            with(itemView) {
+                tv_name_owner.text = hourAlt.departure?.owner?.business_name
+                iv_car.load("https://travelme-project.herokuapp.com/uploads/owner/car/" + hourAlt.departure?.owner?.cars?.joinToString { car -> car.photo.toString() })
+                tv_destination.text =
+                    "${hourAlt.departure?.from} -> ${hourAlt.departure?.destination}"
+                tv_price.text = "Harga ${Constants.setToIDR(hourAlt.departure?.price!!)}"
+                tv_date.text = hourAlt.dateOfDeparture?.date.toString()
+                tv_hour.text = hourAlt.hour.toString()
+                tv_remaining_seat.text = "Sisa ${hourAlt.remaining_seat}"
+                setOnClickListener {
+                    context.startActivity(Intent(context, DetailOwnerActivity::class.java).apply {
+                        putExtra("DEPARTURE", hourAlt.departure)
+                        putParcelableArrayListExtra(
+                            "CARS",
+                            hourAlt.departure?.owner?.cars as ArrayList<Car>
+                        )
+                    })
+                }
+            }
+        }
     }
 
 }

@@ -5,12 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
 import com.travelme.customer.adapters.DepartureAdapter
-import com.travelme.customer.models.DateOfDeparture
+import com.travelme.customer.models.*
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.DepartureState
 import com.travelme.customer.viewmodels.DepartureViewModel
@@ -33,22 +34,15 @@ class DepartureByDestActivity : AppCompatActivity() {
         }
         departureViewModel = ViewModelProvider(this).get(DepartureViewModel::class.java)
         departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
-        search()
         departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer {
-            rv_car_by_destination.adapter?.let { adapter ->
-                if (adapter is DepartureAdapter){
-                    adapter.changelist(it)
-                    for (x in it){
-                        x.owner.business_name
-                    }
-                }
-            }
+            handleData(it)
         })
         setDate()
         reset()
         handleUI()
+        search()
     }
-    
+
 
     private fun handleUI(){
         departureViewModel.getState().observer(this, Observer {
@@ -100,7 +94,54 @@ class DepartureByDestActivity : AppCompatActivity() {
         }
     }
 
+    private fun handleData(data : List<Departure>){
+        rv_car_by_destination.adapter?.let { adapter ->
+            if (adapter is DepartureAdapter){
+                val restructured = restructureData(data)
+                adapter.changelist(restructured)
+                if(restructured.isNullOrEmpty()){
+                    showAlert("Tidak ada hasil")
+                }
+            }
+        }
+    }
+
+    private fun restructureData(d : List<Departure>): MutableList<HourOfDepartureAlternative> {
+        val hoursAlt = mutableListOf<HourOfDepartureAlternative>()
+        val departureWithDates = d.map { Temp(it.dates, it) }
+        departureWithDates.map {
+            if(!it.dates.isNullOrEmpty()){
+                it.dates!!.map { date ->
+                    for (i in date.hours){
+                        hoursAlt.add(
+                            HourOfDepartureAlternative(
+                                id = i.id,
+                                dateOfDeparture = date,
+                                hour = i.hour,
+                                seat = i.seat,
+                                remaining_seat = i.remaining_seat,
+                                departure = it.departure
+                            ))
+                    }
+                }
+            }
+        }
+        return hoursAlt
+    }
+
+    private fun showAlert(message: String){
+        AlertDialog.Builder(this).apply {
+            setMessage(message)
+            setPositiveButton(resources.getString(R.string.info_mengerti)){ d, _ -> d.dismiss()}
+        }.show()
+    }
+
     private fun getPassedDestination() = intent.getStringExtra("DESTINATION")
 
     private fun toast(message : String) = Toast.makeText(this@DepartureByDestActivity, message, Toast.LENGTH_SHORT).show()
 }
+
+data class Temp(
+    var dates : List<DateOfDeparture>? = mutableListOf(),
+    var departure : Departure? = null
+)
