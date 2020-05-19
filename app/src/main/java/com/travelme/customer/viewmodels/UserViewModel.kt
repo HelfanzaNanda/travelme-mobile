@@ -113,7 +113,7 @@ class UserViewModel : ViewModel(){
             if (telp.isEmpty()){
                 state.value = UserState.ShowToast("no telepon harus di isi")
             }
-            if (telp.length < 11 || telp.length > 11){
+            if (telp.length < 11 && telp.length > 13){
                 state.value = UserState.ShowToast("no telepon setidaknya 11 sampai 13 karakter")
             }
         }

@@ -2,6 +2,7 @@ package com.travelme.customer.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Gravity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -10,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.travelme.customer.R
 import com.travelme.customer.models.Departure
+import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.OrderState
 import com.travelme.customer.viewmodels.OrderViewModel
@@ -33,13 +35,13 @@ class OrderActivity : AppCompatActivity() {
             it.let {
                 et_name.setText(it.name)
                 et_name.isEnabled = false
-                //et_date.setText(getPassedDeparture()?.date?.date)
+                et_date.setText(getPassedHourDeparture()?.dateOfDeparture?.date)
                 et_date.isEnabled = false
-                //txt_hour.text = getPassedDeparture()?.date?.hour?.hour
+                txt_hour.text = getPassedHourDeparture()?.hour
 
-                txt_departure.text = "${getPassedDeparture()?.from} - ${getPassedDeparture()?.destination}"
-                txt_price.text = Constants.setToIDR(getPassedDeparture()?.price!!.toInt())
-                //totalSeat()
+                txt_departure.text = "${getPassedHourDeparture()?.departure?.from} - ${getPassedHourDeparture()?.departure?.destination}"
+                txt_price.text = Constants.setToIDR(getPassedHourDeparture()?.departure?.price!!.toInt())
+                totalSeat()
             }
         })
         userViewModel.getUserIsLogin(Constants.getToken(this@OrderActivity))
@@ -48,23 +50,23 @@ class OrderActivity : AppCompatActivity() {
         orderViewModel.getState().observer(this, Observer {
             handleUIOrder(it)
         })
-        insert()
+        order()
     }
 
-    private fun insert(){
+    private fun order(){
         btn_order.setOnClickListener {
-            val owner_id = getPassedDeparture()?.owner?.id!!
-            val departure_id = getPassedDeparture()?.id!!
-            //val date = getPassedDeparture()?.date?.date.toString()
-            //val hour = getPassedDeparture()?.date?.hour?.hour.toString()
-            val price = getPassedDeparture()?.price!!
+            val owner_id = getPassedHourDeparture()?.departure?.owner?.id!!
+            val departure_id = getPassedHourDeparture()?.departure?.id!!
+            val date = getPassedHourDeparture()?.dateOfDeparture?.date!!
+            val hour = getPassedHourDeparture()?.hour!!
+            val price = getPassedHourDeparture()?.departure?.price!!
             val total_seat = txt_seat.text.toString().toInt()
             val pickup_location = et_pickup_location.text.toString().trim()
             val destination_location = et_destination_location.text.toString().trim()
-            /*if (orderViewModel.validate(pickup_location, destination_location)){
+            if (orderViewModel.validate(pickup_location, destination_location)){
                 orderViewModel.storeOrder(Constants.getToken(this@OrderActivity),
                     owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location)
-            }*/
+            }
         }
     }
 
@@ -88,32 +90,36 @@ class OrderActivity : AppCompatActivity() {
     private fun setDestinationLocationError(err : String?){til_destination_location.error = err}
 
 
-    /*private fun totalSeat() {
+    private fun totalSeat() {
         var count = 1
-        var remaining_seat = getPassedDeparture()?.date?.hour?.remaining_seat
+        var remaining_seat = getPassedHourDeparture()?.remaining_seat
 
         btn_plus_seat.setOnClickListener {
             if (count >= remaining_seat!!){
                 toast("sisa kursi hanya ${remaining_seat}")
                 txt_seat.text = remaining_seat.toString()
                 txt_total_seat.text = remaining_seat.toString()
-                txt_total_price.text = Constants.setToIDR(getPassedDeparture()?.price.toString().toInt() * remaining_seat)
+                txt_total_price.text = Constants.setToIDR(getPassedHourDeparture()?.departure?.price.toString().toInt() * remaining_seat)
             }else{
                 count++
                 txt_seat.text = count.toString()
                 txt_total_seat.text = count.toString()
-                txt_total_price.text = Constants.setToIDR(getPassedDeparture()?.price.toString().toInt() * count)
+                txt_total_price.text = Constants.setToIDR(getPassedHourDeparture()?.departure?.price.toString().toInt() * count)
             }
         }
         btn_min_seat.setOnClickListener {
             if (count > 1) count-- else count = 1
             txt_seat.text = count.toString()
             txt_total_seat.text = count.toString()
-            txt_total_price.text = Constants.setToIDR(getPassedDeparture()?.price.toString().toInt() * count)
+            txt_total_price.text = Constants.setToIDR(getPassedHourDeparture()?.departure?.price.toString().toInt() * count)
         }
-    }*/
+    }
 
-    private fun toast (message : String) = Toast.makeText(this@OrderActivity, message, Toast.LENGTH_SHORT).show()
+    private fun toast (message : String) = Toast.makeText(this@OrderActivity, message, Toast.LENGTH_SHORT).apply {
+        setGravity(Gravity.CENTER,0,0)
+        show()
+    }
 
-    private fun getPassedDeparture() : Departure? = intent.getParcelableExtra("DEPARTURE_DETAIL")
+    //private fun getPassedHourDeparture() : Departure? = intent.getParcelableExtra("DEPARTURE_DETAIL")
+    private fun getPassedHourDeparture() : HourOfDepartureAlternative? = intent.getParcelableExtra("DEPARTURE_DETAIL")
 }

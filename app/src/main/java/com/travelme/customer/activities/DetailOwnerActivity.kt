@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_detail_owner.*
 import kotlinx.android.synthetic.main.content_detail_owner.*
 import android.widget.LinearLayout.LayoutParams
 import android.widget.LinearLayout.LayoutParams.MATCH_PARENT
+import com.travelme.customer.models.HourOfDepartureAlternative
 
 class DetailOwnerActivity : AppCompatActivity() {
 
@@ -30,40 +31,41 @@ class DetailOwnerActivity : AppCompatActivity() {
 
         btn_order.setOnClickListener {
             startActivity(Intent(this@DetailOwnerActivity, OrderActivity::class.java).apply {
-                putExtra("DEPARTURE_DETAIL", getPassedDeparture())
+                putExtra("DEPARTURE_DETAIL", getPassedHourDeparture())
             })
         }
 
     }
 
     private fun setValue(){
-        getPassedDeparture()?.let {
 
+        getPassedHourDeparture()?.let {
             val imageListener: ImageListener = object : ImageListener {
                 override fun setImageForPosition(position: Int, imageView: ImageView) {
                     imageView.load("https://travelme-project.herokuapp.com/uploads/owner/car/"
-                            +getPassedDeparture()?.owner!!.cars.get(position).photo)
+                            +getPassedHourDeparture()?.departure!!.owner.cars.get(position).photo)
                 }
             }
 
             val carouselView = findViewById(R.id.iv_photo_detail_owner) as CarouselView;
-            carouselView.setPageCount(it.owner.cars.size);
+            carouselView.setPageCount(it.departure!!.owner.cars.size);
             carouselView.setImageListener(imageListener);
 
-            supportActionBar?.setTitle(it.owner.business_name)
-            txt_destination.setText("${it.from} - ${it.destination}")
+            supportActionBar?.setTitle(it.departure!!.owner.business_name)
+            txt_destination.setText("${it.departure!!.from} - ${it.departure!!.destination}")
 
-            txt_address.text = "Alamat : ${it.owner.address}"
-            txt_telp.text = "Telephone : ${it.owner.telp}"
-            /*txt_date.text = "Tanggal : ${it.date.date}"
-            txt_hour.text = "Jam : ${it.date.hour.hour} WIB"
-            txt_remaining_seat.text = "Sisa Kursi : ${it.date.hour.remaining_seat}"*/
+            txt_address.text = "Alamat : ${it.departure!!.owner.address}"
+            txt_telp.text = "Telephone : ${it.departure!!.owner.telp}"
+            txt_facility.text = "Fasilitas : ${it.departure!!.owner.cars.joinToString { car -> car.facility.toString() }}"
 
-            for (x in it.owner.cars){
-                txt_facility.text = "Fasilitas : ${x.facility}"
-            }
+
+            txt_date.text = "Tanggal : ${it.dateOfDeparture!!.date}"
+            txt_hour.text = "Jam : ${it.hour}"
+            txt_remaining_seat.text = "Sisa Kursi : ${it.remaining_seat}"
+
         }
     }
 
-    private fun getPassedDeparture() : Departure? = intent.getParcelableExtra("DEPARTURE")
+    //private fun getPassedDeparture() : Departure? = intent.getParcelableExtra("DEPARTURE")
+    private fun getPassedHourDeparture() : HourOfDepartureAlternative? = intent.getParcelableExtra("DEPARTURE")
 }

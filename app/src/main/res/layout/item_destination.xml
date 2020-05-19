@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="150dp"
     android:clickable="true"
     android:gravity="center"
     android:orientation="vertical"
@@ -13,17 +13,11 @@
     app:strokeWidth="2dp"
     android:layout_margin="10dp">
 
-    <RelativeLayout
+    <ImageView
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_destination"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:scaleType="centerCrop"
-            android:id="@+id/iv_destination"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_centerInParent="true" />
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true" />
 
 </androidx.cardview.widget.CardView>

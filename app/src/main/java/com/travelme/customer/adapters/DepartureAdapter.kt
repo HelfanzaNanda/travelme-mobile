@@ -38,16 +38,17 @@ class DepartureAdapter (private var hourAlts : MutableList<HourOfDepartureAltern
         fun bind(hourAlt: HourOfDepartureAlternative, context: Context) {
             with(itemView) {
                 tv_name_owner.text = hourAlt.departure?.owner?.business_name
-                iv_car.load("https://travelme-project.herokuapp.com/uploads/owner/car/" + hourAlt.departure?.owner?.cars?.joinToString { car -> car.photo.toString() })
+                iv_car.load("https://travelme-project.herokuapp.com/uploads/owner/car/"
+                        + hourAlt.departure?.owner?.cars?.joinToString { car -> car.photo.toString() })
                 tv_destination.text =
                     "${hourAlt.departure?.from} -> ${hourAlt.departure?.destination}"
-                tv_price.text = "Harga ${Constants.setToIDR(hourAlt.departure?.price!!)}"
+                tv_price.text = "${Constants.setToIDR(hourAlt.departure?.price!!)}"
                 tv_date.text = hourAlt.dateOfDeparture?.date.toString()
-                tv_hour.text = hourAlt.hour.toString()
-                tv_remaining_seat.text = "Sisa ${hourAlt.remaining_seat}"
+                tv_hour.text = "${hourAlt.hour.toString()} WIB"
+                tv_remaining_seat.text = "Sisa ${hourAlt.remaining_seat} Kursi"
                 setOnClickListener {
                     context.startActivity(Intent(context, DetailOwnerActivity::class.java).apply {
-                        putExtra("DEPARTURE", hourAlt.departure)
+                        putExtra("DEPARTURE", hourAlt)
                         putParcelableArrayListExtra(
                             "CARS",
                             hourAlt.departure?.owner?.cars as ArrayList<Car>

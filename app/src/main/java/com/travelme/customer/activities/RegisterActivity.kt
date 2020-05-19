@@ -36,7 +36,6 @@ class RegisterActivity : AppCompatActivity() {
             handleUIState(it)
         })
 
-
         btn_register.setOnClickListener {
             val name = et_name.text.toString().trim()
             val email = et_email.text.toString().trim()

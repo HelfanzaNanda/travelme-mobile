@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    app:cardPreventCornerOverlap="true"
-    app:cardUseCompatPadding="true"
+    android:layout_marginBottom="4dp"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
-    android:layout_marginBottom="4dp"
     app:cardCornerRadius="8dp"
     app:cardElevation="10dp"
     android:elevation="3dp"
@@ -14,72 +12,6 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <!--<RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:src="@drawable/user"
-            android:layout_margin="8dp"
-            android:id="@+id/iv_picture_departure_by_destination"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-
-        <TextView
-            android:layout_below="@id/iv_picture_departure_by_destination"
-            android:layout_margin="6dp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:textAllCaps="true"
-            android:textSize="18sp"
-            android:id="@+id/tv_name_owner_by_destination"
-            android:text="Daffa Travel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <View
-            android:id="@+id/view_item_departure"
-            android:layout_below="@id/tv_name_owner_by_destination"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="@android:color/darker_gray" />
-
-        <LinearLayout
-            android:paddingBottom="10dp"
-            android:id="@+id/ll_desc"
-            android:layout_below="@id/view_item_departure"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/tv_destination_departure_by_destination"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:textSize="16sp"
-                android:text="Tegal - Jakarta"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:layout_weight="1"
-                android:id="@+id/tv_price_departure_by_destination"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:text="Harga : Rp.130.000"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </LinearLayout>
-
-
-    </RelativeLayout>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -107,17 +39,19 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="10dp"
-            android:text="Sisa 7 Kursi"
-            android:gravity="right"
-            android:id="@+id/tv_remaining_seat"
+            android:layout_toRightOf="@id/iv_car"
+            android:layout_below="@id/tv_name_owner"
+            android:id="@+id/tv_destination"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:text="Tegal - Tanggerang"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_toRightOf="@id/iv_car"
-            android:layout_below="@id/tv_name_owner"
+            android:layout_below="@id/tv_destination"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -129,21 +63,21 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_weight="1"
-                    android:id="@+id/tv_destination"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="10dp"
                     android:textSize="16sp"
-                    android:text="Tegal - Jakarta"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="Sisa 7 Kursi"
+                    android:id="@+id/tv_remaining_seat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:textSize="16sp"
                     android:layout_weight="1"
                     android:id="@+id/tv_price"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
-                    android:text="Harga : Rp.130.000"
+                    android:text="Rp.130.000"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -157,6 +91,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:text="2020-05-10"
                     android:id="@+id/tv_date"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
@@ -165,6 +100,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:textSize="16sp"
                     android:id="@+id/tv_hour"
                     android:layout_marginRight="10dp"
                     android:layout_marginLeft="10dp"
