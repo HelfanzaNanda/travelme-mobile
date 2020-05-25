@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.DetailMyOrderActivity">
+
+
+    <RelativeLayout
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.vipulasri.ticketview.TicketView
+            android:id="@+id/ticket_view"
+            android:layout_width="match_parent"
+            android:layout_height="210dp"
+            app:ticketOrientation="horizontal"
+            app:ticketScallopRadius="10dp"
+            app:ticketShowBorder="false"
+            app:ticketShowDivider="true"
+            app:ticketDividerType="dash"
+            app:ticketElevation="14dp"
+            app:ticketDividerPadding="0dp"
+            app:ticketScallopPositionPercent="80"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_id_order"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignTop="@id/ticket_view"
+            android:layout_alignRight="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="ID : 233"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:id="@+id/tv_total_seat"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignTop="@id/ticket_view"
+            android:layout_alignLeft="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="ID : 233"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/divier_one"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:layout_alignRight="@id/ticket_view"
+            android:layout_below="@+id/tv_id_order"
+            android:background="@color/colorGreyLight"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:id="@+id/label_name"
+            android:layout_below="@id/divier_one"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_name_user"
+            android:layout_alignRight="@id/ticket_view"
+            android:layout_below="@id/divier_one"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="16sp"
+            android:text="Nanda Alfara"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_below="@id/label_name"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_email_user"
+            android:layout_alignRight="@id/ticket_view"
+            android:layout_below="@id/tv_name_user"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:textSize="16sp"
+            android:text="Nanda@mail.com"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/divier_two"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:layout_alignRight="@id/ticket_view"
+            android:layout_below="@+id/tv_email_user"
+            android:background="@color/colorGreyLight"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <TextView
+            android:id="@+id/label_perjalanan"
+            android:layout_below="@id/divier_two"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="Perjalanan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_departure_from"
+            android:layout_below="@id/label_perjalanan"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:layout_alignLeft="@id/ticket_view"
+            android:textSize="16sp"
+            android:text="Tegal"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ImageView
+            android:id="@+id/ic_arrow"
+            android:layout_toRightOf="@id/tv_departure_from"
+            android:layout_below="@id/label_perjalanan"
+            android:src="@drawable/ic_arrow_forward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_departure_destination"
+            android:layout_toRightOf="@id/ic_arrow"
+            android:layout_below="@id/label_perjalanan"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="16sp"
+            android:text="Surabaya"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_toRightOf="@id/tv_departure_destination"
+            android:layout_below="@id/label_perjalanan"
+            android:layout_marginLeft="10dp"
+            android:textSize="16sp"
+            android:text="2020-05-03"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/tv_hour"
+            android:layout_toRightOf="@id/tv_date"
+            android:layout_below="@id/label_perjalanan"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="16sp"
+            android:text="19:00:00"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="20dp"
+            android:id="@+id/tv_price"
+            android:layout_alignLeft="@id/ticket_view"
+            android:layout_alignBottom="@id/ticket_view"
+            android:layout_marginLeft="20dp"
+            android:textSize="16sp"
+            android:text="TOTAL : 100000"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:layout_marginBottom="20dp"
+            android:id="@+id/tv_status"
+            android:layout_alignRight="@id/ticket_view"
+            android:layout_alignBottom="@id/ticket_view"
+            android:layout_marginRight="20dp"
+            android:textSize="16sp"
+            android:text="DIKONFIRMASI"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

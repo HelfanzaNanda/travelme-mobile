@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.SingleLiveEvent
+import com.travelme.customer.utilities.WrappedListResponse
 import com.travelme.customer.utilities.WrappedResponse
 import com.travelme.customer.webservices.ApiClient
 import retrofit2.Call
@@ -13,6 +14,7 @@ import retrofit2.http.Field
 
 class OrderViewModel : ViewModel(){
     private var order = MutableLiveData<Order>()
+    private var orders = MutableLiveData<List<Order>>()
     private var state : SingleLiveEvent<OrderState> = SingleLiveEvent()
     private var api = ApiClient.instance()
 
@@ -32,15 +34,6 @@ class OrderViewModel : ViewModel(){
 
     fun storeOrder(token : String, owner_id : Int, departure_id : Int, date : String,
                    hour : String, price : Int, total_seat: Int, pickup_location: String, destination_location: String){
-        println("token : "+token)
-        println("owner_id : "+owner_id)
-        println("departure_id : "+departure_id)
-        println("date : "+date)
-        println("hour : "+hour)
-        println("price : "+price)
-        println("seat : "+total_seat)
-        println("pickup : "+pickup_location)
-        println("destination : "+destination_location)
         state.value = OrderState.IsLoading(true)
         api.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location)
             .enqueue(object : Callback<WrappedResponse<Order>>{
@@ -67,8 +60,34 @@ class OrderViewModel : ViewModel(){
             })
     }
 
+    fun getMyOrder(token: String){
+        state.value = OrderState.IsLoading(true)
+        api.getMyOrder(token).enqueue(object : Callback<WrappedListResponse<Order>>{
+            override fun onFailure(call: Call<WrappedListResponse<Order>>, t: Throwable) {
+                println("OnFailure : "+t.message)
+            }
+
+            override fun onResponse(call: Call<WrappedListResponse<Order>>, response: Response<WrappedListResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        val data = body.data
+                        orders.postValue(data)
+                    }else{
+                        state.value = OrderState.ShowToast("tidak dapat mengambil data")
+                    }
+                }else{
+                    state.value = OrderState.ShowToast("tidak dapat mengambil")
+                }
+                state.value = OrderState.IsLoading(false)
+            }
+
+        })
+    }
+
     fun getState() = state
     fun getOrder() = order
+    fun getOrders() = orders
 }
 
 sealed class OrderState{

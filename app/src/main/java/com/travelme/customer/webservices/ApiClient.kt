@@ -99,4 +99,9 @@ interface ApiService{
         @Field("destination_location") destination_location : String
     ) : Call<WrappedResponse<Order>>
 
+    @GET("order/confirmed")
+    fun getMyOrder(
+        @Header("Authorization") token : String
+    ) : Call<WrappedListResponse<Order>>
+
 }

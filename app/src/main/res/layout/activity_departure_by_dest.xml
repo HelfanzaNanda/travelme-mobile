@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@color/colorAccent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -49,7 +50,7 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:background="@color/colorPrimary"
+                android:background="@color/colorSecondary"
                 android:textColor="#fff"
                 android:text="reset"
                 android:layout_weight="3"
@@ -70,7 +71,7 @@
                 android:layout_height="wrap_content"/>
 
             <Button
-                android:background="@color/colorPrimary"
+                android:background="@color/colorSecondary"
                 android:textColor="#fff"
                 android:text="cari"
                 android:layout_weight="3"
@@ -90,6 +91,23 @@
     <ProgressBar
         android:layout_centerInParent="true"
         android:id="@+id/pb_departure_by_destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:src="@drawable/searching"
+        android:id="@+id/iv_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:layout_below="@id/iv_no_data"
+        android:text="aaaaaaaa"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

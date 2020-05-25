@@ -1,6 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout
+    android:background="@color/colorAccent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.github.florent37.shapeofview.shapes.DiagonalView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:shape_diagonal_angle="10"
+        app:shape_diagonal_direction="right"
+        app:shape_diagonal_position="bottom">
 
-</LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+        </FrameLayout>
+
+    </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tv_pesanan_saya"
+        android:layout_marginTop="30sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:text="Pesanan Saya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/tv_pesanan_saya"
+        android:id="@+id/rv_my_order"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_my_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ImageView
+        android:layout_centerInParent="true"
+        android:src="@drawable/searching"
+        android:id="@+id/iv_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"/>
+
+    <TextView
+        android:id="@+id/tv_no_data"
+        android:layout_centerInParent="true"
+        android:layout_alignBottom="@id/iv_no_data"
+        android:text="aaaaaaaa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</RelativeLayout>

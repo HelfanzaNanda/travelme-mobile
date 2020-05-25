@@ -15,12 +15,13 @@
         android:layout_width="match_parent" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        app:itemTextColor="@color/colorSecondary"
         android:id="@+id/navigation"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:labelVisibilityMode="labeled"
-        android:background="?android:attr/windowBackground"
+        app:labelVisibilityMode="selected"
+        android:background="@color/colorAccent"
         app:menu="@menu/bottom_nav_menu" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

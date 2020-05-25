@@ -14,6 +14,9 @@ data class Order(
     @SerializedName("hour") var hour : String? = null,
     @SerializedName("price") var price : Int? = null,
     @SerializedName("total_seat") var total_seat : Int? = null,
+    @SerializedName("total_price") var total_price : Int? = null,
     @SerializedName("pickup_location") var pickup_location : String? = null,
-    @SerializedName("destination_location") var destination_location : String? = null
+    @SerializedName("destination_location") var destination_location : String? = null,
+    @SerializedName("status") var status : String? = null
+
 ) : Parcelable

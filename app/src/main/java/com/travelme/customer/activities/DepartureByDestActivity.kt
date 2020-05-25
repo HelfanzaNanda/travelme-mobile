@@ -100,7 +100,12 @@ class DepartureByDestActivity : AppCompatActivity() {
                 val restructured = restructureData(data)
                 adapter.changelist(restructured)
                 if(restructured.isNullOrEmpty()){
-                    showAlert("Tidak ada hasil")
+                    iv_no_data.visibility = View.VISIBLE
+                    tv_no_data.text = "tidak ada travel pada tanggal ${txt_date.text}"
+                    tv_no_data.visibility = View.VISIBLE
+                }else{
+                    iv_no_data.visibility = View.GONE
+                    tv_no_data.visibility = View.GONE
                 }
             }
         }
@@ -127,13 +132,6 @@ class DepartureByDestActivity : AppCompatActivity() {
             }
         }
         return hoursAlt
-    }
-
-    private fun showAlert(message: String){
-        AlertDialog.Builder(this).apply {
-            setMessage(message)
-            setPositiveButton(resources.getString(R.string.info_mengerti)){ d, _ -> d.dismiss()}
-        }.show()
     }
 
     private fun getPassedDestination() = intent.getStringExtra("DESTINATION")

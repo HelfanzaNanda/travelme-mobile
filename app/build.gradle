@@ -55,4 +55,6 @@ dependencies {
     implementation "io.coil-kt:coil:0.9.5"
     implementation 'com.synnapps:carouselview:0.1.4'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.vipulasri:ticketview:1.0.7'
+    //implementation 'com.github.AppIntro:AppIntro:6.0.0-alpha3'
 }

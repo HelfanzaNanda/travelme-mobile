@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:background="@color/colorAccent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -21,6 +22,17 @@
         </FrameLayout>
 
     </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tv_pesanan_saya"
+        android:layout_marginTop="30sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:text="Profil Saya"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 
     <LinearLayout
