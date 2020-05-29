@@ -48,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
             is UserState.Success -> {
                 Constants.setToken(this@LoginActivity, "Bearer ${it.token}")
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                finish()
             }
             is UserState.Reset -> {
                 setEmailError(null)
@@ -83,6 +84,7 @@ class LoginActivity : AppCompatActivity() {
         super.onResume()
         if (!Constants.getToken(this@LoginActivity).equals("UNDEFINED")){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            finish()
         }
     }
 }

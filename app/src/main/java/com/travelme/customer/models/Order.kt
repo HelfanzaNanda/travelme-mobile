@@ -7,6 +7,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Order(
     @SerializedName("id") var id : Int?= null,
+    @SerializedName("order_id") var order_id : Int?= null,
     @SerializedName("user") var user : User,
     @SerializedName("owner") var owner : Owner,
     @SerializedName("departure") var departure : Departure,
@@ -17,6 +18,7 @@ data class Order(
     @SerializedName("total_price") var total_price : Int? = null,
     @SerializedName("pickup_location") var pickup_location : String? = null,
     @SerializedName("destination_location") var destination_location : String? = null,
-    @SerializedName("status") var status : String? = null
+    @SerializedName("status") var status : String? = null,
+    @SerializedName("token") var snap : String? = null
 
 ) : Parcelable

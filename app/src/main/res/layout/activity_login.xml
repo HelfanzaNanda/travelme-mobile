@@ -24,7 +24,7 @@
 
     </com.github.florent37.shapeofview.shapes.ArcView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white"
         android:background="?android:attr/selectableItemBackground"
@@ -93,10 +93,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:layout_margin="20dp"
-                android:textColor="@android:color/white"
-                android:background="@drawable/oval_bg"
+                android:background="@color/colorPrimaryDark"
                 android:text="login"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/btn_login"
@@ -104,7 +103,7 @@
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:background="?attr/selectableItemBackgroundBorderless"

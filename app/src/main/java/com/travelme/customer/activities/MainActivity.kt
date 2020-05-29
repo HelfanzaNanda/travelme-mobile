@@ -47,8 +47,9 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_profile -> {
                 if(navStatus != 2){
-                    fragment = ProfileFragment()
-                    navStatus = 2
+//                    fragment = ProfileFragment()
+//                    navStatus = 2
+                    startActivity(Intent(this@MainActivity, TrySandboxActivity::class.java))
                 }
             }
         }

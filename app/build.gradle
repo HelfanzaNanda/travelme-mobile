@@ -7,6 +7,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+    flavorDimensions "mode"
     defaultConfig {
         applicationId "com.travelme.customer"
         minSdkVersion 22
@@ -14,6 +15,13 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    productFlavors {
+        sandBox {
+            applicationId "com.travelme.customer"
+            buildConfigField "String", "CLIENT_KEY", '"SB-Mid-client-7K--shtrxuEafxZp"'
+            buildConfigField "String", "SNAP_TOKEN", '"https://travelme-project.herokuapp.com/"'
+        }
     }
     buildTypes {
         release {
@@ -26,6 +34,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -56,5 +68,10 @@ dependencies {
     implementation 'com.synnapps:carouselview:0.1.4'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.vipulasri:ticketview:1.0.7'
-    //implementation 'com.github.AppIntro:AppIntro:6.0.0-alpha3'
+
+    implementation 'com.midtrans:uikit:1.21.2-SANDBOX'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:9.1.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'
+    // implementation 'com.github.AppIntro:AppIntro:6.0.0-alpha3'
 }

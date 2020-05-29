@@ -2,6 +2,7 @@ package com.travelme.customer.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.midtrans.sdk.corekit.models.CustomerDetails
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize

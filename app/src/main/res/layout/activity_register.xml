@@ -24,7 +24,7 @@
 
     </com.github.florent37.shapeofview.shapes.ArcView>
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_margin="10dp"
         app:cardBackgroundColor="@android:color/white"
         android:background="?android:attr/selectableItemBackground"
@@ -131,7 +131,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:textColor="@android:color/white"
                 android:background="@drawable/oval_bg"
                 android:text="register"
@@ -142,7 +142,7 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:clickable="true"

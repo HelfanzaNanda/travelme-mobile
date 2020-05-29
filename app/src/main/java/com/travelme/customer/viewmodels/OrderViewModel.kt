@@ -60,6 +60,31 @@ class OrderViewModel : ViewModel(){
             })
     }
 
+    fun snap(token : String, departure_id: Int, total_seat: Int, price: Int, date: String){
+        state.value = OrderState.IsLoading(true)
+        api.snap(token, departure_id.toString(), total_seat, price, date).enqueue(object : Callback<WrappedResponse<Order>>{
+            override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
+                println("OnFailure : "+t.message)
+            }
+
+            override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        state.value = OrderState.ShowToast("Berhasil mengambil token snap")
+                        order.postValue(body.data)
+                    }else{
+                        println("failed get snap token : "+response.message())
+                        state.value = OrderState.ShowToast("fails")
+                    }
+                }else{
+                    state.value = OrderState.ShowToast("gagal Memesan")
+                }
+                state.value = OrderState.IsLoading(false)
+            }
+        })
+    }
+
     fun getMyOrder(token: String){
         state.value = OrderState.IsLoading(true)
         api.getMyOrder(token).enqueue(object : Callback<WrappedListResponse<Order>>{
@@ -72,6 +97,7 @@ class OrderViewModel : ViewModel(){
                     val body = response.body()
                     if (body?.status!!){
                         val data = body.data
+                        //state.value = OrderState.Success(data)
                         orders.postValue(data)
                     }else{
                         state.value = OrderState.ShowToast("tidak dapat mengambil data")
@@ -98,6 +124,7 @@ sealed class OrderState{
         var pickup_location : String? = null,
         var destination_location : String? = null
     ) : OrderState()
-    object Success : OrderState()
+    object Success: OrderState()
+    //data class Success(var snap_token : String) : OrderState()
 
 }

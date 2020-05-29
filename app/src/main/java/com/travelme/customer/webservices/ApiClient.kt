@@ -86,7 +86,7 @@ interface ApiService{
     ) : Call<WrappedListResponse<Departure>>
 
     @FormUrlEncoded
-    @POST("order")
+    @POST("order/store")
     fun storeOrder(
         @Header("Authorization") token : String,
         @Field("owner_id") owner_id : Int,
@@ -103,5 +103,15 @@ interface ApiService{
     fun getMyOrder(
         @Header("Authorization") token : String
     ) : Call<WrappedListResponse<Order>>
+
+    @FormUrlEncoded
+    @POST("snap")
+    fun snap(
+        @Header("Authorization") token : String,
+        @Field("departure_id") departure_id : String,
+        @Field("price") price : Int,
+        @Field("total_seat") total_seat : Int,
+        @Field("date") date : String
+    ) : Call<WrappedResponse<Order>>
 
 }

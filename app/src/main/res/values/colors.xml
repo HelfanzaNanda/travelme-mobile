@@ -6,9 +6,9 @@
 <!--    <color name="colorSecondary">#E30425</color>-->
 <!--    <color name="colorGreyLight">#f6acc8</color>-->
 
-    <color name="colorPrimary">#C5EDAC</color>
-    <color name="colorPrimaryDark">#99C2AC</color>
-    <color name="colorAccent">#DBFEB8</color>
-    <color name="colorSecondary">#7A918D</color>
+    <color name="colorPrimary">#ffb0a0</color>
+    <color name="colorPrimaryDark">#553c60</color>
+    <color name="colorAccent">#f5e9de</color>
+    <color name="colorSecondary">#ff6749</color>
     <color name="colorGreyLight">#93B1A7</color>
 </resources>
