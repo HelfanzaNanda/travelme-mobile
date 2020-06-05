@@ -54,8 +54,38 @@
                     android:text="Nama Pemesan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tip_pickup_location"
+                    android:layout_width="match_parent"
+                    app:errorEnabled="true"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textMultiLine"
+                        android:hint="Masukkan Alamat Penjemputan"
+                        android:id="@+id/et_pickup_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tip_destination_location"
+                    android:layout_width="match_parent"
+                    app:errorEnabled="true"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:inputType="textMultiLine"
+                        android:hint="Masukkan Alamat Tujuan"
+                        android:id="@+id/et_destination_location"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
                 
-                <TextView
+                <!--<TextView
                     android:layout_marginBottom="5dp"
                     android:id="@+id/tv_pickup_location"
                     android:textSize="18sp"
@@ -69,22 +99,14 @@
                     android:textSize="18sp"
                     android:text="Lokasi Tujuan"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"/>-->
 
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/til_date"
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:textSize="18sp"
+                    android:text="Tanggal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_date"
-                        android:hint="Tanggal"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_height="wrap_content"/>
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -108,7 +130,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <Button
+                            <com.google.android.material.button.MaterialButton
+                                android:backgroundTint="@color/colorPrimaryDark"
                                 android:id="@+id/btn_min_seat"
                                 android:text="-"
                                 android:layout_weight="1"
@@ -124,7 +147,8 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
-                            <Button
+                            <com.google.android.material.button.MaterialButton
+                                android:backgroundTint="@color/colorPrimaryDark"
                                 android:id="@+id/btn_plus_seat"
                                 android:text="+"
                                 android:layout_weight="1"
@@ -265,6 +289,8 @@
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.button.MaterialButton
+        android:padding="10dp"
+        app:cornerRadius="56dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:id="@+id/btn_order"
         android:layout_alignParentBottom="true"

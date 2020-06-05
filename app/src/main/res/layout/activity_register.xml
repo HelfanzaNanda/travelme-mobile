@@ -47,8 +47,8 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/txt_register"
                 android:textStyle="bold"
-                android:textSize="28dp"
-                android:text="Register"
+                android:textSize="28sp"
+                android:text="@string/info_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -62,7 +62,7 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_name"
-                    android:hint="Nama Anda"
+                    android:hint="@string/nama_anda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -77,13 +77,14 @@
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_email"
-                    android:hint="Email Anda"
+                    android:hint="@string/email_anda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:passwordToggleEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/til_password"
@@ -93,13 +94,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:inputType="textPassword"
                     android:id="@+id/et_password"
-                    android:hint="Password Anda"
+                    android:hint="@string/password_anda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:passwordToggleEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginBottom="5dp"
                 android:id="@+id/til_confirmpassword"
@@ -109,7 +111,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:inputType="textPassword"
                     android:id="@+id/et_confirmpassword"
-                    android:hint="Konfirmasi Password"
+                    android:hint="@string/konfirmasi_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
@@ -125,17 +127,17 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:inputType="phone"
                     android:id="@+id/et_telp"
-                    android:hint="Nomor Hp Anda"
+                    android:hint="@string/nomor_hp_anda"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:textColor="@android:color/white"
-                android:background="@drawable/oval_bg"
-                android:text="register"
-                android:layout_alignParentBottom="true"
+                android:padding="10dp"
+                android:backgroundTint="@color/colorPrimaryDark"
+                app:cornerRadius="56dp"
+                android:text="@string/register"
                 android:id="@+id/btn_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -145,6 +147,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:id="@+id/txt_login"
         android:layout_marginBottom="40dp"
@@ -152,9 +155,10 @@
         android:textSize="22sp"
         android:textStyle="bold"
         android:layout_alignParentBottom="true"
-        android:text="Sudah Punya Akun?"
+        android:text="@string/sudah_punya_akun"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:focusable="true" />
 
     <ProgressBar
         android:indeterminate="true"

@@ -10,4 +10,16 @@
     <string name="pesan">Lanjutkan</string>
     <string name="info_mengerti">Paham</string>
     <string name="map_box_access_token">pk.eyJ1IjoiaGVsZmFuemFuYW5kYSIsImEiOiJja2FkaGNrM2wxcTN1MnZxd29hemZqZW4xIn0.W05mUULXjBG8r0nOeZDgRQ</string>
+    <string name="sudah_punya_akun">Sudah Punya Akun?</string>
+    <string name="register">register</string>
+    <string name="nomor_hp_anda">Nomor Hp Anda</string>
+    <string name="konfirmasi_password">Konfirmasi Password</string>
+    <string name="password_anda">Password Anda</string>
+    <string name="email_anda">Email Anda</string>
+    <string name="nama_anda">Nama Anda</string>
+    <string name="info_register">Register</string>
+    <string-array name="prices">
+        <item>Termurah</item>
+        <item>Termahal</item>
+    </string-array>
 </resources>

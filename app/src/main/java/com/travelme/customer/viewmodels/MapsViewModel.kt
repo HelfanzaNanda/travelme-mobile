@@ -18,9 +18,10 @@ class MapsViewModel : ViewModel(){
         println(token)
         val client = MapboxGeocoding.builder()
             .accessToken(token)
-            .query(Point.fromLngLat(point.longitude(), point.latitude()))
+            .query(point)
             .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
             .build()
+
 
         client.enqueueCall(object : Callback<GeocodingResponse>{
             override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {

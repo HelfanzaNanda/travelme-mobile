@@ -23,14 +23,10 @@ class LoginActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getState().observer(this@LoginActivity, Observer {
-            handleUI(it)
-        })
+        userViewModel.getState().observer(this@LoginActivity, Observer { handleUI(it) })
         doLogin()
 
-        txt_register.setOnClickListener {
-            startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
-        }
+        txt_register.setOnClickListener { startActivity(Intent(this@LoginActivity, RegisterActivity::class.java)) }
     }
 
     private fun handleUI(it : UserState){
@@ -55,12 +51,8 @@ class LoginActivity : AppCompatActivity() {
                 setPasswordError(null)
             }
             is UserState.Validate -> {
-                it.email?.let {
-                    setEmailError(it)
-                }
-                it.password?.let {
-                    setPasswordError(it)
-                }
+                it.email?.let { setEmailError(it) }
+                it.password?.let { setPasswordError(it) }
             }
         }
     }

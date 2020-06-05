@@ -24,9 +24,7 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        if(savedInstanceState == null){
-            navigation.selectedItemId = R.id.navigation_home
-        }
+        if(savedInstanceState == null){ navigation.selectedItemId = R.id.navigation_home }
         supportActionBar?.hide()
         isLoggedIn()
     }
@@ -47,9 +45,8 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.navigation_profile -> {
                 if(navStatus != 2){
-//                    fragment = ProfileFragment()
-//                    navStatus = 2
-                    startActivity(Intent(this@MainActivity, TrySandboxActivity::class.java))
+                    fragment = ProfileFragment()
+                    navStatus = 2
                 }
             }
         }

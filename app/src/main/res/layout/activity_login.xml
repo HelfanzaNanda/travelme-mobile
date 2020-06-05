@@ -70,6 +70,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:passwordToggleEnabled="true"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 app:errorEnabled="true"
                 android:id="@+id/til_password"
@@ -94,8 +95,11 @@
                 android:layout_height="wrap_content"/>
 
             <com.google.android.material.button.MaterialButton
-                android:layout_margin="20dp"
-                android:background="@color/colorPrimaryDark"
+                android:padding="10dp"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:backgroundTint="@color/colorPrimaryDark"
+                app:cornerRadius="56dp"
+                android:layout_margin="10dp"
                 android:text="login"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/btn_login"

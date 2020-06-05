@@ -13,6 +13,10 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.mapbox.api.geocoding.v5.GeocodingCriteria
+import com.mapbox.api.geocoding.v5.MapboxGeocoding
+import com.mapbox.api.geocoding.v5.models.CarmenFeature
+import com.mapbox.api.geocoding.v5.models.GeocodingResponse
 import com.mapbox.geojson.Feature
 import com.mapbox.geojson.FeatureCollection
 import com.mapbox.geojson.Point
@@ -34,6 +38,9 @@ import com.travelme.customer.R
 import com.travelme.customer.viewmodels.MapsState
 import com.travelme.customer.viewmodels.MapsViewModel
 import kotlinx.android.synthetic.main.activity_maps.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -52,7 +59,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this@MapsActivity, getString(R.string.map_box_access_token));
         setContentView(R.layout.activity_maps)
-        mapsViewModel = ViewModelProvider(this).get(MapsViewModel::class.java)
+        mapsViewModel = ViewModelProvider(this@MapsActivity).get(MapsViewModel::class.java)
         mapView.getMapAsync(this)
     }
 
@@ -74,10 +81,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             marker = MarkerView(point, imageView)
             markerViewManager?.addMarker(marker!!)
-            mapsViewModel.reverseGeocode(Point.fromLngLat(point.longitude, point.latitude), getString(R.string.map_box_access_token))
+
+            println(Point.fromLngLat(point.longitude, point.latitude))
+
+            //mapsViewModel.reverseGeocode(Point.fromLngLat(point.longitude, point.latitude), getString(R.string.map_box_access_token))
             mapsViewModel.getState().observer(this, Observer { handleui(it) })
             //toast(point.latitude.toString())
             btn_done_selected_maps.visibility = View.VISIBLE
+            btn_done_selected_maps.setOnClickListener { reverseGeocode(Point.fromLngLat(point.longitude, point.latitude)) }
             true
         }
         mapboxMap.setStyle(Style.MAPBOX_STREETS) {
@@ -137,6 +148,43 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 )
             }
         }
+    }
+
+    private fun reverseGeocode(point: Point){
+        val client = MapboxGeocoding.builder()
+            .accessToken(resources.getString(R.string.map_box_access_token))
+            .query(Point.fromLngLat(point.longitude(), point.latitude()))
+            .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
+            .build()
+
+        client.enqueueCall(object : Callback<GeocodingResponse>{
+            override fun onFailure(call: Call<GeocodingResponse>, t: Throwable) {
+                println(t.message)
+            }
+
+            override fun onResponse(call: Call<GeocodingResponse>, response: Response<GeocodingResponse>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body != null){
+                        val results = body.features()
+                        if (results.size > 0){
+                            val feature = results[0]
+                            toast(feature.placeName().toString())
+                        }else{
+                            println("result kurang dari 0 ${results.size}")
+                            toast("result kurang dari 0 ${results.size}")
+                        }
+                    }else{
+                        println("body null ${body}")
+                        toast("body null ${body}")
+                    }
+                }else{
+                    println("response is not successfull ${response.message()}")
+                    toast("response is not successfull ${response.message()}")
+                }
+            }
+
+        })
     }
 
 

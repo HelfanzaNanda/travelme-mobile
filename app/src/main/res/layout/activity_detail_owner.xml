@@ -51,7 +51,10 @@
         android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <com.google.android.material.button.MaterialButton
+            android:padding="10dp"
+            app:cornerRadius="56dp"
             android:layout_alignParentBottom="true"
             android:backgroundTint="@color/colorPrimaryDark"
             android:id="@+id/btn_order"

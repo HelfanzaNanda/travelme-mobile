@@ -50,21 +50,15 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
         btn_order.setOnClickListener {
             showPayment()
         }
-        tv_pickup_location.setOnClickListener {
-            startActivity(Intent(this@OrderActivity, MapsActivity::class.java))
-        }
-        tv_destination_location.setOnClickListener {
-            startActivity(Intent(this@OrderActivity, MapsActivity::class.java))
-        }
+        /*tv_pickup_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
+        tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }*/
         initPayment()
     }
 
     private fun setUI(it : User){
         it.let {
-            tv_name.setText(it.name)
-            tv_name.isEnabled = false
-            et_date.setText(getPassedHourDeparture()?.dateOfDeparture?.date)
-            et_date.isEnabled = false
+            tv_name.setText("Nama Pemesan ${it.name}")
+            tv_date.setText("Tanggal ${getPassedHourDeparture()?.dateOfDeparture?.date}")
             txt_hour.text = getPassedHourDeparture()?.hour
             txt_departure.text =
                 "${getPassedHourDeparture()?.departure?.from} - ${getPassedHourDeparture()?.departure?.destination}"
@@ -89,8 +83,8 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
         val destination = getPassedHourDeparture()?.departure?.destination!!
         val price = getPassedHourDeparture()?.departure?.price!!
         val total_seat = txt_seat.text.toString().toInt()
-        val pickup_location = tv_pickup_location.text.toString().trim()
-        val destination_location = tv_destination_location.text.toString().trim()
+        val pickup_location = et_pickup_location.text.toString().trim()
+        val destination_location = et_destination_location.text.toString().trim()
 
         if (orderViewModel.validate(pickup_location, destination_location)){
             val uiKIt = UIKitCustomSetting().apply {
@@ -128,8 +122,8 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
                         val hour = getPassedHourDeparture()?.hour!!
                         val price = getPassedHourDeparture()?.departure?.price!!
                         val total_seat = txt_seat.text.toString().toInt()
-                        val pickup_location = tv_pickup_location.text.toString().trim()
-                        val destination_location = tv_destination_location.text.toString().trim()
+                        val pickup_location = et_pickup_location.text.toString().trim()
+                        val destination_location = et_destination_location.text.toString().trim()
 
                         orderViewModel.storeOrder(
                             Constants.getToken(this@OrderActivity), owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location

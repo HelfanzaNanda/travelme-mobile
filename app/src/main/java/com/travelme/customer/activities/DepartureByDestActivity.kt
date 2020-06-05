@@ -4,6 +4,9 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Adapter
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
@@ -41,6 +44,7 @@ class DepartureByDestActivity : AppCompatActivity() {
         reset()
         handleUI()
         search()
+        setSpinner()
     }
 
 
@@ -91,6 +95,34 @@ class DepartureByDestActivity : AppCompatActivity() {
         btn_reset.setOnClickListener {
             txt_date.text = ""
             departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
+        }
+    }
+
+    private fun setSpinner(){
+        val prices = resources.getStringArray(R.array.prices)
+        if (spinner_sort_price != null){
+            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, prices).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
+            spinner_sort_price.adapter = adapter
+
+            spinner_sort_price.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                }
+                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                    departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer {
+                        rv_car_by_destination.adapter?.let {adapter->
+                            val sortByPrice = it.sortedBy { departure -> departure.price  }
+                            val restructured = restructureData(sortByPrice)
+                            if (adapter is DepartureAdapter){
+                                adapter.changelist(restructured)
+                            }
+                        }
+                    })
+                }
+
+            }
         }
     }
 
