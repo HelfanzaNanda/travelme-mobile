@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
             }
             is UserState.ShowToast -> toast(it.message)
             is UserState.Success -> {
-                Constants.setToken(this@LoginActivity, "Bearer ${it.token}")
+                Constants.setToken(this@LoginActivity, "Bearer ${it.message}")
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }

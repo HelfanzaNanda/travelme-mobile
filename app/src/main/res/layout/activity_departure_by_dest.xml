@@ -115,19 +115,24 @@
         android:layout_height="wrap_content"/>
 
     <ImageView
+        android:visibility="gone"
         android:layout_centerInParent="true"
         android:src="@drawable/searching"
-        android:id="@+id/iv_no_data"
+        android:id="@+id/iv_empty_data"
         android:layout_width="match_parent"
-        android:layout_height="200dp"/>
+        android:layout_height="200dp" />
 
     <TextView
-        android:id="@+id/tv_no_data"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:gravity="center_horizontal"
-        android:layout_below="@id/iv_no_data"
-        android:text="aaaaaaaa"
+        android:textStyle="bold"
+        android:textColor="#26235B"
+        android:visibility="gone"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/iv_empty_data"
+        android:id="@+id/tv_empty_data"
+        android:layout_centerInParent="true"
+        android:text="@string/tidak_ada_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

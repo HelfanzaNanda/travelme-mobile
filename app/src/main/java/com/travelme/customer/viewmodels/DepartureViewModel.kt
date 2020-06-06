@@ -16,12 +16,15 @@ class DepartureViewModel : ViewModel() {
     private var api = ApiClient.instance()
 
 
+    private fun setLoading() { state.value = DepartureState.IsLoading(true) }
+    private fun hideLoading() { state.value = DepartureState.IsLoading(false) }
+    //private fun toast(message: String) { state.value = DepartureState.ShowToast(message) }
+
     fun getDestination(token : String){
-        state.value = DepartureState.IsLoading(true)
+        setLoading()
         api.getDestination(token).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
-                println("onFailure : "+t.message)
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
                 if (response.isSuccessful){
@@ -29,24 +32,19 @@ class DepartureViewModel : ViewModel() {
                     if (body?.status!!){
                         val data = body.data
                         departures.postValue(data)
-                    }else{
-                        println("response is not successfull "+response.message())
                     }
-                }else{
-                    println("response is not successfull, Try Again! "+response.message())
                 }
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
 
         })
     }
 
     fun getDepartureByDest(token : String, destination : String){
-        state.value = DepartureState.IsLoading(true)
+        setLoading()
         api.getDepartureByDest(token, destination).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
-                println("onFailure : "+t.message)
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
@@ -55,27 +53,19 @@ class DepartureViewModel : ViewModel() {
                     if (body?.status!!){
                         val data = body.data
                         departures.postValue(data)
-                    }else{
-                        println("response is not successfull "+response.message())
                     }
-                }else{
-                    println("response is not successfull, Try Again! "+response.message())
                 }
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
 
         })
     }
 
     fun searchDeparture(token: String, destination: String, date : String){
-        println(date)
-        println(destination)
-        state.value = DepartureState.IsLoading(true)
+        setLoading()
         api.searchDeparture(token, destination, date).enqueue(object : Callback<WrappedListResponse<Departure>>{
             override fun onFailure(call: Call<WrappedListResponse<Departure>>, t: Throwable) {
-                println("onFailure : "+t.message)
-                state.value = DepartureState.ShowToast(t.message.toString())
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedListResponse<Departure>>, response: Response<WrappedListResponse<Departure>>) {
@@ -85,10 +75,8 @@ class DepartureViewModel : ViewModel() {
                         val data = body.data
                         departures.postValue(data)
                     }
-                }else{
-                    println("response is not successfull, Try Again! "+response.message())
                 }
-                state.value = DepartureState.IsLoading(false)
+                hideLoading()
             }
 
         })

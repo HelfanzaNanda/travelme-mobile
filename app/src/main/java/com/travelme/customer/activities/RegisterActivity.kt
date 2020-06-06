@@ -74,7 +74,7 @@ class RegisterActivity : AppCompatActivity() {
                     pb_register.visibility = View.GONE
                 }
             }
-            is UserState.Success -> success(it.token)
+            is UserState.Success -> success(it.message)
         }
     }
 

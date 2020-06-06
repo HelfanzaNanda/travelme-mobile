@@ -16,13 +16,16 @@ class UserViewModel : ViewModel(){
     private var state : SingleLiveEvent<UserState> = SingleLiveEvent()
     private var api = ApiClient.instance()
 
+    private fun setLoading() { state.value = UserState.IsLoading(true) }
+    private fun hideLoading() { state.value = UserState.IsLoading(false) }
+    private fun toast(message: String) { state.value = UserState.ShowToast(message) }
+    private fun success(message: String) { state.value = UserState.Success(message) }
 
     fun login(email: String, password: String){
-        state.value = UserState.IsLoading(true)
+        setLoading()
         api.login(email, password).enqueue(object : Callback<WrappedResponse<User>>{
             override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                println("OnFailure : "+t.message)
-                state.value = UserState.IsLoading(false)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
@@ -30,25 +33,25 @@ class UserViewModel : ViewModel(){
                     val body = response.body()
                     if (body?.status!!){
                         val token = body.data!!.token
-                        state.value = UserState.ShowToast("selamat datang $email")
-                        state.value = UserState.Success(token!!)
+                        toast(body.message!!)
+                        success(token!!)
                     }else{
-                        state.value = UserState.ShowToast("tidak dapat login!")
+                        toast("tidak dapat login")
                     }
                 }else{
-                    state.value = UserState.ShowToast("login gagal")
+                    toast("login gagal")
                 }
-                state.value = UserState.IsLoading(false)
+                hideLoading()
             }
 
         })
     }
 
     fun register(name: String, email: String, password: String, phone: String){
-        state.value = UserState.IsLoading(false)
+        setLoading()
         api.register(name, email, password, phone).enqueue(object : Callback<WrappedResponse<User>>{
             override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                println("OnFailure : "+t.message)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
@@ -56,27 +59,25 @@ class UserViewModel : ViewModel(){
                     val body = response.body()
                     body?.let {
                         if (it.status!!){
-                            state.value = UserState.Success(email)
+                            success(email)
                         }else{
-                            state.value = UserState.ShowToast(it.message!!)
+                            toast(it.message!!)
                         }
                     }
                 }else{
-                    println("email sudah terdaftar, silahkan pakai email lainnya! "+response.message())
+                    toast("email sudah terdaftar, silahkan pakai email lainnya! "+response.message())
                 }
-                state.value = UserState.IsLoading(false)
+                hideLoading()
             }
 
         })
     }
 
-    fun getUserIsLogin(token: String){
-        println("token : " +token)
-        state.value = UserState.IsLoading(true)
-        api.getUserIsLogin(token).enqueue(object : Callback<WrappedResponse<User>>{
+    fun profile(token: String){
+        setLoading()
+        api.profile(token).enqueue(object : Callback<WrappedResponse<User>>{
             override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                println("onFailure : "+t.message)
-                state.value = UserState.IsLoading(false)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
@@ -86,12 +87,12 @@ class UserViewModel : ViewModel(){
                         val data = body.data
                         user.postValue(data)
                     }else{
-                        state.value = UserState.ShowToast("tidak dapat memuat info")
+                        toast("gagal memuat info")
                     }
                 }else{
-                    state.value = UserState.ShowToast("Kesalahan saat mengambil info user")
+                    toast("kesalahan pada mengambil info ${response.message()}")
                 }
-                state.value = UserState.IsLoading(false)
+                hideLoading()
             }
 
         })
@@ -158,5 +159,5 @@ sealed class UserState{
         var confirmPassword : String? = null,
         var telp : String? = null
     ) : UserState()
-    data class Success(var token : String) :UserState()
+    data class Success(var message : String) :UserState()
 }

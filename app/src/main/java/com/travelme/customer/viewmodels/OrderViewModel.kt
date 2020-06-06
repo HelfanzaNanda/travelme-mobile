@@ -18,6 +18,11 @@ class OrderViewModel : ViewModel(){
     private var state : SingleLiveEvent<OrderState> = SingleLiveEvent()
     private var api = ApiClient.instance()
 
+    private fun setLoading() { state.value = OrderState.IsLoading(true) }
+    private fun hideLoading() { state.value = OrderState.IsLoading(false) }
+    private fun toast(message: String) { state.value = OrderState.ShowToast(message) }
+    private fun successDelete() { state.value = OrderState.SuccessDelete }
+    private fun success() { state.value = OrderState.Success }
 
     fun validate(pickup_location: String, destination_location: String): Boolean{
         state.value = OrderState.Reset
@@ -34,62 +39,32 @@ class OrderViewModel : ViewModel(){
 
     fun storeOrder(token : String, owner_id : Int, departure_id : Int, date : String,
                    hour : String, price : Int, total_seat: Int, pickup_location: String, destination_location: String){
-        state.value = OrderState.IsLoading(true)
+        setLoading()
         api.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location)
             .enqueue(object : Callback<WrappedResponse<Order>>{
                 override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
-                    println("OnFailure : "+t.message)
+                    hideLoading()
                 }
 
                 override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
                     if (response.isSuccessful){
                         val body = response.body()
                         if (body?.status!!){
-                            state.value = OrderState.ShowToast("Berhasil Memesan Travel")
-                            state.value = OrderState.Success
-                        }else{
-                            println("failed order travel : "+response.message())
-                            state.value = OrderState.ShowToast("gagal Memesan Travel")
+                            toast("berhasil memesan travel")
+                            success()
                         }
-                    }else{
-                        state.value = OrderState.ShowToast("gagal Memesan")
                     }
-                    state.value = OrderState.IsLoading(false)
+                    hideLoading()
                 }
 
             })
     }
 
-    fun snap(token : String, departure_id: Int, total_seat: Int, price: Int, date: String){
-        state.value = OrderState.IsLoading(true)
-        api.snap(token, departure_id.toString(), total_seat, price, date).enqueue(object : Callback<WrappedResponse<Order>>{
-            override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
-                println("OnFailure : "+t.message)
-            }
-
-            override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
-                if (response.isSuccessful){
-                    val body = response.body()
-                    if (body?.status!!){
-                        state.value = OrderState.ShowToast("Berhasil mengambil token snap")
-                        order.postValue(body.data)
-                    }else{
-                        println("failed get snap token : "+response.message())
-                        state.value = OrderState.ShowToast("fails")
-                    }
-                }else{
-                    state.value = OrderState.ShowToast("gagal Memesan")
-                }
-                state.value = OrderState.IsLoading(false)
-            }
-        })
-    }
-
-    fun getMyOrder(token: String){
-        state.value = OrderState.IsLoading(true)
-        api.getMyOrder(token).enqueue(object : Callback<WrappedListResponse<Order>>{
+    fun getMyOrders(token: String){
+        setLoading()
+        api.getMyOrders(token).enqueue(object : Callback<WrappedListResponse<Order>>{
             override fun onFailure(call: Call<WrappedListResponse<Order>>, t: Throwable) {
-                println("OnFailure : "+t.message)
+                hideLoading()
             }
 
             override fun onResponse(call: Call<WrappedListResponse<Order>>, response: Response<WrappedListResponse<Order>>) {
@@ -97,15 +72,36 @@ class OrderViewModel : ViewModel(){
                     val body = response.body()
                     if (body?.status!!){
                         val data = body.data
-                        //state.value = OrderState.Success(data)
                         orders.postValue(data)
+                    }
+                }
+                hideLoading()
+            }
+
+        })
+    }
+
+    fun cancelroder(token: String, id : String){
+        setLoading()
+        api.cancelorder(token, id.toInt()).enqueue(object : Callback<WrappedResponse<Order>>{
+            override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
+                println(t.message)
+                hideLoading()
+            }
+
+            override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        toast("berhasil membatalkan pesanan")
+                        successDelete()
                     }else{
-                        state.value = OrderState.ShowToast("tidak dapat mengambil data")
+                        println(body.message)
                     }
                 }else{
-                    state.value = OrderState.ShowToast("tidak dapat mengambil")
+                    println(response.message())
                 }
-                state.value = OrderState.IsLoading(false)
+                hideLoading()
             }
 
         })
@@ -125,6 +121,7 @@ sealed class OrderState{
         var destination_location : String? = null
     ) : OrderState()
     object Success: OrderState()
+    object SuccessDelete : OrderState()
     //data class Success(var snap_token : String) : OrderState()
 
 }

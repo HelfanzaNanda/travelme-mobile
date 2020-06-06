@@ -4,11 +4,9 @@ import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Adapter
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +17,6 @@ import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.DepartureState
 import com.travelme.customer.viewmodels.DepartureViewModel
 import kotlinx.android.synthetic.main.activity_departure_by_dest.*
-import kotlinx.android.synthetic.main.fragment_home.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -37,13 +34,12 @@ class DepartureByDestActivity : AppCompatActivity() {
         }
         departureViewModel = ViewModelProvider(this).get(DepartureViewModel::class.java)
         departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
-        departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer {
-            handleData(it)
-        })
+        search()
+        departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer { handleData(it) })
         setDate()
         reset()
         handleUI()
-        search()
+        initEmptyView()
         setSpinner()
     }
 
@@ -53,6 +49,8 @@ class DepartureByDestActivity : AppCompatActivity() {
             when(it){
                 is DepartureState.IsLoading -> {
                     if (it.state){
+                        iv_empty_data.visibility = View.GONE
+                        tv_empty_data.visibility = View.GONE
                         pb_departure_by_destination.visibility = View.VISIBLE
                         pb_departure_by_destination.isIndeterminate = true
                     }else{
@@ -66,8 +64,8 @@ class DepartureByDestActivity : AppCompatActivity() {
     }
 
     private fun setDate(){
-        var cal = Calendar.getInstance()
-        val dateSetListener = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+        val cal = Calendar.getInstance()
+        val dateSetListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             cal.set(Calendar.YEAR, year)
             cal.set(Calendar.MONTH, month)
             cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
@@ -95,6 +93,16 @@ class DepartureByDestActivity : AppCompatActivity() {
         btn_reset.setOnClickListener {
             txt_date.text = ""
             departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
+        }
+    }
+
+    private fun initEmptyView(){
+        if (departureViewModel.getDepartures().value == null || departureViewModel.getDepartures().value!!.isEmpty()){
+            iv_empty_data.visibility = View.VISIBLE
+            tv_empty_data.visibility = View.VISIBLE
+        }else{
+            iv_empty_data.visibility = View.GONE
+            tv_empty_data.visibility = View.GONE
         }
     }
 
@@ -131,14 +139,6 @@ class DepartureByDestActivity : AppCompatActivity() {
             if (adapter is DepartureAdapter){
                 val restructured = restructureData(data)
                 adapter.changelist(restructured)
-                if(restructured.isNullOrEmpty()){
-                    iv_no_data.visibility = View.VISIBLE
-                    tv_no_data.text = "tidak ada travel pada tanggal ${txt_date.text}"
-                    tv_no_data.visibility = View.VISIBLE
-                }else{
-                    iv_no_data.visibility = View.GONE
-                    tv_no_data.visibility = View.GONE
-                }
             }
         }
     }
@@ -162,6 +162,10 @@ class DepartureByDestActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+        if (hoursAlt.isNullOrEmpty()){
+            iv_empty_data.visibility = View.VISIBLE
+            tv_empty_data.visibility = View.VISIBLE
         }
         return hoursAlt
     }

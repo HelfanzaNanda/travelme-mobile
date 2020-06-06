@@ -45,6 +45,7 @@
                 android:layout_height="wrap_content"/>
 
             <LinearLayout
+                android:id="@+id/linear_detail"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
@@ -98,6 +99,18 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                app:cornerRadius="56dp"
+                android:id="@+id/btn_cancel"
+                android:visibility="gone"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentEnd="true"
+                android:text="cancel"
+                android:layout_below="@id/linear_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
         </RelativeLayout>
 

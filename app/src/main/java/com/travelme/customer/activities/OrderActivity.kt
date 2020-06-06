@@ -38,18 +38,12 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
         //supportActionBar?.hide()
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getUser().observe(this, Observer {
-            setUI(it)
-        })
-        userViewModel.getUserIsLogin(Constants.getToken(this@OrderActivity))
+        userViewModel.getUser().observe(this, Observer { setUI(it) })
+        userViewModel.profile(Constants.getToken(this@OrderActivity))
 
         orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
-        orderViewModel.getState().observer(this, Observer {
-            handleUIOrder(it)
-        })
-        btn_order.setOnClickListener {
-            showPayment()
-        }
+        orderViewModel.getState().observer(this, Observer { handleUIOrder(it) })
+        btn_order.setOnClickListener { showPayment() }
         /*tv_pickup_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
         tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }*/
         initPayment()

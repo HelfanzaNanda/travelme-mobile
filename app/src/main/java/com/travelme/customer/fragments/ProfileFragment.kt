@@ -20,20 +20,20 @@ class ProfileFragment : Fragment(R.layout.fragment_profile){
         super.onViewCreated(view, savedInstanceState)
 
         userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getUserIsLogin(Constants.getToken(activity!!))
+        userViewModel.profile(Constants.getToken(activity!!))
         userViewModel.getUser().observe(viewLifecycleOwner, Observer {
             setUI(it)
         })
     }
 
-    private fun setUI(it : User){
-        txt_name.text = it.name
-        txt_email.text = it.email
-        txt_telp.text = it.telp
+    private fun setUI(user : User){
+        txt_name.text = user.name
+        txt_email.text = user.email
+        txt_telp.text = user.telp
 
-        btn_edit_profile.setOnClickListener {  btn->
+        btn_edit_profile.setOnClickListener {
             startActivity(Intent(activity, UpdateProfileActivity::class.java).apply {
-                putExtra("USER", it )
+                putExtra("USER", user )
             })
         }
     }

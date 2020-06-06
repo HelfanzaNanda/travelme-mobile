@@ -28,7 +28,6 @@ class DestinationAdapter (private var departures : MutableList<Departure>, priva
         fun bind(departure: Departure, context: Context){
             itemView.iv_destination.load("https://travelme-project.herokuapp.com/uploads/owner/destination/"+departure.photo_destination)
             itemView.setOnClickListener {
-                Toast.makeText(context, departure.destination, Toast.LENGTH_SHORT).show()
                 context.startActivity(Intent(context, DepartureByDestActivity::class.java).apply {
                     putExtra("DESTINATION", departure.destination)
                 })

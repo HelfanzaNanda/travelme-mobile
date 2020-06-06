@@ -43,10 +43,8 @@ class ApiClient {
 
 interface ApiService{
 
-    @GET("user/{api_token}")
-    fun getUserIsLogin(
-        @Path("api_token") api_token: String
-    ) : Call<WrappedResponse<User>>
+    @GET("user/profile")
+    fun profile(@Header("Authorization") token : String) : Call<WrappedResponse<User>>
 
     @FormUrlEncoded
     @POST("user/register")
@@ -57,7 +55,6 @@ interface ApiService{
         @Field("telp") telp : String
     ) : Call<WrappedResponse<User>>
 
-
     @FormUrlEncoded
     @POST("user/login")
     fun login(
@@ -66,9 +63,7 @@ interface ApiService{
     ) : Call<WrappedResponse<User>>
 
     @GET("destination")
-    fun getDestination(
-        @Header("Authorization") token : String
-    ) : Call<WrappedListResponse<Departure>>
+    fun getDestination(@Header("Authorization") token : String) : Call<WrappedListResponse<Departure>>
 
 
     @GET("departure/{destination}")
@@ -99,10 +94,14 @@ interface ApiService{
         @Field("destination_location") destination_location : String
     ) : Call<WrappedResponse<Order>>
 
-    @GET("order/confirmed")
-    fun getMyOrder(
-        @Header("Authorization") token : String
-    ) : Call<WrappedListResponse<Order>>
+    @GET("order")
+    fun getMyOrders(@Header("Authorization") token : String) : Call<WrappedListResponse<Order>>
+
+    @GET("order/{id}/cancel")
+    fun cancelorder(
+        @Header("Authorization") token : String,
+        @Path("id") id : Int
+    ) : Call<WrappedResponse<Order>>
 
     @FormUrlEncoded
     @POST("snap")
