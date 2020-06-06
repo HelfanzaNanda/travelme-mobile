@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.register_activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,33 +8,27 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.travelme.customer.R
-import com.travelme.customer.models.User
-import com.travelme.customer.viewmodels.UserState
-import com.travelme.customer.viewmodels.UserViewModel
+import com.travelme.customer.activities.login_activity.LoginActivity
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.til_email
 import kotlinx.android.synthetic.main.activity_register.til_password
 import kotlinx.android.synthetic.main.activity_register.txt_login
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterActivity : AppCompatActivity() {
-
-    private lateinit var userViewModel: UserViewModel
+    
+    private val registerViewModel : RegisterViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
         supportActionBar?.hide()
 
-        txt_login.setOnClickListener {
-            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
-        }
+        txt_login.setOnClickListener { startActivity(Intent(this@RegisterActivity, LoginActivity::class.java)) }
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getState().observe(this, Observer {
-            handleUIState(it)
-        })
+        registerViewModel.listenToState().observe(this, Observer { handleUIState(it) })
+        
 
         btn_register.setOnClickListener {
             val name = et_name.text.toString().trim()
@@ -42,30 +36,30 @@ class RegisterActivity : AppCompatActivity() {
             val password = et_password.text.toString().trim()
             val confirm_pass = et_password.text.toString().trim()
             val phone = et_telp.text.toString().trim()
-            if (userViewModel.validate(name, email, password, confirm_pass, phone)){
-                userViewModel.register(name, email, password, phone)
+            if (registerViewModel.validate(name, email, password, confirm_pass, phone)){
+                registerViewModel.register(name, email, password, phone)
             }
         }
     }
 
-    private fun handleUIState(it : UserState){
+    private fun handleUIState(it : RegisterState){
         when(it){
-            is UserState.Validate -> {
+            is RegisterState.Validate -> {
                 it.name?.let { setNameError(it) }
                 it.email?.let { setEmailError(it) }
                 it.password?.let { setPasswordError(it) }
                 it.confirmPassword?.let { setConfirmPasswordError(it) }
                 it.telp?.let { setTelpError(it) }
             }
-            is UserState.ShowToast -> toast(it.message)
-            is UserState.Reset -> {
+            is RegisterState.ShowToast -> toast(it.message)
+            is RegisterState.Reset -> {
                 setNameError(null)
                 setEmailError(null)
                 setPasswordError(null)
                 setConfirmPasswordError(null)
                 setTelpError(null)
             }
-            is UserState.IsLoading -> {
+            is RegisterState.IsLoading -> {
                 if (it.state){
                     pb_register.visibility = View.VISIBLE
                     btn_register.isEnabled = false
@@ -74,7 +68,7 @@ class RegisterActivity : AppCompatActivity() {
                     pb_register.visibility = View.GONE
                 }
             }
-            is UserState.Success -> success(it.message)
+            is RegisterState.Success -> success(it.message)
         }
     }
 

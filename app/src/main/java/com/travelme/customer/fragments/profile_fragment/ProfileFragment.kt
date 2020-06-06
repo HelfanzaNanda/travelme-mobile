@@ -1,4 +1,4 @@
-package com.travelme.customer.fragments
+package com.travelme.customer.fragments.profile_fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,21 +12,20 @@ import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileFragment : Fragment(R.layout.fragment_profile){
-    private lateinit var userViewModel: UserViewModel
+    private val profileViewModel : ProfileViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.profile(Constants.getToken(activity!!))
-        userViewModel.getUser().observe(viewLifecycleOwner, Observer {
-            setUI(it)
-        })
+
+        profileViewModel.profile(Constants.getToken(activity!!))
+        profileViewModel.listenToUser().observe(viewLifecycleOwner, Observer { handleData(it) })
     }
 
-    private fun setUI(user : User){
+    private fun handleData(user : User){
         txt_name.text = user.name
         txt_email.text = user.email
         txt_telp.text = user.telp

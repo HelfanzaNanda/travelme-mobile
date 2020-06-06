@@ -5,11 +5,10 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.travelme.customer.R
-import com.travelme.customer.activities.DepartureByDestActivity
+import com.travelme.customer.activities.departure_by_dest_activity.DepartureByDestActivity
 import com.travelme.customer.models.Departure
 import kotlinx.android.synthetic.main.item_destination.view.*
 

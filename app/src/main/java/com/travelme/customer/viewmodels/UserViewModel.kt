@@ -3,99 +3,49 @@ package com.travelme.customer.viewmodels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.travelme.customer.models.User
+import com.travelme.customer.repositories.UserRepository
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.utilities.SingleLiveEvent
-import com.travelme.customer.utilities.WrappedResponse
-import com.travelme.customer.webservices.ApiClient
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
-class UserViewModel : ViewModel(){
+class UserViewModel(private val userRepository: UserRepository) : ViewModel(){
     private var user = MutableLiveData<User>()
     private var state : SingleLiveEvent<UserState> = SingleLiveEvent()
-    private var api = ApiClient.instance()
 
     private fun setLoading() { state.value = UserState.IsLoading(true) }
     private fun hideLoading() { state.value = UserState.IsLoading(false) }
     private fun toast(message: String) { state.value = UserState.ShowToast(message) }
     private fun success(message: String) { state.value = UserState.Success(message) }
 
+
     fun login(email: String, password: String){
         setLoading()
-        api.login(email, password).enqueue(object : Callback<WrappedResponse<User>>{
-            override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                hideLoading()
-            }
-
-            override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
-                if (response.isSuccessful){
-                    val body = response.body()
-                    if (body?.status!!){
-                        val token = body.data!!.token
-                        toast(body.message!!)
-                        success(token!!)
-                    }else{
-                        toast("tidak dapat login")
-                    }
-                }else{
-                    toast("login gagal")
-                }
-                hideLoading()
-            }
-
-        })
+        userRepository.login(email, password){token, error ->
+            hideLoading()
+            error?.let { it.message?.let { message ->
+                toast(message)
+            }}
+            token?.let { success(it) }
+        }
     }
 
     fun register(name: String, email: String, password: String, phone: String){
         setLoading()
-        api.register(name, email, password, phone).enqueue(object : Callback<WrappedResponse<User>>{
-            override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                hideLoading()
-            }
-
-            override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
-                if (response.isSuccessful){
-                    val body = response.body()
-                    body?.let {
-                        if (it.status!!){
-                            success(email)
-                        }else{
-                            toast(it.message!!)
-                        }
-                    }
-                }else{
-                    toast("email sudah terdaftar, silahkan pakai email lainnya! "+response.message())
-                }
-                hideLoading()
-            }
-
-        })
+        userRepository.register(name, email, password, phone){resultEmail, error->
+            hideLoading()
+            error?.let { it.message?.let { message->
+                toast(message)
+            }}
+            resultEmail?.let { success(it) }
+        }
     }
 
     fun profile(token: String){
         setLoading()
-        api.profile(token).enqueue(object : Callback<WrappedResponse<User>>{
-            override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
-                hideLoading()
-            }
-
-            override fun onResponse(call: Call<WrappedResponse<User>>, response: Response<WrappedResponse<User>>) {
-                if (response.isSuccessful){
-                    val body = response.body()
-                    if (body?.status!!){
-                        val data = body.data
-                        user.postValue(data)
-                    }else{
-                        toast("gagal memuat info")
-                    }
-                }else{
-                    toast("kesalahan pada mengambil info ${response.message()}")
-                }
-                hideLoading()
-            }
-
-        })
+        userRepository.profile(token){resultUser, error ->
+            hideLoading()
+            error?.let { it.message?.let { message-> toast(message) }}
+            resultUser?.let { user.postValue(it) }
+        }
     }
 
     fun validate(name: String?, email: String, password: String, confirmPassword : String?, telp : String?): Boolean{
@@ -144,8 +94,8 @@ class UserViewModel : ViewModel(){
         return true
     }
 
-    fun getState() = state
-    fun getUser() = user
+    fun listenToState() = state
+    fun listenToUser() = user
 }
 
 sealed class UserState{

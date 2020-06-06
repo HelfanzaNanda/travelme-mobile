@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.login_activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,32 +6,32 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.travelme.customer.R
+import com.travelme.customer.activities.MainActivity
+import com.travelme.customer.activities.register_activity.RegisterActivity
 import com.travelme.customer.utilities.Constants
-import com.travelme.customer.viewmodels.UserState
-import com.travelme.customer.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_login.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var userViewModel: UserViewModel
+    private val loginViewModel: LoginViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
-
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getState().observer(this@LoginActivity, Observer { handleUI(it) })
+        
+        
+        loginViewModel.listenToState().observer(this@LoginActivity, Observer { handleUI(it) })
         doLogin()
 
         txt_register.setOnClickListener { startActivity(Intent(this@LoginActivity, RegisterActivity::class.java)) }
     }
 
-    private fun handleUI(it : UserState){
+    private fun handleUI(it : LoginState){
         when(it){
-            is UserState.IsLoading -> {
+            is LoginState.IsLoading -> {
                 if (it.state){
                     pb_login.visibility = View.VISIBLE
                     btn_login.isEnabled = false
@@ -40,17 +40,17 @@ class LoginActivity : AppCompatActivity() {
                     pb_login.visibility = View.GONE
                 }
             }
-            is UserState.ShowToast -> toast(it.message)
-            is UserState.Success -> {
+            is LoginState.ShowToast -> toast(it.message)
+            is LoginState.Success -> {
                 Constants.setToken(this@LoginActivity, "Bearer ${it.message}")
                 startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             }
-            is UserState.Reset -> {
+            is LoginState.Reset -> {
                 setEmailError(null)
                 setPasswordError(null)
             }
-            is UserState.Validate -> {
+            is LoginState.Validate -> {
                 it.email?.let { setEmailError(it) }
                 it.password?.let { setPasswordError(it) }
             }
@@ -61,8 +61,8 @@ class LoginActivity : AppCompatActivity() {
         btn_login.setOnClickListener {
             val email = et_email.text.toString().trim()
             val password = et_password.text.toString().trim()
-            if (userViewModel.validate(null, email, password, null, null)){
-                userViewModel.login(email, password)
+            if (loginViewModel.validate(email, password)){
+                loginViewModel.login(email, password)
             }
         }
     }

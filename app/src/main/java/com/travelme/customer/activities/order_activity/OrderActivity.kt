@@ -1,13 +1,11 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.order_activity
 
-import android.content.Intent
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.midtrans.sdk.corekit.callback.TransactionFinishedCallback
 import com.midtrans.sdk.corekit.core.MidtransSDK
 import com.midtrans.sdk.corekit.core.TransactionRequest
@@ -20,16 +18,13 @@ import com.travelme.customer.R
 import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
-import com.travelme.customer.viewmodels.OrderState
-import com.travelme.customer.viewmodels.OrderViewModel
-import com.travelme.customer.viewmodels.UserViewModel
 import kotlinx.android.synthetic.main.activity_order.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.ArrayList
 
 class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
 
-    private lateinit var userViewModel: UserViewModel
-    private lateinit var orderViewModel: OrderViewModel
+    private val orderActivityViewModel : OrderActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -37,19 +32,19 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
         setContentView(R.layout.activity_order)
         //supportActionBar?.hide()
 
-        userViewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        userViewModel.getUser().observe(this, Observer { setUI(it) })
-        userViewModel.profile(Constants.getToken(this@OrderActivity))
 
-        orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
-        orderViewModel.getState().observer(this, Observer { handleUIOrder(it) })
+        orderActivityViewModel.listenToUser().observe(this, Observer { setUser(it) })
+        orderActivityViewModel.getUserLogin(Constants.getToken(this@OrderActivity))
+        orderActivityViewModel.listenToState().observer(this, Observer { handleUI(it) })
+
         btn_order.setOnClickListener { showPayment() }
         /*tv_pickup_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
         tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }*/
         initPayment()
     }
 
-    private fun setUI(it : User){
+    @SuppressLint("SetTextI18n")
+    private fun setUser(it : User){
         it.let {
             tv_name.setText("Nama Pemesan ${it.name}")
             tv_date.setText("Tanggal ${getPassedHourDeparture()?.dateOfDeparture?.date}")
@@ -80,7 +75,7 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
         val pickup_location = et_pickup_location.text.toString().trim()
         val destination_location = et_destination_location.text.toString().trim()
 
-        if (orderViewModel.validate(pickup_location, destination_location)){
+        if (orderActivityViewModel.validate(pickup_location, destination_location)){
             val uiKIt = UIKitCustomSetting().apply {
                 isSkipCustomerDetailsPages = true
                 isShowPaymentStatus = true
@@ -119,7 +114,7 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
                         val pickup_location = et_pickup_location.text.toString().trim()
                         val destination_location = et_destination_location.text.toString().trim()
 
-                        orderViewModel.storeOrder(
+                        orderActivityViewModel.storeOrder(
                             Constants.getToken(this@OrderActivity), owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location
                         )
                     }
@@ -144,16 +139,16 @@ class OrderActivity : AppCompatActivity(), TransactionFinishedCallback {
     }
 
 
-    private fun handleUIOrder(it: OrderState) {
+    private fun handleUI(it: OrderActivityState) {
         when (it) {
-            is OrderState.IsLoading -> btn_order.isEnabled = it.state
-            is OrderState.ShowToast -> toast(it.message)
-            is OrderState.Success -> finish()
-            /*is OrderState.Reset -> {
+            //is OrderActivityState.IsLoading -> btn_order.isEnabled = it.state
+            is OrderActivityState.ShowToast -> toast(it.message)
+            is OrderActivityState.Success -> finish()
+            /*is OrderActivityState.Reset -> {
                 setPickupLocationError(null)
                 setDestinationLocationError(null)
             }
-            is OrderState.Validate -> {
+            is OrderActivityState.Validate -> {
                 it.pickup_location?.let { setPickupLocationError(it) }
                 it.destination_location?.let { setDestinationLocationError(it) }
             }*/

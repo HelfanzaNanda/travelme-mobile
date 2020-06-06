@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.RegisterActivity">
+    tools:context=".activities.register_activity.RegisterActivity">
 
     <com.github.florent37.shapeofview.shapes.ArcView
         android:elevation="4dp"

@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".BaseApp"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,20 +21,20 @@
         <activity android:name=".activities.TrySandboxActivity" />
         <activity android:name=".activities.DetailMyOrderActivity" />
         <activity android:name=".activities.UpdateProfileActivity" />
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".activities.login_activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.RegisterActivity" />
-        <activity android:name=".activities.OrderActivity" />
+        <activity android:name=".activities.register_activity.RegisterActivity" />
+        <activity android:name=".activities.order_activity.OrderActivity" />
         <activity
             android:name=".activities.DetailOwnerActivity"
             android:label="@string/title_activity_detail_owner"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activities.DepartureByDestActivity" />
+        <activity android:name=".activities.departure_by_dest_activity.DepartureByDestActivity" />
         <activity
             android:name=".activities.MainActivity"
             android:label="@string/app_name" />

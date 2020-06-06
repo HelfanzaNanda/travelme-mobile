@@ -2,23 +2,15 @@ package com.travelme.customer.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import coil.api.load
 import com.synnapps.carouselview.CarouselView
 import com.synnapps.carouselview.ImageListener
 import com.travelme.customer.R
-import com.travelme.customer.models.Car
-import com.travelme.customer.models.Departure
 import kotlinx.android.synthetic.main.activity_detail_owner.*
 import kotlinx.android.synthetic.main.content_detail_owner.*
-import android.widget.LinearLayout.LayoutParams
-import android.widget.LinearLayout.LayoutParams.MATCH_PARENT
+import com.travelme.customer.activities.order_activity.OrderActivity
 import com.travelme.customer.models.HourOfDepartureAlternative
 
 class DetailOwnerActivity : AppCompatActivity() {

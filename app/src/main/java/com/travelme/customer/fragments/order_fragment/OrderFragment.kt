@@ -1,36 +1,33 @@
-package com.travelme.customer.fragments
+package com.travelme.customer.fragments.order_fragment
 
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
 import com.travelme.customer.adapters.MyOrderAdapter
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.Constants
-import com.travelme.customer.viewmodels.OrderState
-import com.travelme.customer.viewmodels.OrderViewModel
-import kotlinx.android.synthetic.main.fragment_order.*
 import kotlinx.android.synthetic.main.fragment_order.view.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrderFragment : Fragment(R.layout.fragment_order){
-    private lateinit var orderViewModel: OrderViewModel
+    private val orderFragmentViewModel : OrderFragmentViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        orderViewModel = ViewModelProvider(this).get(OrderViewModel::class.java)
+
         view.rv_my_order.apply {
             layoutManager = LinearLayoutManager(activity!!)
-            adapter = MyOrderAdapter(mutableListOf(), activity!!, orderViewModel)
+            adapter = MyOrderAdapter(mutableListOf(), activity!!, orderFragmentViewModel)
         }
-        orderViewModel.getOrders().observe(viewLifecycleOwner, Observer {handleData(it)})
-        orderViewModel.getState().observer(viewLifecycleOwner, Observer { handleui(it) })
+        orderFragmentViewModel.listenToOrders().observe(viewLifecycleOwner, Observer { handleData(it) })
+        orderFragmentViewModel.listenToState().observer(viewLifecycleOwner, Observer { handleUI(it) })
         initEmptyView()
     }
 
     private fun initEmptyView(){
-        if (orderViewModel.getOrders().value == null || orderViewModel.getOrders().value!!.isEmpty()){
+        if (orderFragmentViewModel.listenToOrders().value == null || orderFragmentViewModel.listenToOrders().value!!.isEmpty()){
             view!!.iv_empty_data.visibility = View.VISIBLE
             view!!.tv_empty_data.visibility = View.VISIBLE
         }else{
@@ -51,9 +48,9 @@ class OrderFragment : Fragment(R.layout.fragment_order){
         }
     }
 
-    private fun handleui(it : OrderState){
+    private fun handleUI(it : OrderFragmentState){
         when(it){
-            is OrderState.IsLoading ->{
+            is OrderFragmentState.IsLoading ->{
                 if (it.state){
                     view!!.iv_empty_data.visibility = View.GONE
                     view!!.tv_empty_data.visibility = View.GONE
@@ -64,14 +61,14 @@ class OrderFragment : Fragment(R.layout.fragment_order){
                     view!!.pb_my_order.visibility = View.GONE
                 }
             }
-            is OrderState.ShowToast -> toast(it.message)
-            is OrderState.SuccessDelete -> orderViewModel.getMyOrders(Constants.getToken(activity!!))
+            is OrderFragmentState.ShowToast -> toast(it.message)
+            is OrderFragmentState.SuccessDelete -> orderFragmentViewModel.getMyOrders(Constants.getToken(activity!!))
         }
     }
 
     override fun onResume() {
         super.onResume()
-        orderViewModel.getMyOrders(Constants.getToken(activity!!))
+        orderFragmentViewModel.getMyOrders(Constants.getToken(activity!!))
     }
 
     private fun toast(message : String) = Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()

@@ -7,9 +7,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.travelme.customer.R
-import com.travelme.customer.fragments.HomeFragment
-import com.travelme.customer.fragments.OrderFragment
-import com.travelme.customer.fragments.ProfileFragment
+import com.travelme.customer.activities.login_activity.LoginActivity
+import com.travelme.customer.fragments.home_fragment.HomeFragment
+import com.travelme.customer.fragments.order_fragment.OrderFragment
+import com.travelme.customer.fragments.profile_fragment.ProfileFragment
 import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 

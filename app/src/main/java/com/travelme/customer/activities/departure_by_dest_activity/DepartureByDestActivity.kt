@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.departure_by_dest_activity
 
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -8,21 +8,19 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
 import com.travelme.customer.adapters.DepartureAdapter
 import com.travelme.customer.models.*
 import com.travelme.customer.utilities.Constants
-import com.travelme.customer.viewmodels.DepartureState
-import com.travelme.customer.viewmodels.DepartureViewModel
 import kotlinx.android.synthetic.main.activity_departure_by_dest.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
 class DepartureByDestActivity : AppCompatActivity() {
 
-    private lateinit var departureViewModel: DepartureViewModel
+    private val departureViewModel: DepartureByDestViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,35 +30,33 @@ class DepartureByDestActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(this@DepartureByDestActivity)
             adapter = DepartureAdapter(mutableListOf(), this@DepartureByDestActivity)
         }
-        departureViewModel = ViewModelProvider(this).get(DepartureViewModel::class.java)
+
         departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
         search()
-        departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer { handleData(it) })
+        departureViewModel.listenToDepartures().observe(this@DepartureByDestActivity, Observer { handleData(it) })
+        departureViewModel.listenToState().observer(this, Observer { handleUI(it) })
         setDate()
         reset()
-        handleUI()
         initEmptyView()
         setSpinner()
     }
 
 
-    private fun handleUI(){
-        departureViewModel.getState().observer(this, Observer {
-            when(it){
-                is DepartureState.IsLoading -> {
-                    if (it.state){
-                        iv_empty_data.visibility = View.GONE
-                        tv_empty_data.visibility = View.GONE
-                        pb_departure_by_destination.visibility = View.VISIBLE
-                        pb_departure_by_destination.isIndeterminate = true
-                    }else{
-                        pb_departure_by_destination.visibility = View.GONE
-                        pb_departure_by_destination.isIndeterminate = false
-                    }
+    private fun handleUI(it : DepartureByDestState){
+        when(it){
+            is DepartureByDestState.IsLoading -> {
+                if (it.state){
+                    iv_empty_data.visibility = View.GONE
+                    tv_empty_data.visibility = View.GONE
+                    pb_departure_by_destination.visibility = View.VISIBLE
+                    pb_departure_by_destination.isIndeterminate = true
+                }else{
+                    pb_departure_by_destination.visibility = View.GONE
+                    pb_departure_by_destination.isIndeterminate = false
                 }
-                is DepartureState.ShowToast -> toast(it.message)
             }
-        })
+            is DepartureByDestState.ShowToast -> toast(it.message)
+        }
     }
 
     private fun setDate(){
@@ -97,7 +93,7 @@ class DepartureByDestActivity : AppCompatActivity() {
     }
 
     private fun initEmptyView(){
-        if (departureViewModel.getDepartures().value == null || departureViewModel.getDepartures().value!!.isEmpty()){
+        if (departureViewModel.listenToDepartures().value == null || departureViewModel.listenToDepartures().value!!.isEmpty()){
             iv_empty_data.visibility = View.VISIBLE
             tv_empty_data.visibility = View.VISIBLE
         }else{
@@ -119,7 +115,7 @@ class DepartureByDestActivity : AppCompatActivity() {
                     TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    departureViewModel.getDepartures().observe(this@DepartureByDestActivity, Observer {
+                    departureViewModel.listenToDepartures().observe(this@DepartureByDestActivity, Observer {
                         rv_car_by_destination.adapter?.let {adapter->
                             val sortByPrice = it.sortedBy { departure -> departure.price  }
                             val restructured = restructureData(sortByPrice)
@@ -145,7 +141,12 @@ class DepartureByDestActivity : AppCompatActivity() {
 
     private fun restructureData(d : List<Departure>): MutableList<HourOfDepartureAlternative> {
         val hoursAlt = mutableListOf<HourOfDepartureAlternative>()
-        val departureWithDates = d.map { Temp(it.dates, it) }
+        val departureWithDates = d.map {
+            Temp(
+                it.dates,
+                it
+            )
+        }
         departureWithDates.map {
             if(!it.dates.isNullOrEmpty()){
                 it.dates!!.map { date ->
