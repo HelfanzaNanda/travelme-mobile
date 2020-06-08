@@ -14,11 +14,12 @@ class DetailMyOrderActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_my_order)
         supportActionBar?.hide()
-        setui()
+
+        setData()
     }
 
     @SuppressLint("SetTextI18n")
-    private fun setui(){
+    private fun setData(){
         tv_id_order.text = "ID : ${getPassedMyOrder()?.order_id}"
         tv_total_seat.text = "${getPassedMyOrder()?.total_seat} Kursi"
         tv_name_user.text = getPassedMyOrder()?.user?.name
@@ -29,7 +30,7 @@ class DetailMyOrderActivity : AppCompatActivity() {
         tv_hour.text = getPassedMyOrder()?.hour
         tv_price.text = Constants.setToIDR(getPassedMyOrder()?.total_price!!)
 
-        if (getPassedMyOrder()?.status!!.equals('2')){
+        if (getPassedMyOrder()?.verify!!.equals("2")){
             tv_status.text = "DI KONFIRMASI"
         }else{
             tv_status.text = "BELUM DI KONFIRMASI"

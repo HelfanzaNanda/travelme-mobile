@@ -19,6 +19,7 @@
     <string name="nama_anda">Nama Anda</string>
     <string name="info_register">Register</string>
     <string name="tidak_ada_data">tidak ada data</string>
+    <string name="info_app">info_app</string>
     <string-array name="prices">
         <item>Termurah</item>
         <item>Termahal</item>

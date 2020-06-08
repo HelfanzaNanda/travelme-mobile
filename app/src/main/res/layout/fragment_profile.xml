@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.login_activity.LoginActivity">
+
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
         android:layout_height="500dp"
@@ -45,7 +46,6 @@
             android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
-
                 app:civ_circle_background_color="@android:color/white"
                 app:civ_border_color="@android:color/white"
                 app:civ_border_width="1dp"
@@ -54,7 +54,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/persons" />
+                android:src="@drawable/user" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,10 +160,22 @@
         android:backgroundTint="@color/colorPrimaryDark"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="60dp"
         android:text="Edit Profile"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/btn_logout"
         android:id="@+id/btn_edit_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_marginBottom="60dp"
+        android:padding="10dp"
+        app:cornerRadius="56dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:text="Logout"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/btn_logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

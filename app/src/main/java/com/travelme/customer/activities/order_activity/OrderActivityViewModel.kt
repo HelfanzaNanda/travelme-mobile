@@ -26,7 +26,7 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
     private fun toast(message: String) { state.value = OrderActivityState.ShowToast(message) }
     private fun success() { state.value = OrderActivityState.Success }
     private fun reset() { state.value = OrderActivityState.Reset }
-
+    private fun alert() { state.value = OrderActivityState.Alert}
 
     fun validate(pickup_location: String, destination_location: String): Boolean{
         reset()
@@ -49,7 +49,7 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
             hideLoading()
             error?.let { it.message?.let { mesage-> toast(mesage)  }}
             if (resultBool){
-                success()
+                alert()
             }
         }
     }
@@ -72,6 +72,7 @@ sealed class OrderActivityState{
     data class IsLoading (var state : Boolean = false) : OrderActivityState()
     data class ShowToast(var message : String) : OrderActivityState()
     object Success: OrderActivityState()
+    object Alert : OrderActivityState()
     data class Validate(
         var pickup_location : String? = null,
         var destination_location : String? = null

@@ -21,8 +21,8 @@ class OrderFragment : Fragment(R.layout.fragment_order){
             layoutManager = LinearLayoutManager(activity!!)
             adapter = MyOrderAdapter(mutableListOf(), activity!!, orderFragmentViewModel)
         }
-        orderFragmentViewModel.listenToOrders().observe(viewLifecycleOwner, Observer { handleData(it) })
         orderFragmentViewModel.listenToState().observer(viewLifecycleOwner, Observer { handleUI(it) })
+        orderFragmentViewModel.listenToOrders().observe(viewLifecycleOwner, Observer { handleData(it) })
         initEmptyView()
     }
 
@@ -63,6 +63,7 @@ class OrderFragment : Fragment(R.layout.fragment_order){
             }
             is OrderFragmentState.ShowToast -> toast(it.message)
             is OrderFragmentState.SuccessDelete -> orderFragmentViewModel.getMyOrders(Constants.getToken(activity!!))
+            is OrderFragmentState.SuccessUpdate -> orderFragmentViewModel.getMyOrders(Constants.getToken(activity!!))
         }
     }
 

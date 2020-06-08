@@ -104,6 +104,14 @@ interface ApiService{
     ) : Call<WrappedResponse<Order>>
 
     @FormUrlEncoded
+    @POST("order/{id}/update")
+    fun updatestatusorder(
+        @Header("Authorization") token : String,
+        @Path("id") id : Int,
+        @Field("status") status : String
+    ) : Call<WrappedResponse<Order>>
+
+    @FormUrlEncoded
     @POST("snap")
     fun snap(
         @Header("Authorization") token : String,

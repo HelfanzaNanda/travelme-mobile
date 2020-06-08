@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.travelme.customer.R
 import com.travelme.customer.activities.UpdateProfileActivity
+import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.viewmodels.UserViewModel
@@ -20,9 +21,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         profileViewModel.profile(Constants.getToken(activity!!))
         profileViewModel.listenToUser().observe(viewLifecycleOwner, Observer { handleData(it) })
+
+        btn_logout.setOnLongClickListener {
+            Constants.clearToken(activity!!)
+            startActivity(Intent(activity!!, LoginActivity::class.java))
+            activity!!.finish()
+            true
+        }
     }
 
     private fun handleData(user : User){

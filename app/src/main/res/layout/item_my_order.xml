@@ -124,6 +124,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+            <TextView
+                android:visibility="gone"
+                android:id="@+id/tv_silahkan_di_bayar"
+                android:textStyle="bold"
+                android:layout_marginEnd="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/linear_detail"
+                android:textSize="18sp"
+                android:text="silahkan di bayar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </RelativeLayout>
 
     </LinearLayout>

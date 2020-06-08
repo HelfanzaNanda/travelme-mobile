@@ -22,6 +22,7 @@ class OrderFragmentViewModel(private val orderRepository: OrderRepository) : Vie
     private fun hideLoading() { state.value = OrderFragmentState.IsLoading(false) }
     private fun toast(message: String) { state.value = OrderFragmentState.ShowToast(message) }
     private fun successDelete() { state.value = OrderFragmentState.SuccessDelete }
+    private fun successUpdate() { state.value = OrderFragmentState.SuccessUpdate }
 
     fun getMyOrders(token: String){
         setLoading()
@@ -38,7 +39,18 @@ class OrderFragmentViewModel(private val orderRepository: OrderRepository) : Vie
             hideLoading()
             error?.let { it.message?.let { message-> toast(message) }}
             if (resultBool){
-                OrderFragmentState.SuccessDelete
+                successDelete()
+            }
+        }
+    }
+
+    fun updatestatus(token : String, id: String, status : String){
+        setLoading()
+        orderRepository.updatestatus(token, id, status){resultBool, error ->
+            hideLoading()
+            error?.let { it.message?.let {message-> toast(message) }}
+            if (resultBool){
+                successUpdate()
             }
         }
     }
@@ -51,4 +63,5 @@ sealed class OrderFragmentState{
     data class IsLoading (var state : Boolean = false) : OrderFragmentState()
     data class ShowToast(var message : String) : OrderFragmentState()
     object SuccessDelete : OrderFragmentState()
+    object SuccessUpdate : OrderFragmentState()
 }

@@ -14,6 +14,16 @@
         android:layout_marginBottom="56dp"
         android:layout_width="match_parent" />
 
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_gravity="end"
+        android:id="@+id/action_info_app"
+        android:src="@drawable/ic_info_outline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/info_app" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_gravity="bottom"

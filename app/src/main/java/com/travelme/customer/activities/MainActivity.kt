@@ -2,7 +2,10 @@ package com.travelme.customer.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -28,6 +31,16 @@ class MainActivity : AppCompatActivity() {
         if(savedInstanceState == null){ navigation.selectedItemId = R.id.navigation_home }
         supportActionBar?.hide()
         isLoggedIn()
+
+        action_info_app.setOnClickListener {
+            AlertDialog.Builder(this@MainActivity).apply {
+                setTitle("travelme")
+                setMessage("by Helfanza Nanda Alfara")
+                setPositiveButton("ya"){dialog,_ ->
+                    dialog.dismiss()
+                }
+            }.show()
+        }
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->

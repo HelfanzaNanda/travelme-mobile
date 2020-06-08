@@ -75,4 +75,24 @@ class OrderRepository (private val api : ApiService){
             }
         })
     }
+
+    fun updatestatus(token: String, id: String, status : String,result: (Boolean, Error?) -> Unit){
+        api.updatestatusorder(token, id.toInt(), status).enqueue(object : Callback<WrappedResponse<Order>>{
+            override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) = result(false, Error(t.message))
+
+            override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        result(true, null)
+                    }else{
+                        result(true, Error(body.message))
+                    }
+                }else{
+                    result(true, Error(response.message()))
+                }
+            }
+
+        })
+    }
 }
