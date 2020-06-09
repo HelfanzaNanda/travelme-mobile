@@ -31,14 +31,13 @@ class DepartureByDestActivity : AppCompatActivity() {
             adapter = DepartureAdapter(mutableListOf(), this@DepartureByDestActivity)
         }
 
-        departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
         search()
         departureViewModel.listenToDepartures().observe(this@DepartureByDestActivity, Observer { handleData(it) })
         departureViewModel.listenToState().observer(this, Observer { handleUI(it) })
         setDate()
         reset()
         initEmptyView()
-        setSpinner()
+        //setSpinner()
     }
 
 
@@ -117,10 +116,9 @@ class DepartureByDestActivity : AppCompatActivity() {
                 override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                     departureViewModel.listenToDepartures().observe(this@DepartureByDestActivity, Observer {
                         rv_car_by_destination.adapter?.let {adapter->
-                            val sortByPrice = it.sortedBy { departure -> departure.price  }
-                            val restructured = restructureData(sortByPrice)
                             if (adapter is DepartureAdapter){
-                                adapter.changelist(restructured)
+                                val restructured = restructureData(it)
+                                adapter.changelist(restructured.sortedBy { sort-> sort.departure!!.price })
                             }
                         }
                     })
@@ -128,13 +126,17 @@ class DepartureByDestActivity : AppCompatActivity() {
 
             }
         }
-    }
+        }
 
     private fun handleData(data : List<Departure>){
         rv_car_by_destination.adapter?.let { adapter ->
             if (adapter is DepartureAdapter){
-                val restructured = restructureData(data)
+                var restructured = restructureData(data)
+                restructured = restructured.sortedBy { it.id }.toMutableList()
                 adapter.changelist(restructured)
+//                restructured.forEach {
+//                    println(it.id.toString() + " "+ "${it.hour}" + it.remaining_seat.toString())
+//                }
             }
         }
     }
@@ -174,6 +176,11 @@ class DepartureByDestActivity : AppCompatActivity() {
     private fun getPassedDestination() = intent.getStringExtra("DESTINATION")
 
     private fun toast(message : String) = Toast.makeText(this@DepartureByDestActivity, message, Toast.LENGTH_SHORT).show()
+
+    override fun onResume() {
+        super.onResume()
+        departureViewModel.getDepartureByDest(Constants.getToken(this@DepartureByDestActivity), getPassedDestination())
+    }
 }
 
 data class Temp(

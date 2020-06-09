@@ -1,6 +1,7 @@
 package com.travelme.customer.activities.order_activity
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
+import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
@@ -122,4 +124,8 @@ class OrderActivity : AppCompatActivity() {
         }
 
     private fun getPassedHourDeparture(): HourOfDepartureAlternative? = intent.getParcelableExtra("DEPARTURE_DETAIL")
+
+    override fun onResume() {
+        super.onResume()
+    }
 }

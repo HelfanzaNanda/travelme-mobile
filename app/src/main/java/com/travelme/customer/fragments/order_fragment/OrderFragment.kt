@@ -1,12 +1,15 @@
 package com.travelme.customer.fragments.order_fragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
+import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.adapters.MyOrderAdapter
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.Constants
@@ -17,14 +20,30 @@ class OrderFragment : Fragment(R.layout.fragment_order){
     private val orderFragmentViewModel : OrderFragmentViewModel by viewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        view.rv_my_order.apply {
-            layoutManager = LinearLayoutManager(activity!!)
-            adapter = MyOrderAdapter(mutableListOf(), activity!!, orderFragmentViewModel)
+        if (isLoggedIn()){
+            view.rv_my_order.apply {
+                layoutManager = LinearLayoutManager(activity)
+                adapter = MyOrderAdapter(mutableListOf(), activity!!, orderFragmentViewModel)
+            }
+            orderFragmentViewModel.listenToState().observer(viewLifecycleOwner, Observer { handleUI(it) })
+            orderFragmentViewModel.listenToOrders().observe(viewLifecycleOwner, Observer { handleData(it) })
+            initEmptyView()
+        }else{
+            popupIsLogin("anda belum login, untuk melanjutkan anda harus login dahulu!")
         }
-        orderFragmentViewModel.listenToState().observer(viewLifecycleOwner, Observer { handleUI(it) })
-        orderFragmentViewModel.listenToOrders().observe(viewLifecycleOwner, Observer { handleData(it) })
-        initEmptyView()
     }
+
+    private fun popupIsLogin(message: String){
+        AlertDialog.Builder(activity!!).apply {
+            setMessage(message)
+            setPositiveButton("login"){dialog, _ ->
+                startActivity(Intent(activity, LoginActivity::class.java).putExtra("EXCEPT_RESULT", true))
+                dialog.dismiss()
+            }
+        }.show()
+    }
+
+    private fun isLoggedIn() = !Constants.getToken(activity!!).equals("UNDEFINED")
 
     private fun initEmptyView(){
         if (orderFragmentViewModel.listenToOrders().value == null || orderFragmentViewModel.listenToOrders().value!!.isEmpty()){

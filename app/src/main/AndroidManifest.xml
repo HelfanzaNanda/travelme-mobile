@@ -17,17 +17,12 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activities.MapsActivity"></activity>
+        <activity android:name=".activities.ForgotPasswordActivity"></activity>
+        <activity android:name=".activities.MapsActivity" />
         <activity android:name=".activities.TrySandboxActivity" />
         <activity android:name=".activities.DetailMyOrderActivity" />
         <activity android:name=".activities.UpdateProfileActivity" />
-        <activity android:name=".activities.login_activity.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.login_activity.LoginActivity"></activity>
         <activity android:name=".activities.register_activity.RegisterActivity" />
         <activity android:name=".activities.order_activity.OrderActivity" />
         <activity
@@ -37,7 +32,13 @@
         <activity android:name=".activities.departure_by_dest_activity.DepartureByDestActivity" />
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name" />
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

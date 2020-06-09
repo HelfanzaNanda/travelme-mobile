@@ -43,8 +43,14 @@ class LoginActivity : AppCompatActivity() {
             is LoginState.ShowToast -> toast(it.message)
             is LoginState.Success -> {
                 Constants.setToken(this@LoginActivity, "Bearer ${it.message}")
-                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                finish()
+                if (getExpectResult()){
+                    finish()
+                }else{
+                    startActivity(Intent(this@LoginActivity, MainActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    }).also { finish() }
+                }
             }
             is LoginState.Reset -> {
                 setEmailError(null)
@@ -56,6 +62,8 @@ class LoginActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun getExpectResult() = intent.getBooleanExtra("EXPECT_RESULT", false)
 
     private fun doLogin(){
         btn_login.setOnClickListener {

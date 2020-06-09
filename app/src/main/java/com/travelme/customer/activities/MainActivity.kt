@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         navigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
         if(savedInstanceState == null){ navigation.selectedItemId = R.id.navigation_home }
         supportActionBar?.hide()
-        isLoggedIn()
+        //isLoggedIn()
 
         action_info_app.setOnClickListener {
             AlertDialog.Builder(this@MainActivity).apply {
@@ -76,14 +76,7 @@ class MainActivity : AppCompatActivity() {
         true
     }
 
-    private fun isLoggedIn(){
-        if(Constants.getToken(this@MainActivity).equals("UNDEFINED")){
-            startActivity(Intent(this, LoginActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            }).also { finish() }
-        }
-    }
+
 
     private fun toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

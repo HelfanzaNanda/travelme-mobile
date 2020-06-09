@@ -28,7 +28,6 @@ class RegisterActivity : AppCompatActivity() {
         txt_login.setOnClickListener { startActivity(Intent(this@RegisterActivity, LoginActivity::class.java)) }
 
         registerViewModel.listenToState().observe(this, Observer { handleUIState(it) })
-        
 
         btn_register.setOnClickListener {
             val name = et_name.text.toString().trim()

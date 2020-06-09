@@ -12,8 +12,6 @@ import com.travelme.customer.fragments.profile_fragment.ProfileViewModel
 import com.travelme.customer.repositories.DepartureRepository
 import com.travelme.customer.repositories.OrderRepository
 import com.travelme.customer.repositories.UserRepository
-import com.travelme.customer.viewmodels.DepartureViewModel
-import com.travelme.customer.viewmodels.OrderViewModel
 import com.travelme.customer.webservices.ApiClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
