@@ -24,8 +24,10 @@ class OrderActivity : AppCompatActivity() {
     private val orderActivityViewModel : OrderActivityViewModel by viewModel()
     private val REQUEST_CODE_PICKUP_LOCATION = 101
     private val REQUEST_CODE_DESTINATION_LOCATION = 202
+    private var pickupPoint : String? = null
     private var latPickupLocation : String? = null
     private var lngPickupLocation : String? = null
+    private var destinationPoint : String? = null
     private var latDestinationLocation : String? = null
     private var lngDestinationLocation : String? = null
 
@@ -72,10 +74,12 @@ class OrderActivity : AppCompatActivity() {
         val hour = getPassedHourDeparture()?.hour!!
         val price = getPassedHourDeparture()?.departure?.price!!
         val total_seat = txt_seat.text.toString().toInt()
-        val pickup_location = et_pickup_location.text.toString().trim()
-        val destination_location = et_destination_location.text.toString().trim()
-        if (orderActivityViewModel.validate(pickup_location, destination_location)){
-            orderActivityViewModel.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location)
+        val pickup_point = et_pickup_location.text.toString().trim()
+        val destination_point = et_destination_location.text.toString().trim()
+        if (orderActivityViewModel.validate(pickup_point, destination_point)){
+            orderActivityViewModel.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat,
+                pickupPoint!!, latPickupLocation!!, lngPickupLocation!!, destinationPoint!!,
+                latDestinationLocation!!, lngDestinationLocation!!)
         }
     }
 
@@ -84,14 +88,14 @@ class OrderActivity : AppCompatActivity() {
             //is OrderActivityState.IsLoading -> btn_order.isEnabled = it.state
             is OrderActivityState.ShowToast -> toast(it.message)
             is OrderActivityState.Alert -> popup("terima kasih telah memesan travel ini lanjutkan pembayaran jika sudah di konfirmasi")
-            /*is OrderActivityState.Reset -> {
-                setPickupLocationError(null)
-                setDestinationLocationError(null)
+            is OrderActivityState.Reset -> {
+                setPickupPointError(null)
+                setDestinationPointError(null)
             }
             is OrderActivityState.Validate -> {
-                it.pickup_location?.let { setPickupLocationError(it) }
-                it.destination_location?.let { setDestinationLocationError(it) }
-            }*/
+                it.pickup_location?.let { setPickupPointError(it) }
+                it.destination_location?.let { setDestinationPointError(it) }
+            }
         }
     }
 
@@ -138,18 +142,23 @@ class OrderActivity : AppCompatActivity() {
             show()
         }
 
+    private fun setPickupPointError(err : String?){ tip_pickup_location.error = err }
+    private fun setDestinationPointError(err : String?){ tip_destination_location.error = err }
+
     private fun getPassedHourDeparture(): HourOfDepartureAlternative? = intent.getParcelableExtra("DEPARTURE_DETAIL")
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICKUP_LOCATION && data != null){
             et_pickup_location.setText(getPassedResultMaps(data)!!.address)
+            pickupPoint = getPassedResultMaps(data)!!.address
             latPickupLocation = getPassedResultMaps(data)!!.lat
             lngPickupLocation = getPassedResultMaps(data)!!.lng
 
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_DESTINATION_LOCATION && data != null){
             et_destination_location.setText(getPassedResultMaps(data)!!.address)
+            destinationPoint = getPassedResultMaps(data)!!.address
             latDestinationLocation = getPassedResultMaps(data)!!.lat
             lngDestinationLocation = getPassedResultMaps(data)!!.lng
         }

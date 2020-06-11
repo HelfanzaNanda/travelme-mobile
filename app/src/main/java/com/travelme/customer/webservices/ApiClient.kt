@@ -90,8 +90,12 @@ interface ApiService{
         @Field("hour") hour : String,
         @Field("price") price : Int,
         @Field("total_seat") total_seat : Int,
-        @Field("pickup_location") pickup_location : String,
-        @Field("destination_location") destination_location : String
+        @Field("pickup_point") pickup_point : String,
+        @Field("lat_pickup_point") lat_pickup_point : String,
+        @Field("lng_pickup_point") lng_pickup_point : String,
+        @Field("destination_point") destination_point : String,
+        @Field("lat_destination_point") lat_destination_point : String,
+        @Field("lng_destination_point") lng_destination_point : String
     ) : Call<WrappedResponse<Order>>
 
     @GET("order")

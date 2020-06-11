@@ -42,12 +42,22 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
     }
 
     fun storeOrder(token : String, owner_id : Int, departure_id : Int, date : String,
-                   hour : String, price : Int, total_seat: Int, pickup_location: String, destination_location: String){
+                   hour : String, price : Int, total_seat: Int, pickup_point: String, lat_pickup_point : String, lng_pickup_point : String,
+                   destination_point: String, lat_destination_point: String, lng_destination_point: String){
+        println(pickup_point)
+        println(lat_pickup_point)
+        println(lng_pickup_point)
+        println(destination_point)
+        println(lat_destination_point)
+        println(lng_destination_point)
         setLoading()
-        orderRepository.createorder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_location,
-            destination_location){resultBool, error->
+        orderRepository.createorder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_point, lat_pickup_point,
+            lng_pickup_point, destination_point, lat_destination_point, lng_destination_point){resultBool, error->
             hideLoading()
-            error?.let { it.message?.let { mesage-> toast(mesage)  }}
+            error?.let { it.message?.let { mesage->
+                toast(mesage)
+                println(mesage)
+            }}
             if (resultBool){
                 alert()
             }
@@ -58,7 +68,7 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
         setLoading()
         userRepository.profile(token){resultUser, error->
             hideLoading()
-            error?.let { it.message?.let { mesage-> toast(mesage)  }}
+            error?.let { it.message?.let { mesage-> toast(mesage) }}
             resultUser?.let { user.postValue(it) }
         }
     }

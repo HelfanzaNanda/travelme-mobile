@@ -12,9 +12,12 @@ import retrofit2.Response
 class OrderRepository (private val api : ApiService){
 
     fun createorder(token : String, owner_id : Int, departure_id : Int, date : String, hour : String, price : Int,
-                    total_seat: Int, pickup_location: String, destination_location: String, result : (Boolean, Error?)-> Unit){
+                    total_seat: Int, pickup_point: String, lat_pickup_point : String, lng_pickup_point : String,
+                    destination_point: String, lat_destination_point : String, lng_destination_point : String,
+                    result : (Boolean, Error?)-> Unit){
 
-        api.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_location, destination_location)
+        api.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_point, lat_pickup_point, lng_pickup_point,
+            destination_point, lat_destination_point, lng_destination_point)
             .enqueue(object : Callback<WrappedResponse<Order>> {
                 override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
                     result(false, Error(t.message))
