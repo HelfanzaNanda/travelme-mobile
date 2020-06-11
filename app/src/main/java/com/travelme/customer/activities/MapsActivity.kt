@@ -6,11 +6,13 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.mapbox.api.geocoding.v5.GeocodingCriteria
 import com.mapbox.api.geocoding.v5.MapboxGeocoding
 import com.mapbox.api.geocoding.v5.models.GeocodingResponse
@@ -32,6 +34,8 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.travelme.customer.R
+import com.travelme.customer.extensions.visible
+import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_maps.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -44,16 +48,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val geojsonSourceLayerId = "geojsonSourceLayerId"
     private val symbolIconId = "symbolIconId";
     private val tegal: LatLng = LatLng(-6.879704, 109.125595)
-    private var pickUpLocation = LatLng(0.0, 0.0)
-    private var destinationLocation = LatLng(0.0, 0.0)
+    private var coordinate = LatLng(0.0, 0.0)
     private var marker : MarkerView? = null
     private var markerViewManager : MarkerViewManager? = null
+    private var result_address : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this@MapsActivity, getString(R.string.map_box_access_token));
         setContentView(R.layout.activity_maps)
         mapView.getMapAsync(this)
+
+        btn_done_selected_maps.setOnClickListener {
+            if (coordinate != LatLng(0.0, 0.0)){
+                val intent = Intent()
+                intent.putExtra("RESULT_MAPS", ResultMaps(coordinate.latitude.toString(), coordinate.longitude.toString(), result_address))
+                setResult(Activity.RESULT_OK, intent)
+                finish()
+            }
+        }
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
@@ -69,12 +82,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             marker = MarkerView(point, imageView)
             markerViewManager?.addMarker(marker!!)
 
-            println(Point.fromLngLat(point.longitude, point.latitude))
-
-            //mapsViewModel.reverseGeocode(Point.fromLngLat(point.longitude, point.latitude), getString(R.string.map_box_access_token))
-            //toast(point.latitude.toString())
-            btn_done_selected_maps.visibility = View.VISIBLE
-            btn_done_selected_maps.setOnClickListener { reverseGeocode(Point.fromLngLat(point.longitude, point.latitude)) }
+            reverseGeocode(Point.fromLngLat(point.longitude, point.latitude))
             true
         }
         mapboxMap.setStyle(Style.MAPBOX_STREETS) {
@@ -121,7 +129,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (style != null) {
                 val source = style.getSourceAs<GeoJsonSource>(geojsonSourceLayerId)
                 source?.setGeoJson(FeatureCollection.fromFeatures(arrayOf(Feature.fromJson(selectedPoint.toJson()))))
-                pickUpLocation = LatLng((selectedPoint.geometry() as Point).latitude(), (selectedPoint.geometry() as Point).longitude())
+                coordinate = LatLng((selectedPoint.geometry() as Point).latitude(), (selectedPoint.geometry() as Point).longitude())
                 //getDestinationLocation()
 
                 mapboxMap.animateCamera(
@@ -140,7 +148,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val client = MapboxGeocoding.builder()
             .accessToken(resources.getString(R.string.map_box_access_token))
             .query(Point.fromLngLat(point.longitude(), point.latitude()))
-            .geocodingTypes(GeocodingCriteria.TYPE_ADDRESS)
+            .geocodingTypes(GeocodingCriteria.TYPE_POI)
             .build()
 
         client.enqueueCall(object : Callback<GeocodingResponse>{
@@ -156,16 +164,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         if (results.size > 0){
                             val feature = results[0]
                             toast(feature.placeName().toString())
+                            result_address = feature.placeName().toString()
+                            result_address?.let { _ ->
+                                btn_done_selected_maps.visible()
+                            }
                         }else{
-                            println("result kurang dari 0 ${results.size}")
-                            toast("result kurang dari 0 ${results.size}")
+                            popup("alamat tidak di temukan")
                         }
                     }else{
-                        println("body null ${body}")
                         toast("body null ${body}")
                     }
                 }else{
-                    println("response is not successfull ${response.message()}")
                     toast("response is not successfull ${response.message()}")
                 }
             }
@@ -177,6 +186,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun toast(message : String) = Toast.makeText(this@MapsActivity, message, Toast.LENGTH_LONG).apply {
         setGravity(Gravity.CENTER, 0,0)
         show()
+    }
+
+    private fun popup(message: String){
+        AlertDialog.Builder(this).apply {
+            setMessage(message)
+            setPositiveButton("paham") { dialog, _ ->
+                dialog.dismiss()
+                finish()
+            }
+        }.show()
     }
 
     // Add the mapView lifecycle to the activity's lifecycle methods
@@ -215,3 +234,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.onSaveInstanceState(outState)
     }
 }
+
+@Parcelize
+data class ResultMaps(val lat : String? = null, val lng : String? = null, val address : String? = null) : Parcelable

@@ -1,6 +1,7 @@
 package com.travelme.customer.activities.order_activity
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,7 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
-import com.travelme.customer.activities.login_activity.LoginActivity
+import com.travelme.customer.activities.MapsActivity
+import com.travelme.customer.activities.ResultMaps
 import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
@@ -19,6 +21,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class OrderActivity : AppCompatActivity() {
 
     private val orderActivityViewModel : OrderActivityViewModel by viewModel()
+    private val REQUEST_CODE_PICKUP_LOCATION = 101
+    private val REQUEST_CODE_DESTINATION_LOCATION = 202
+    private var latPickupLocation : String? = null
+    private var lngPickupLocation : String? = null
+    private var latDestinationLocation : String? = null
+    private var lngDestinationLocation : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,8 +39,13 @@ class OrderActivity : AppCompatActivity() {
         orderActivityViewModel.listenToState().observer(this, Observer { handleUI(it) })
 
         btn_order.setOnClickListener { order() }
-        /*tv_pickup_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
-        tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }*/
+        et_pickup_location.setOnClickListener {
+            startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_PICKUP_LOCATION)
+        }
+        et_destination_location.setOnClickListener {
+            startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_DESTINATION_LOCATION)
+        }
+        //tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
     }
 
     @SuppressLint("SetTextI18n")
@@ -125,7 +138,20 @@ class OrderActivity : AppCompatActivity() {
 
     private fun getPassedHourDeparture(): HourOfDepartureAlternative? = intent.getParcelableExtra("DEPARTURE_DETAIL")
 
-    override fun onResume() {
-        super.onResume()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICKUP_LOCATION && data != null){
+            et_pickup_location.setText(getPassedResultMaps(data)!!.address)
+            latPickupLocation = getPassedResultMaps(data)!!.lat
+            lngPickupLocation = getPassedResultMaps(data)!!.lng
+
+        }
+        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_DESTINATION_LOCATION && data != null){
+            et_destination_location.setText(getPassedResultMaps(data)!!.address)
+            latDestinationLocation = getPassedResultMaps(data)!!.lat
+            lngDestinationLocation = getPassedResultMaps(data)!!.lng
+        }
     }
+
+    private fun getPassedResultMaps(data: Intent) : ResultMaps? = data.getParcelableExtra("RESULT_MAPS")
 }
