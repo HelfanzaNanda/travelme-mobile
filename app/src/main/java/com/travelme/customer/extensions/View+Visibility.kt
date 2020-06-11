@@ -13,3 +13,7 @@ fun View.gone(){
 fun View.invisible(){
     visibility = View.INVISIBLE
 }
+
+fun View.notfocusable(){
+    isFocusableInTouchMode = false
+}

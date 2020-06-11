@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.travelme.customer.R
 import com.travelme.customer.activities.MapsActivity
 import com.travelme.customer.activities.ResultMaps
+import com.travelme.customer.extensions.notfocusable
 import com.travelme.customer.models.HourOfDepartureAlternative
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
@@ -37,11 +38,12 @@ class OrderActivity : AppCompatActivity() {
         orderActivityViewModel.listenToUser().observe(this, Observer { setUser(it) })
         orderActivityViewModel.getUserLogin(Constants.getToken(this@OrderActivity))
         orderActivityViewModel.listenToState().observer(this, Observer { handleUI(it) })
-
         btn_order.setOnClickListener { order() }
+        et_pickup_location.notfocusable()
         et_pickup_location.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_PICKUP_LOCATION)
         }
+        et_destination_location.notfocusable()
         et_destination_location.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_DESTINATION_LOCATION)
         }

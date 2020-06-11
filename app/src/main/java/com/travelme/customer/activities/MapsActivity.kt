@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.view.Gravity
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
@@ -73,6 +72,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         this.mapboxMap = mapboxMap
         mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tegal, 8.5));
         markerViewManager = MarkerViewManager(mapView, mapboxMap)
+        popup("silahkan search kecamatan dahulu")
         mapboxMap.addOnMapClickListener { point ->
             marker?.let { markerViewManager?.removeMarker(it) }
             val imageView = ImageView(this@MapsActivity).apply {
@@ -130,7 +130,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 val source = style.getSourceAs<GeoJsonSource>(geojsonSourceLayerId)
                 source?.setGeoJson(FeatureCollection.fromFeatures(arrayOf(Feature.fromJson(selectedPoint.toJson()))))
                 coordinate = LatLng((selectedPoint.geometry() as Point).latitude(), (selectedPoint.geometry() as Point).longitude())
-                //getDestinationLocation()
 
                 mapboxMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(
@@ -140,6 +139,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             .build()
                     ), 4000
                 )
+                popup("silahkan titik alamat anda")
             }
         }
     }
@@ -193,7 +193,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             setMessage(message)
             setPositiveButton("paham") { dialog, _ ->
                 dialog.dismiss()
-                finish()
             }
         }.show()
     }
