@@ -19,6 +19,12 @@
         tools:layout="@layout/fragment_order" />
 
     <fragment
+        android:id="@+id/navigation_notification"
+        android:name="com.travelme.customer.fragments.notification_fragment.NotificationFragment"
+        android:label="@string/title_notification"
+        tools:layout="@layout/fragment_notification" />
+
+    <fragment
         android:id="@+id/navigation_profile"
         android:name="com.travelme.customer.fragments.profile_fragment.ProfileFragment"
         android:label="@string/title_profile"

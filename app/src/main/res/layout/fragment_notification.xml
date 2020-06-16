@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.github.florent37.shapeofview.shapes.DiagonalView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:shape_diagonal_angle="10"
+        app:shape_diagonal_direction="right"
+        app:shape_diagonal_position="bottom">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+        </FrameLayout>
+
+    </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+    <TextView
+        android:textStyle="bold"
+        android:id="@+id/tv_notification"
+        android:layout_marginTop="30sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:text="Notifikasi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@id/tv_notification"
+        android:id="@+id/rv_notification"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_notification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <ImageView
+        android:visibility="gone"
+        android:src="@drawable/searching"
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_empty_data"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="#26235B"
+        android:textSize="18sp"
+        android:layout_below="@id/iv_empty_data"
+        android:id="@+id/tv_empty_data"
+        android:text="@string/tidak_ada_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

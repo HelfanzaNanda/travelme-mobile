@@ -7,6 +7,7 @@ import com.travelme.customer.activities.order_activity.OrderActivityViewModel
 import com.travelme.customer.activities.register_activity.RegisterViewModel
 import com.travelme.customer.fragments.home_fragment.HomeFragment
 import com.travelme.customer.fragments.home_fragment.HomeViewModel
+import com.travelme.customer.fragments.notification_fragment.NotificationViewModel
 import com.travelme.customer.fragments.order_fragment.OrderFragmentViewModel
 import com.travelme.customer.fragments.profile_fragment.ProfileViewModel
 import com.travelme.customer.repositories.DepartureRepository
@@ -48,4 +49,5 @@ val viewModelModules = module {
     viewModel { HomeViewModel(get()) }
     viewModel { OrderFragmentViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { NotificationViewModel(get()) }
 }

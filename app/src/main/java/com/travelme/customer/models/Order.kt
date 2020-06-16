@@ -23,6 +23,8 @@ data class Order(
     @SerializedName("lng_destination_point") var lng_destination_point : String? = null,
     @SerializedName("verify") var verify : String? = null,
     @SerializedName("status") var status : String? = null,
+    @SerializedName("arrived") var arrived : Boolean? = false,
+    @SerializedName("done") var done : Boolean? = false,
     @SerializedName("token") var snap : String? = null
 
 ) : Parcelable

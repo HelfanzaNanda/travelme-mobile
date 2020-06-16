@@ -20,6 +20,7 @@
     <string name="info_register">Register</string>
     <string name="tidak_ada_data">tidak ada data</string>
     <string name="info_app">info_app</string>
+    <string name="title_notification">Notification</string>
     <string-array name="prices">
         <item>Termurah</item>
         <item>Termahal</item>

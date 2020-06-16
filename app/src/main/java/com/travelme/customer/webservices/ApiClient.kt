@@ -115,6 +115,16 @@ interface ApiService{
         @Field("status") status : String
     ) : Call<WrappedResponse<Order>>
 
+    @GET("order/arrived")
+    fun driverArriver(
+        @Header("Authorization") token : String
+    ) : Call<WrappedListResponse<Order>>
+
+    @GET("order/verify")
+    fun orderVerify(
+        @Header("Authorization") token : String
+    ) : Call<WrappedListResponse<Order>>
+
     @FormUrlEncoded
     @POST("snap")
     fun snap(

@@ -98,4 +98,50 @@ class OrderRepository (private val api : ApiService){
 
         })
     }
+
+    fun driverArrived(token: String , result: (List<Order>?, Error?) -> Unit){
+        api.driverArriver(token).enqueue(object : Callback<WrappedListResponse<Order>>{
+            override fun onFailure(call: Call<WrappedListResponse<Order>>, t: Throwable) {
+                result(null, Error(t.message))
+            }
+
+            override fun onResponse(call: Call<WrappedListResponse<Order>>, response: Response<WrappedListResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        val data = body.data
+                        result(data, null)
+                    }else{
+                        result(null, Error())
+                    }
+                }else{
+                    result(null, Error(response.message()))
+                }
+            }
+
+        })
+    }
+
+    fun orderVerify(token: String , result: (List<Order>?, Error?) -> Unit){
+        api.orderVerify(token).enqueue(object : Callback<WrappedListResponse<Order>>{
+            override fun onFailure(call: Call<WrappedListResponse<Order>>, t: Throwable) {
+                result(null, Error(t.message))
+            }
+
+            override fun onResponse(call: Call<WrappedListResponse<Order>>, response: Response<WrappedListResponse<Order>>) {
+                if (response.isSuccessful){
+                    val body = response.body()
+                    if (body?.status!!){
+                        val data = body.data
+                        result(data, null)
+                    }else{
+                        result(null, Error())
+                    }
+                }else{
+                    result(null, Error(response.message()))
+                }
+            }
+
+        })
+    }
 }
