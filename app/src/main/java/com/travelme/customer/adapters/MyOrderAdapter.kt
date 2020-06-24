@@ -3,6 +3,7 @@ package com.travelme.customer.adapters
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +19,6 @@ import com.midtrans.sdk.corekit.models.snap.TransactionResult
 import com.midtrans.sdk.uikit.SdkUIFlowBuilder
 import com.travelme.customer.BuildConfig
 import com.travelme.customer.R
-import com.travelme.customer.activities.DetailMyOrderActivity
 import com.travelme.customer.fragments.order_fragment.OrderFragmentViewModel
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.Constants
@@ -41,17 +41,13 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
         @SuppressLint("SetTextI18n")
         fun bind(order: Order, context: Context, orderFragmentViewModel: OrderFragmentViewModel){
             with(itemView){
+                tv_order_id.text = order.order_id
                 tv_name_owner.text = order.owner.business_name
                 tv_hour.text = "${order.hour} WIB"
                 tv_date.text = order.date
                 tv_destination.text = "${order.departure.from} -> ${order.departure.destination}"
-                tv_price.text = Constants.setToIDR(order.price!!)
+                tv_price.text = Constants.setToIDR(order.total_price!!)
                 tv_total_seat.text = "${order.total_seat} Kursi"
-                setOnClickListener {
-                    context.startActivity(Intent(context , DetailMyOrderActivity::class.java).apply {
-                        putExtra("MY_ORDER", order)
-                    })
-                }
                 if (order.verify!!.equals("1")){
                     btn_cancel.visibility = View.VISIBLE
                     btn_cancel.setOnClickListener {
@@ -65,7 +61,7 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
                             }
                         }.create().show()
                     }
-                }else if (order.verify!!.equals("2") && order.status.equals("belum melakukan pembayaran")){
+                }else if (order.verify!!.equals("2") && order.status.equals("none")){
                     initPayment(context, order.id.toString(), orderFragmentViewModel)
                     btn_pay.visibility = View.VISIBLE
                     btn_pay.setOnClickListener {
@@ -78,6 +74,14 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
                     }
                 }else if (order.verify!!.equals("2") && order.status.equals("pending")){
                     tv_silahkan_di_bayar.visibility = View.VISIBLE
+                    setOnClickListener {
+                        val url_snap = "https://app.sandbox.midtrans.com/snap/v2/vtweb/${order.snap}"
+                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url_snap)))
+                        //MidtransSDK.getInstance().startPaymentUiFlow(context, order.snap)
+                        /*context.startActivity(Intent(context , DetailMyOrderActivity::class.java).apply {
+                            putExtra("MY_ORDER", order)
+                        })*/
+                    }
                 } else{
                     btn_cancel.visibility = View.GONE
                     btn_pay.visibility = View.GONE
@@ -128,7 +132,6 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
         }
 
         private fun showPayment(context: Context,order_id: String, price: Int, total_seat : Int, destination : String){
-
             val uiKIt = UIKitCustomSetting().apply {
                 isSkipCustomerDetailsPages = true
                 isShowPaymentStatus = true
@@ -160,5 +163,4 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
         orders.addAll(c)
         notifyDataSetChanged()
     }
-
 }

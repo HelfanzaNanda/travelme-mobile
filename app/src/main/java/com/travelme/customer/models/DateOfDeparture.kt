@@ -8,6 +8,5 @@ import kotlinx.android.parcel.Parcelize
 data class DateOfDeparture(
     @SerializedName("id") var id: Int? = null,
     @SerializedName("date") var date: String? = null,
-    //@SerializedName("hour") var hour: HourOfDeparture
-    @SerializedName("hours") var hours: List<HourOfDeparture> = mutableListOf()
+    @SerializedName("departure") var departure : Departure
 ) : Parcelable

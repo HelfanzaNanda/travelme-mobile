@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.maps_activity
 
 import android.app.Activity
 import android.content.Intent
@@ -42,10 +42,10 @@ import retrofit2.Response
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
-    private val REQUEST_CODE_AUTOCOMPLETE = 1;
+    private val REQUEST_CODE_AUTOCOMPLETE = 1
     private lateinit var mapboxMap: MapboxMap
     private val geojsonSourceLayerId = "geojsonSourceLayerId"
-    private val symbolIconId = "symbolIconId";
+    private val symbolIconId = "symbolIconId"
     private val tegal: LatLng = LatLng(-6.879704, 109.125595)
     private var coordinate = LatLng(0.0, 0.0)
     private var marker : MarkerView? = null
@@ -54,14 +54,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Mapbox.getInstance(this@MapsActivity, getString(R.string.map_box_access_token));
+        Mapbox.getInstance(this@MapsActivity, getString(R.string.map_box_access_token))
         setContentView(R.layout.activity_maps)
         mapView.getMapAsync(this)
 
         btn_done_selected_maps.setOnClickListener {
             if (coordinate != LatLng(0.0, 0.0)){
                 val intent = Intent()
-                intent.putExtra("RESULT_MAPS", ResultMaps(coordinate.latitude.toString(), coordinate.longitude.toString(), result_address))
+                intent.putExtra("RESULT_MAPS",
+                    ResultMaps(
+                        coordinate.latitude.toString(),
+                        coordinate.longitude.toString(),
+                        result_address
+                    )
+                )
                 setResult(Activity.RESULT_OK, intent)
                 finish()
             }
@@ -70,7 +76,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(mapboxMap: MapboxMap) {
         this.mapboxMap = mapboxMap
-        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tegal, 8.5));
+        mapboxMap.moveCamera(CameraUpdateFactory.newLatLngZoom(tegal, 8.5))
         markerViewManager = MarkerViewManager(mapView, mapboxMap)
         popup("silahkan search kecamatan dahulu")
         mapboxMap.addOnMapClickListener { point ->
@@ -172,7 +178,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             popup("alamat tidak di temukan")
                         }
                     }else{
-                        toast("body null ${body}")
+                        toast("body null $body")
                     }
                 }else{
                     toast("response is not successfull ${response.message()}")

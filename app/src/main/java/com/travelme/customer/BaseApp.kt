@@ -1,18 +1,17 @@
 package com.travelme.customer
 
 import android.app.Application
-import com.travelme.customer.activities.departure_by_dest_activity.DepartureByDestViewModel
+import com.travelme.customer.activities.hour_activity.HourViewModel
 import com.travelme.customer.activities.login_activity.LoginViewModel
 import com.travelme.customer.activities.order_activity.OrderActivityViewModel
+import com.travelme.customer.activities.owner_activity.OwnerViewModel
 import com.travelme.customer.activities.register_activity.RegisterViewModel
-import com.travelme.customer.fragments.home_fragment.HomeFragment
-import com.travelme.customer.fragments.home_fragment.HomeViewModel
+import com.travelme.customer.fragments.home_fragment.destination_other_fragment.DestinationOtherViewModel
+import com.travelme.customer.fragments.home_fragment.destination_tegal_fragment.DestinationTegalViewModel
 import com.travelme.customer.fragments.notification_fragment.NotificationViewModel
 import com.travelme.customer.fragments.order_fragment.OrderFragmentViewModel
 import com.travelme.customer.fragments.profile_fragment.ProfileViewModel
-import com.travelme.customer.repositories.DepartureRepository
-import com.travelme.customer.repositories.OrderRepository
-import com.travelme.customer.repositories.UserRepository
+import com.travelme.customer.repositories.*
 import com.travelme.customer.webservices.ApiClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -35,19 +34,24 @@ class BaseApp : Application(){
 val retrofitModule = module { single { ApiClient.instance() } }
 
 val repositoryModules = module {
-    factory { DepartureRepository(get()) }
     factory { OrderRepository(get()) }
     factory { UserRepository(get()) }
+    factory { OwnerRepository(get()) }
+    factory { HourRepository(get()) }
 }
 
 val viewModelModules = module {
-    viewModel { DepartureByDestViewModel(get()) }
     viewModel { LoginViewModel(get()) }
-    viewModel { OrderActivityViewModel(get(), get()) }
     viewModel { RegisterViewModel(get()) }
 
-    viewModel { HomeViewModel(get()) }
+    viewModel { HourViewModel(get()) }
+    viewModel { OwnerViewModel(get()) }
+    viewModel { OrderActivityViewModel(get(), get()) }
+
+    viewModel { DestinationOtherViewModel(get()) }
+    viewModel { DestinationTegalViewModel(get()) }
+
     viewModel { OrderFragmentViewModel(get()) }
-    viewModel { ProfileViewModel(get()) }
     viewModel { NotificationViewModel(get()) }
+    viewModel { ProfileViewModel(get()) }
 }

@@ -1,9 +1,6 @@
 package com.travelme.customer.webservices
 
-import com.travelme.customer.models.Car
-import com.travelme.customer.models.Departure
-import com.travelme.customer.models.Order
-import com.travelme.customer.models.User
+import com.travelme.customer.models.*
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.utilities.WrappedListResponse
 import com.travelme.customer.utilities.WrappedResponse
@@ -62,23 +59,27 @@ interface ApiService{
         @Field("password") password : String
     ) : Call<WrappedResponse<User>>
 
-    @GET("destination")
-    fun getDestination(@Header("Authorization") token : String) : Call<WrappedListResponse<Departure>>
 
-
-    @GET("departure/{destination}")
-    fun getDepartureByDest(
-        @Header("Authorization") token : String,
-        @Path("destination") destination: String
-    ) : Call<WrappedListResponse<Departure>>
+    @GET("domicile")
+    fun domicile() : Call<WrappedListResponse<Owner>>
 
     @FormUrlEncoded
-    @POST("departure/search")
-    fun searchDeparture(
-        @Header("Authorization") token: String,
+    @POST("hour")
+    fun searchHours(
+        @Field("from") from : String,
         @Field("destination") destination : String,
         @Field("date") date : String
-    ) : Call<WrappedListResponse<Departure>>
+    ) : Call<WrappedListResponse<HourOfDeparture>>
+
+    @FormUrlEncoded
+    @POST("owner")
+    fun searchOwners(
+        @Field("from") from : String,
+        @Field("destination") destination : String,
+        @Field("date") date : String,
+        @Field("hour") hour : String
+    ) : Call<WrappedListResponse<HourOfDeparture>>
+
 
     @FormUrlEncoded
     @POST("order/store")
@@ -134,5 +135,4 @@ interface ApiService{
         @Field("total_seat") total_seat : Int,
         @Field("date") date : String
     ) : Call<WrappedResponse<Order>>
-
 }

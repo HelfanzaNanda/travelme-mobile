@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.travelme.customer.R
 import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.adapters.MyOrderAdapter
+import com.travelme.customer.extensions.gone
+import com.travelme.customer.extensions.visible
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.fragment_order.view.*
@@ -47,18 +49,18 @@ class OrderFragment : Fragment(R.layout.fragment_order){
 
     private fun initEmptyView(){
         if (orderFragmentViewModel.listenToOrders().value == null || orderFragmentViewModel.listenToOrders().value!!.isEmpty()){
-            view!!.iv_empty_data.visibility = View.VISIBLE
-            view!!.tv_empty_data.visibility = View.VISIBLE
+            view!!.iv_empty_data.visible()
+            view!!.tv_empty_data.visible()
         }else{
-            view!!.iv_empty_data.visibility = View.GONE
-            view!!.tv_empty_data.visibility = View.GONE
+            view!!.iv_empty_data.gone()
+            view!!.tv_empty_data.gone()
         }
     }
 
     private fun handleData(it : List<Order>){
         if (it.isNullOrEmpty()){
-            view!!.iv_empty_data.visibility = View.VISIBLE
-            view!!.tv_empty_data.visibility = View.VISIBLE
+            view!!.iv_empty_data.visible()
+            view!!.tv_empty_data.visible()
         }
         view!!.rv_my_order.adapter?.let {adapter ->
             if (adapter is MyOrderAdapter){
@@ -71,13 +73,11 @@ class OrderFragment : Fragment(R.layout.fragment_order){
         when(it){
             is OrderFragmentState.IsLoading ->{
                 if (it.state){
-                    view!!.iv_empty_data.visibility = View.GONE
-                    view!!.tv_empty_data.visibility = View.GONE
-                    view!!.pb_my_order.isIndeterminate = true
-                    view!!.pb_my_order.visibility = View.VISIBLE
+                    view!!.iv_empty_data.gone()
+                    view!!.tv_empty_data.gone()
+                    view!!.pb_my_order.visible()
                 }else{
-                    view!!.pb_my_order.isIndeterminate = false
-                    view!!.pb_my_order.visibility = View.GONE
+                    view!!.pb_my_order.gone()
                 }
             }
             is OrderFragmentState.ShowToast -> toast(it.message)

@@ -1,21 +1,16 @@
 package com.travelme.customer.activities
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.travelme.customer.R
-import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.fragments.home_fragment.HomeFragment
 import com.travelme.customer.fragments.notification_fragment.NotificationFragment
 import com.travelme.customer.fragments.order_fragment.OrderFragment
 import com.travelme.customer.fragments.profile_fragment.ProfileFragment
-import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {

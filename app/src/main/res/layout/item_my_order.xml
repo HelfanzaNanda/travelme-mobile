@@ -9,7 +9,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -19,14 +20,14 @@
         <View
             android:layout_width="8dp"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark" />
+            android:background="@color/colorAccent" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:id="@+id/tv_name_owner"
                 android:textStyle="bold"
                 android:textSize="18sp"
@@ -34,19 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_marginRight="10dp"
-                android:layout_alignParentRight="true"
-                android:id="@+id/tv_price"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:text="50.000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
             <LinearLayout
                 android:id="@+id/linear_detail"
-                android:layout_marginTop="10dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginLeft="15dp"
                 android:layout_below="@id/tv_name_owner"
@@ -59,6 +49,13 @@
                     android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_order_id"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <TextView
                         android:maxLines="1"
@@ -84,6 +81,14 @@
                     android:layout_height="wrap_content">
 
                     <TextView
+                        android:id="@+id/tv_price"
+                        android:textStyle="bold"
+                        android:textSize="18sp"
+                        android:text="50.000"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
                         android:id="@+id/tv_date"
                         android:textSize="16sp"
                         android:text="2020-05-01"
@@ -96,12 +101,15 @@
                         android:text="19:00"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
+
                 </LinearLayout>
 
             </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                app:cornerRadius="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cornerRadius="8dp"
                 android:id="@+id/btn_cancel"
                 android:visibility="gone"
                 android:backgroundTint="@android:color/holo_red_dark"
@@ -114,12 +122,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:visibility="gone"
-                app:cornerRadius="56dp"
+                android:clickable="true"
+                android:focusable="true"
+                app:cornerRadius="8dp"
                 android:id="@+id/btn_pay"
                 android:backgroundTint="@android:color/holo_green_light"
                 android:layout_marginEnd="10dp"
                 android:layout_alignParentEnd="true"
-                android:text="Lanjutkan Penmbayaran"
+                android:text="Lanjutkan Pembayaran"
                 android:layout_below="@id/linear_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

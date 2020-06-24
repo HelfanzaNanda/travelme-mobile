@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    android:layout_marginBottom="4dp"
+<androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     app:cardCornerRadius="8dp"
-    app:cardElevation="10dp"
-    android:elevation="3dp"
+    android:layout_marginBottom="2dp"
+    app:cardElevation="8dp"
+    android:elevation="2dp"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,10 +26,10 @@
             android:scaleType="centerCrop"
             android:src="@drawable/user"
             android:layout_width="100dp"
-            android:layout_height="100dp"/>
+            android:layout_height="100dp" />
 
         <TextView
-            android:layout_toRightOf="@id/iv_car"
+            android:layout_toEndOf="@id/iv_car"
             android:layout_margin="6dp"
             android:textStyle="bold"
             android:textAllCaps="true"
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content" />
 
         <TextView
-            android:layout_toRightOf="@id/iv_car"
+            android:layout_toEndOf="@id/iv_car"
             android:layout_below="@id/tv_name_owner"
             android:id="@+id/tv_destination"
             android:layout_marginRight="10dp"
@@ -50,11 +51,12 @@
             android:layout_height="wrap_content"/>
 
         <LinearLayout
-            android:layout_toRightOf="@id/iv_car"
+            android:layout_toEndOf="@id/iv_car"
             android:layout_below="@id/tv_destination"
             android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_weight="1"
@@ -79,7 +81,8 @@
                     android:layout_marginLeft="10dp"
                     android:text="Rp.130.000"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="0dp"
+                    tools:ignore="NestedWeights" />
 
 
             </LinearLayout>

@@ -8,107 +8,207 @@
     android:layout_width="match_parent"
     tools:context=".activities.order_activity.OrderActivity">
 
-    <com.google.android.material.card.MaterialCardView
-        app:contentPadding="5dp"
-        android:id="@+id/card_owner"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
+    <ScrollView
         android:layout_width="match_parent"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="8dp">
+        android:layout_height="wrap_content">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
+            app:contentPadding="5dp"
+            android:id="@+id/card_owner"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:orientation="vertical">
-
-
-            <TextView
-                android:textStyle="bold"
-                android:gravity="center_horizontal"
-                android:text="Pesan"
-                android:textSize="28dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-            <View
-                android:background="@android:color/darker_gray"
-                android:layout_height="2dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent" />
-
-
+            app:cardCornerRadius="8dp"
+            app:cardElevation="8dp">
 
             <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
                 android:layout_width="match_parent"
                 android:orientation="vertical">
 
-
-                <TextView
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/tv_name"
-                    android:textSize="18sp"
-                    android:text="Nama Pemesan"
+                <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tip_pickup_location"
-                    android:layout_width="match_parent"
-                    app:errorEnabled="true"
                     android:layout_height="wrap_content">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="textMultiLine"
-                        android:hint="Masukkan Alamat Penjemputan"
-                        android:id="@+id/et_pickup_location"
+                    <TextView
+                        android:layout_weight="2"
+                        android:textStyle="bold"
+                        android:gravity="center_horizontal"
+                        android:text="Pesan"
+                        android:textSize="28sp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tip_destination_location"
-                    android:layout_width="match_parent"
-                    app:errorEnabled="true"
-                    android:layout_height="wrap_content">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:inputType="textMultiLine"
-                        android:hint="Masukkan Alamat Tujuan"
-                        android:id="@+id/et_destination_location"
+                    <TextView
+                        android:gravity="end"
+                        android:layout_weight="1"
+                        android:id="@+id/tv_date"
+                        android:textSize="18sp"
+                        android:text="@string/tanggal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <!--<TextView
-                    android:layout_marginBottom="5dp"
-                    android:id="@+id/tv_pickup_location"
-                    android:textSize="18sp"
-                    android:text="Lokasi Penjemputan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                </LinearLayout>
 
-                <TextView
+                <View
+                    android:background="@android:color/darker_gray"
+                    android:layout_height="2dp"
                     android:layout_marginBottom="5dp"
-                    android:id="@+id/tv_destination_location"
-                    android:textSize="18sp"
-                    android:text="Lokasi Tujuan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>-->
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent" />
 
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:textSize="18sp"
-                    android:text="Tanggal"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+
 
                 <LinearLayout
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/tv_name"
+                        android:textSize="18sp"
+                        android:text="Nama Pemesan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tip_pickup_location"
+                        android:layout_width="match_parent"
+                        app:errorEnabled="true"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="textMultiLine"
+                            android:hint="Masukkan Alamat Penjemputan"
+                            android:id="@+id/et_pickup_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tip_destination_location"
+                        android:layout_width="match_parent"
+                        app:errorEnabled="true"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:inputType="textMultiLine"
+                            android:hint="@string/masukkan_alamat_tujuan"
+                            android:id="@+id/et_destination_location"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <!--<TextView
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/tv_pickup_location"
+                        android:textSize="18sp"
+                        android:text="Lokasi Penjemputan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/tv_destination_location"
+                        android:textSize="18sp"
+                        android:text="Lokasi Tujuan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>-->
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:textSize="18sp"
+                                android:text="Jumlah Kursi"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <LinearLayout
+                                android:orientation="horizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:backgroundTint="@color/colorPrimaryDark"
+                                    android:id="@+id/btn_min_seat"
+                                    android:text="-"
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/txt_seat"
+                                    android:gravity="center_horizontal"
+                                    android:textSize="20sp"
+                                    android:layout_weight="1"
+                                    android:text="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:backgroundTint="@color/colorPrimaryDark"
+                                    android:id="@+id/btn_plus_seat"
+                                    android:text="+"
+                                    android:layout_weight="1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:gravity="end"
+                                android:textSize="18sp"
+                                android:text="Jam Berangkat"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                            <TextView
+                                android:id="@+id/txt_hour"
+                                android:gravity="end"
+                                android:textSize="18sp"
+                                android:text="18:00 WIB"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:background="@android:color/darker_gray"
+                    android:layout_height="2dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent" />
+
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -120,42 +220,35 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:textSize="18sp"
+                            android:textSize="20sp"
+                            android:text="Perjalanan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:text="Harga"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:textSize="20sp"
                             android:text="Jumlah Kursi"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
-                        <LinearLayout
-                            android:orientation="horizontal"
+                        <View
+                            android:background="@android:color/darker_gray"
+                            android:layout_height="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent" />
+
+                        <TextView
+                            android:textSize="20sp"
+                            android:text="Total Harga"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:backgroundTint="@color/colorPrimaryDark"
-                                android:id="@+id/btn_min_seat"
-                                android:text="-"
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                            <TextView
-                                android:id="@+id/txt_seat"
-                                android:gravity="center_horizontal"
-                                android:textSize="20sp"
-                                android:layout_weight="1"
-                                android:text="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                            <com.google.android.material.button.MaterialButton
-                                android:backgroundTint="@color/colorPrimaryDark"
-                                android:id="@+id/btn_plus_seat"
-                                android:text="+"
-                                android:layout_weight="1"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
+                            android:layout_height="wrap_content"/>
 
                     </LinearLayout>
 
@@ -166,17 +259,37 @@
                         android:layout_height="wrap_content">
 
                         <TextView
-                            android:gravity="end"
-                            android:textSize="18sp"
-                            android:text="Jam Berangkat"
+                            android:id="@+id/txt_departure"
+                            android:textSize="20sp"
+                            android:text="hgg"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
                         <TextView
-                            android:id="@+id/txt_hour"
-                            android:gravity="end"
-                            android:textSize="18sp"
-                            android:text="18:00 WIB"
+                            android:id="@+id/txt_price"
+                            android:textSize="20sp"
+                            android:text="Harga"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/txt_total_seat"
+                            android:textSize="20sp"
+                            android:text="Jumlah Kursi"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <View
+                            android:background="@android:color/darker_gray"
+                            android:layout_height="2dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="match_parent" />
+
+                        <TextView
+                            android:id="@+id/txt_total_price"
+                            android:textSize="20sp"
+                            android:text="Total Harga"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
@@ -186,111 +299,14 @@
 
             </LinearLayout>
 
-            <View
-                android:background="@android:color/darker_gray"
-                android:layout_height="2dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_width="match_parent" />
+        </com.google.android.material.card.MaterialCardView>
 
-
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:text="Perjalanan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:text="Harga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:text="Jumlah Kursi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <View
-                        android:background="@android:color/darker_gray"
-                        android:layout_height="2dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent" />
-
-                    <TextView
-                        android:textSize="20sp"
-                        android:text="Total Harga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/txt_departure"
-                        android:textSize="20sp"
-                        android:text="hgg"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/txt_price"
-                        android:textSize="20sp"
-                        android:text="Harga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/txt_total_seat"
-                        android:textSize="20sp"
-                        android:text="Jumlah Kursi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                    <View
-                        android:background="@android:color/darker_gray"
-                        android:layout_height="2dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="5dp"
-                        android:layout_width="match_parent" />
-
-                    <TextView
-                        android:id="@+id/txt_total_price"
-                        android:textSize="20sp"
-                        android:text="Total Harga"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:padding="10dp"
-        app:cornerRadius="56dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:id="@+id/btn_order"
         android:layout_alignParentBottom="true"

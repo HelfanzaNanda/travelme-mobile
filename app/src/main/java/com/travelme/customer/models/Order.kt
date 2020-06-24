@@ -25,6 +25,6 @@ data class Order(
     @SerializedName("status") var status : String? = null,
     @SerializedName("arrived") var arrived : Boolean? = false,
     @SerializedName("done") var done : Boolean? = false,
-    @SerializedName("token") var snap : String? = null
+    @SerializedName("snap_token") var snap : String? = null
 
 ) : Parcelable

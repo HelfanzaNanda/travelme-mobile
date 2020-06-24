@@ -155,8 +155,9 @@
 
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
-        android:padding="10dp"
-        app:cornerRadius="56dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
@@ -167,9 +168,10 @@
         android:layout_height="wrap_content"/>
 
     <com.google.android.material.button.MaterialButton
+        android:clickable="true"
+        android:focusable="true"
+        app:cornerRadius="8dp"
         android:layout_marginBottom="60dp"
-        android:padding="10dp"
-        app:cornerRadius="56dp"
         android:backgroundTint="@color/colorPrimaryDark"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"

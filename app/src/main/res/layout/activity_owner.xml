@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.departure_by_dest_activity.DepartureByDestActivity">
+    tools:context=".activities.owner_activity.OwnerActivity">
 
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_below="@id/pilih_travel"
@@ -89,7 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <Spinner
 
@@ -97,27 +97,27 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_below="@id/linear_search"
+        android:layout_below="@id/pilih_travel"
         android:id="@+id/spinner_sort_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
         android:layout_below="@id/spinner_sort_price"
-        android:id="@+id/rv_car_by_destination"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
-    <ProgressBar
-        android:layout_centerInParent="true"
-        android:id="@+id/pb_departure_by_destination"
+        android:id="@+id/rv_owner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/pb_owner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
     <ImageView
         android:visibility="gone"
-        android:src="@drawable/searching"
+        android:src="@drawable/undraw_empty_street"
         android:layout_centerInParent="true"
         android:id="@+id/iv_empty_data"
         android:layout_width="wrap_content"

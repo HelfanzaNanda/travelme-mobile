@@ -4,6 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:src="@drawable/undraw_empty_street"
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_empty_data"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp" />
 
+    <TextView
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="#26235B"
+        android:textSize="18sp"
+        android:layout_below="@id/iv_empty_data"
+        android:id="@+id/tv_empty_data"
+        android:text="@string/tidak_ada_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

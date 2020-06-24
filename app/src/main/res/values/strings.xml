@@ -18,11 +18,30 @@
     <string name="email_anda">Email Anda</string>
     <string name="nama_anda">Nama Anda</string>
     <string name="info_register">Register</string>
-    <string name="tidak_ada_data">tidak ada data</string>
+    <string name="tidak_ada_data">Yah, Tidak ada data</string>
     <string name="info_app">info_app</string>
     <string name="title_notification">Notification</string>
+    <string name="dari_mana">Dari Mana?</string>
+    <string name="masukkan_alamat_tujuan">Masukkan Alamat Tujuan</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="ini_kontent">ini kontent</string>
     <string-array name="prices">
         <item>Termurah</item>
         <item>Termahal</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>Bandung</item>
+        <item>Bekasi</item>
+        <item>Bogor</item>
+        <item>Jakarta</item>
+        <item>Jogja</item>
+        <item>Magelang</item>
+        <item>Malang</item>
+        <item>Semarang</item>
+        <item>Solo</item>
+        <item>Surabaya</item>
+        <item>Tanggerang</item>
+        <item>Tegal</item>
     </string-array>
 </resources>

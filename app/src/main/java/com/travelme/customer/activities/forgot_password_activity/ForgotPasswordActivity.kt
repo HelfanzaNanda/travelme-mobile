@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.forgot_password_activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

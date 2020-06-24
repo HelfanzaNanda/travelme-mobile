@@ -25,7 +25,8 @@
             android:text="driver sudah sampai lokasi penjemputan anda"
             android:id="@+id/txt_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            tools:ignore="TextViewEdits" />
 
     </LinearLayout>
 

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "620400456174",
+    "firebase_url": "https://travelme-customer.firebaseio.com",
+    "project_id": "travelme-customer",
+    "storage_bucket": "travelme-customer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620400456174:android:5171f994da84e444f55eff",
+        "android_client_info": {
+          "package_name": "com.travelme.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "620400456174-qfjjj0q57j59n661f7g7kk2g36vpnne4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travelme.customer",
+            "certificate_hash": "f7c2760392a7137887b7f30b4be981aba4d9a250"
+          }
+        },
+        {
+          "client_id": "620400456174-s7pmkqdoga2dh26uijngm8cqirgp6f1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaIMsSbonMUrgd2H2goJPf9A2NxWg2Zec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "620400456174-s7pmkqdoga2dh26uijngm8cqirgp6f1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -9,8 +9,7 @@ data class Departure(
     @SerializedName("id") var id: Int? = null,
     @SerializedName("from") var from: String? = null,
     @SerializedName("destination") var destination: String? = null,
-    @SerializedName("photo_destination") var photo_destination: String? = null,
+    @SerializedName("logo") var logo: String? = null,
     @SerializedName("price") var price: Int? = null,
-    @SerializedName("owner") var owner: Owner,
-    @SerializedName("dates") var dates: List<DateOfDeparture> = mutableListOf()
+    @SerializedName("owner") var owner: Owner
 ) : Parcelable

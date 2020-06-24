@@ -1,4 +1,4 @@
-package com.travelme.customer.activities
+package com.travelme.customer.activities.detail_my_order_activity
 
 import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity

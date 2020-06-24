@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
-import com.travelme.customer.activities.UpdateProfileActivity
+import com.travelme.customer.activities.update_profile_activity.UpdateProfileActivity
 import com.travelme.customer.activities.login_activity.LoginActivity
 import com.travelme.customer.models.User
 import com.travelme.customer.utilities.Constants
