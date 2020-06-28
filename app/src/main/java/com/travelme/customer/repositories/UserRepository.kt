@@ -21,10 +21,10 @@ class UserRepository (private val api : ApiService){
                         val token = body.data!!.token
                         result(token, null)
                     }else{
-                        result(null, Error("tidak dapat login"))
+                        result(null, Error("tidak dapat login. pastikan email dan password benar dan sudah di verifikasi"))
                     }
                 }else{
-                    result(null, Error(response.message()))
+                    result(null, Error("login gagal"))
                 }
             }
 

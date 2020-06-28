@@ -31,11 +31,9 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        destinationTegalViewModel.domicile()
         destinationTegalViewModel.listenToState().observer(requireActivity(), Observer {handleUI(it)})
         destinationTegalViewModel.listenToOwners().observe(requireActivity(), Observer { handleData(it) })
 
-        txt_destination.text = "Tegal"
         setDate()
         btn_search.setOnClickListener {
             val date = txt_date.text.toString().trim()
@@ -54,9 +52,9 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
             is DestinationTegalState.ShowToast -> toast(it.message)
             is DestinationTegalState.IsLoading -> {
                 if (it.state){
-                    pb_home.visible()
+                    pb_destination_tegal.visible()
                 }else{
-                    pb_home.gone()
+                    pb_destination_tegal.gone()
                 }
             }
         }
@@ -104,5 +102,10 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
     }
 
     private fun toast(message : String) = Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
+
+    override fun onResume() {
+        super.onResume()
+        destinationTegalViewModel.domicile()
+    }
 
 }

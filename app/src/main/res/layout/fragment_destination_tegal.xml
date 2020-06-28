@@ -52,34 +52,6 @@
                 android:layout_marginBottom="10dp" />
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_location_searching" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Mau Kemana?"
-                    android:textSize="18sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_destination"
-                android:layout_marginStart="36dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:layout_marginBottom="10dp"/>
-
-            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -97,7 +69,6 @@
                     android:layout_height="wrap_content"
                     android:text="Berangkat Kapan?"
                     android:textSize="18sp" />
-
             </LinearLayout>
 
             <TextView
@@ -127,7 +98,7 @@
     <ProgressBar
         android:visibility="gone"
         android:layout_centerInParent="true"
-        android:id="@+id/pb_home"
+        android:id="@+id/pb_destination_tegal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

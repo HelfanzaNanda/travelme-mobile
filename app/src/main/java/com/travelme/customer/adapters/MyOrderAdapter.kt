@@ -41,10 +41,10 @@ class MyOrderAdapter (private var orders : MutableList<Order>,
         @SuppressLint("SetTextI18n")
         fun bind(order: Order, context: Context, orderFragmentViewModel: OrderFragmentViewModel){
             with(itemView){
-                tv_order_id.text = order.order_id
+                tv_order_id.text = "id : ${order.order_id}"
                 tv_name_owner.text = order.owner.business_name
-                tv_hour.text = "${order.hour} WIB"
-                tv_date.text = order.date
+                tv_hour.text = "Jam : ${order.hour} WIB"
+                tv_date.text = "Tanggal : ${order.date}"
                 tv_destination.text = "${order.departure.from} -> ${order.departure.destination}"
                 tv_price.text = Constants.setToIDR(order.total_price!!)
                 tv_total_seat.text = "${order.total_seat} Kursi"

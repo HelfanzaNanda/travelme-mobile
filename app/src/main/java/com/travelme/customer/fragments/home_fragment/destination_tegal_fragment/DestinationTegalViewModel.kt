@@ -24,7 +24,7 @@ class DestinationTegalViewModel (private val ownerRepository: OwnerRepository) :
 
     fun domicile(){
         setLoading()
-        ownerRepository.domicile(){listOwner, error->
+        ownerRepository.domicileForDestinationTegal{listOwner, error->
             hideLoading()
             error?.let { it.message?.let { message->toast(message) } }
             listOwner?.let { owners.postValue(it) }

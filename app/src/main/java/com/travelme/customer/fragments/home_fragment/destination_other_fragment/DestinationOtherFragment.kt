@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
 import com.travelme.customer.activities.hour_activity.HourActivity
-import com.travelme.customer.extensions.gone
 import com.travelme.customer.extensions.visible
 import com.travelme.customer.models.Owner
 import kotlinx.android.synthetic.main.fragment_destination_other.*
@@ -33,11 +32,9 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        destinationOtherViewModel.domicile()
         destinationOtherViewModel.listenToState().observer(requireActivity(), Observer {handleUI(it)})
         destinationOtherViewModel.listenToOwners().observe(requireActivity(), Observer { handleData(it) })
 
-        txt_from.text = "Tegal"
         setDate()
         btn_search.setOnClickListener {
             val date = txt_date.text.toString().trim()
@@ -56,9 +53,9 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
             is DestinationOtherState.ShowToast -> toast(it.message)
             is DestinationOtherState.IsLoading -> {
                 if (it.state){
-                    pb_home.visible()
+                    pb_destination_other.visible()
                 }else{
-                    pb_home.gone()
+                    pb_destination_other.visibility = View.GONE
                 }
             }
         }
@@ -67,25 +64,8 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
     private fun handleData(it : List<Owner>){
         domicilies = it.distinctBy { owner -> owner.domicile }
         domicile = domicilies.map { owner -> owner.domicile!! }
-        //spinnerFrom()
         spinnerDestination()
     }
-
-//    private fun spinnerFrom(){
-//        val adapter = ArrayAdapter(requireActivity(), R.layout.item_spinner, domicile).apply {
-//            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        }
-//        sp_from.adapter = adapter
-//        sp_from.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-//            override fun onNothingSelected(parent: AdapterView<*>?) {
-//            }
-//
-//            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//                from = domicile[position]
-//            }
-//
-//        }
-//    }
 
     private fun spinnerDestination(){
         val adapter = ArrayAdapter(requireActivity(), R.layout.item_spinner, domicile).apply {
@@ -124,5 +104,10 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
     }
 
     private fun toast(message : String) = Toast.makeText(requireActivity(), message, Toast.LENGTH_LONG).show()
+
+    override fun onResume() {
+        super.onResume()
+        destinationOtherViewModel.domicile()
+    }
 
 }

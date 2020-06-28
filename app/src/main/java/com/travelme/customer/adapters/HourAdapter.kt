@@ -1,5 +1,6 @@
 package com.travelme.customer.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -24,9 +25,10 @@ class HourAdapter (private var hours: MutableList<HourOfDeparture>, private var 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) =holder.bind(hours[position], myOnClickListener)
 
     class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
+        @SuppressLint("SetTextI18n")
         fun bind(hour : HourOfDeparture, myOnClickListener: MyOnClickListener){
             with(itemView){
-                txt_hour.text = hour.hour
+                txt_hour.text = "${hour.hour} WIB"
                 setOnClickListener {
                     myOnClickListener.click(hour.hour!!)
                 }

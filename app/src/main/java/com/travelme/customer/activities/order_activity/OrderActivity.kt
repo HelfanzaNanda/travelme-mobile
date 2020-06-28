@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
+import com.travelme.customer.activities.MainActivity
 import com.travelme.customer.activities.maps_activity.MapsActivity
 import com.travelme.customer.activities.maps_activity.ResultMaps
 import com.travelme.customer.extensions.notfocusable
@@ -49,7 +50,6 @@ class OrderActivity : AppCompatActivity() {
         et_destination_location.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_DESTINATION_LOCATION)
         }
-        //tv_destination_location.setOnClickListener { startActivity(Intent(this@OrderActivity, MapsActivity::class.java)) }
     }
 
     @SuppressLint("SetTextI18n")
@@ -103,7 +103,7 @@ class OrderActivity : AppCompatActivity() {
             setMessage(message)
             setPositiveButton("paham") { dialog, _ ->
                 dialog.dismiss()
-                finish()
+                startActivity(Intent(this@OrderActivity, MainActivity::class.java))
             }
         }.show()
     }

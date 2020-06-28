@@ -35,7 +35,7 @@
         android:layout_marginBottom="20dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@id/tv_pilih_jam"
+        android:layout_centerInParent="true"
         android:id="@+id/rv_hour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

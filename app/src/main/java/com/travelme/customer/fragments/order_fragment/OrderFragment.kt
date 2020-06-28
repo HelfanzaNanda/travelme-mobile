@@ -20,8 +20,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrderFragment : Fragment(R.layout.fragment_order){
     private val orderFragmentViewModel : OrderFragmentViewModel by viewModel()
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if (isLoggedIn()){
             view.rv_my_order.apply {
                 layoutManager = LinearLayoutManager(activity)

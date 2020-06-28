@@ -114,17 +114,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_sold_out"
-            android:visibility="gone"
-            android:gravity="center"
-            android:textScaleX="3"
-            android:textSize="50sp"
-            android:text="habis"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
     </RelativeLayout>
 
 

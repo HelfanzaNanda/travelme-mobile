@@ -24,7 +24,7 @@ class DestinationOtherViewModel (private val ownerRepository: OwnerRepository) :
 
     fun domicile(){
         setLoading()
-        ownerRepository.domicile(){listOwner, error->
+        ownerRepository.domicileForDestinationOther{listOwner, error->
             hideLoading()
             error?.let { it.message?.let { message->toast(message) } }
             listOwner?.let { owners.postValue(it) }
@@ -36,6 +36,6 @@ class DestinationOtherViewModel (private val ownerRepository: OwnerRepository) :
 }
 
 sealed class DestinationOtherState{
-    data class IsLoading(var state: Boolean = false) : DestinationOtherState()
+    data class IsLoading(var state : Boolean = false) : DestinationOtherState()
     data class ShowToast(var message: String) : DestinationOtherState()
 }

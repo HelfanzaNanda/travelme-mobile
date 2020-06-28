@@ -1,8 +1,14 @@
 package com.travelme.customer.utilities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class Constants {
@@ -37,6 +43,16 @@ class Constants {
             val localeID = Locale("in", "ID")
             val formatRupiah: NumberFormat = NumberFormat.getCurrencyInstance(localeID)
             return formatRupiah.format(num)
+        }
+
+        @RequiresApi(Build.VERSION_CODES.O)
+        fun changeFormatDate(date : String) : String{
+            val current = LocalDateTime.now()
+
+            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
+            val formatted = current.format(formatter)
+
+            return formatted
         }
     }
 }
