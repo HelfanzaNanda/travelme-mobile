@@ -49,7 +49,8 @@ interface ApiService{
         @Field("name") name : String,
         @Field("email") email : String,
         @Field("password") password : String,
-        @Field("telp") telp : String
+        @Field("telp") telp : String,
+        @Field("fcm_token") fcmToken : String
     ) : Call<WrappedResponse<User>>
 
     @FormUrlEncoded

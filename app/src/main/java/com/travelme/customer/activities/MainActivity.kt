@@ -1,5 +1,8 @@
 package com.travelme.customer.activities
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -14,7 +17,12 @@ import com.travelme.customer.fragments.profile_fragment.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    companion object{ var navStatus = -1 }
+    companion object{
+        var navStatus = -1
+        const val CHANNEL_ID = "travelme-customer"
+        private const val CHANNEL_NAME= "TravelMe"
+        private const val CHANNEL_DESC = "Android FCM"
+    }
     private var fragment : Fragment? = null
 
 
@@ -37,6 +45,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }.show()
         }
+
+        setupNotificationManager()
     }
 
     private val onNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -78,6 +88,15 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.replace(R.id.screen_container, fragment!!)
         fragmentTransaction.commit()
         true
+    }
+
+    private fun setupNotificationManager(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = CHANNEL_DESC
+            val manager = getSystemService(NotificationManager::class.java)
+            manager.createNotificationChannel(channel)
+        }
     }
 
 

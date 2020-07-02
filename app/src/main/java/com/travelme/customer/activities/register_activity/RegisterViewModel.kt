@@ -2,11 +2,14 @@ package com.travelme.customer.activities.register_activity
 
 
 import androidx.lifecycle.ViewModel
+import com.travelme.customer.repositories.FirebaseRepository
 import com.travelme.customer.repositories.UserRepository
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.utilities.SingleLiveEvent
+import retrofit2.Callback
 
-class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(){
+class RegisterViewModel(private val userRepository: UserRepository, private val firebaseRepository: FirebaseRepository)
+    : ViewModel(){
 
     private var state : SingleLiveEvent<RegisterState> = SingleLiveEvent()
 
@@ -15,16 +18,32 @@ class RegisterViewModel(private val userRepository: UserRepository) : ViewModel(
     private fun toast(message: String) { state.value = RegisterState.ShowToast(message) }
     private fun success(message: String) { state.value = RegisterState.Success(message) }
 
+    private fun getFirebaseToken(name: String, email: String, password: String, phone : String){
+        firebaseRepository.getFirebaseToken(){firebaseToken, error ->
+            hideLoading()
+            error?.let { it.message?.let { message-> toast(message) } }
+            firebaseToken?.let {
+                toast(it)
+                userRepository.register(name, email, password, phone, it){resultEmail, err ->
+                    err?.let { it.message?.let { message-> toast(message) } }
+                    resultEmail?.let {result->
+                        success(result)
+                    }
+                }
+            }
+        }
+    }
 
     fun register(name: String, email: String, password: String, phone: String){
         setLoading()
-        userRepository.register(name, email, password, phone){resultEmail, error->
-            hideLoading()
-            error?.let { it.message?.let { message->
-                toast(message)
-            }}
-            resultEmail?.let { success(it) }
-        }
+        getFirebaseToken(name, email, password, phone)
+//        userRepository.register(name, email, password, phone){resultEmail, error->
+//            hideLoading()
+//            error?.let { it.message?.let { message->
+//                toast(message)
+//            }}
+//            resultEmail?.let { success(it) }
+//        }
     }
 
     fun validate(name: String, email: String, password: String, confirmPassword : String, telp : String): Boolean{

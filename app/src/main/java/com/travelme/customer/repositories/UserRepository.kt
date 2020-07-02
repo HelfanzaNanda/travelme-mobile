@@ -31,8 +31,8 @@ class UserRepository (private val api : ApiService){
         })
     }
 
-    fun register(name: String, email: String, password: String, phone: String, result: (String?, Error?) -> Unit){
-        api.register(name, email, password, phone).enqueue(object :
+    fun register(name: String, email: String, password: String, phone: String, fcmToken : String, result: (String?, Error?) -> Unit){
+        api.register(name, email, password, phone, fcmToken).enqueue(object :
             Callback<WrappedResponse<User>> {
             override fun onFailure(call: Call<WrappedResponse<User>>, t: Throwable) {
                 result(null, Error(t.message))

@@ -31,7 +31,10 @@ class BaseApp : Application(){
     }
 }
 
-val retrofitModule = module { single { ApiClient.instance() } }
+val retrofitModule = module {
+    single { ApiClient.instance() }
+    single { FirebaseRepository() }
+}
 
 val repositoryModules = module {
     factory { OrderRepository(get()) }
@@ -42,7 +45,7 @@ val repositoryModules = module {
 
 val viewModelModules = module {
     viewModel { LoginViewModel(get()) }
-    viewModel { RegisterViewModel(get()) }
+    viewModel { RegisterViewModel(get(),get()) }
 
     viewModel { HourViewModel(get()) }
     viewModel { OwnerViewModel(get()) }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "620400456174-5ll1p4cqunol8l5dv57e1npdsgdnrkd0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.travelme.customer",
+            "certificate_hash": "d25ca449be84dbfeb28aa827a67df6abe204c440"
+          }
+        },
+        {
           "client_id": "620400456174-qfjjj0q57j59n661f7g7kk2g36vpnne4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
