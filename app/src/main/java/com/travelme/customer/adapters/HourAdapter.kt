@@ -1,16 +1,12 @@
 package com.travelme.customer.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.travelme.customer.MyOnClickListener
 import com.travelme.customer.R
-import com.travelme.customer.activities.owner_activity.OwnerActivity
 import com.travelme.customer.models.HourOfDeparture
 import kotlinx.android.synthetic.main.item_hour.view.*
 

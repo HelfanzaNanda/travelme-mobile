@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
+import java.util.regex.Pattern
 
 class Constants {
     companion object{
@@ -54,5 +55,7 @@ class Constants {
 
             return formatted
         }
+
+        fun isAlpha(name : String) = Pattern.matches("[a-zA-Z]+", name)
     }
 }

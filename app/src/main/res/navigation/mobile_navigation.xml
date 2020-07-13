@@ -8,25 +8,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.travelme.customer.fragments.home_fragment.HomeFragment"
+        android:name="com.travelme.customer.fragments.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_order"
-        android:name="com.travelme.customer.fragments.order_fragment.OrderFragment"
+        android:name="com.travelme.customer.fragments.order.OrderFragment"
         android:label="@string/title_order"
         tools:layout="@layout/fragment_order" />
 
     <fragment
-        android:id="@+id/navigation_notification"
-        android:name="com.travelme.customer.fragments.notification_fragment.NotificationFragment"
-        android:label="@string/title_notification"
-        tools:layout="@layout/fragment_notification" />
-
-    <fragment
         android:id="@+id/navigation_profile"
-        android:name="com.travelme.customer.fragments.profile_fragment.ProfileFragment"
+        android:name="com.travelme.customer.fragments.profile.ProfileFragment"
         android:label="@string/title_profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>

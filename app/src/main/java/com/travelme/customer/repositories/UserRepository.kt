@@ -24,10 +24,9 @@ class UserRepository (private val api : ApiService){
                         result(null, Error("tidak dapat login. pastikan email dan password benar dan sudah di verifikasi"))
                     }
                 }else{
-                    result(null, Error("login gagal"))
+                    result(null, Error("masukkan email dan password yang benar"))
                 }
             }
-
         })
     }
 
@@ -47,10 +46,9 @@ class UserRepository (private val api : ApiService){
                         result(null, Error("tidak dapat register"))
                     }
                 }else{
-                    result(null, Error(response.message()))
+                    result(null, Error("gagal register, mungkin email sudah pernah di daftarkan"))
                 }
             }
-
         })
     }
 
@@ -73,7 +71,6 @@ class UserRepository (private val api : ApiService){
                     result(null, Error(response.message()))
                 }
             }
-
         })
     }
 }

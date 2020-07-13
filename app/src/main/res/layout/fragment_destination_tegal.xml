@@ -96,7 +96,6 @@
 
 
     <ProgressBar
-        android:visibility="gone"
         android:layout_centerInParent="true"
         android:id="@+id/pb_destination_tegal"
         android:layout_width="match_parent"

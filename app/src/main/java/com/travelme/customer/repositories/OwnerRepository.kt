@@ -11,7 +11,7 @@ import retrofit2.Response
 class OwnerRepository (private val api: ApiService){
 
     fun domicileForDestinationOther(result: (List<Owner>?, Error?)->Unit){
-        api.domicile().enqueue(object : Callback<WrappedListResponse<Owner>>{
+        api.domicileForDestinationOther().enqueue(object : Callback<WrappedListResponse<Owner>>{
             override fun onFailure(call: Call<WrappedListResponse<Owner>>, t: Throwable) {
                 result(null, Error(t.message))
             }
@@ -34,7 +34,7 @@ class OwnerRepository (private val api: ApiService){
     }
 
     fun domicileForDestinationTegal(result: (List<Owner>?, Error?) -> Unit){
-        api.domicile().enqueue(object : Callback<WrappedListResponse<Owner>>{
+        api.domicileForDestinationTegal().enqueue(object : Callback<WrappedListResponse<Owner>>{
             override fun onFailure(call: Call<WrappedListResponse<Owner>>, t: Throwable) {
                 result(null, Error(t.message))
             }

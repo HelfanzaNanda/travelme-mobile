@@ -14,6 +14,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true">
 
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -24,131 +25,148 @@
             android:layout_height="match_parent"
             android:background="@color/colorAccent" />
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_marginStart="10dp"
-                android:id="@+id/tv_name_owner"
-                android:textStyle="bold"
+                android:background="?attr/selectableItemBackground"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
                 android:textSize="18sp"
-                android:text="nama travel"
-                android:layout_width="wrap_content"
+                android:id="@+id/txt_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                android:id="@+id/linear_detail"
-                android:layout_marginRight="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_below="@id/tv_name_owner"
-                android:orientation="horizontal"
+            <RelativeLayout
+                android:id="@+id/linear_layout"
+                android:animateLayoutChanges="true"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/tv_name_owner"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:text="nama travel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
                 <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="vertical"
+                    android:id="@+id/linear_detail"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_below="@id/tv_name_owner"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_order_id"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:maxLines="1"
-                        android:id="@+id/tv_destination"
-                        android:textSize="16sp"
-                        android:text="Tegal -> Semarang"
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:id="@+id/tv_total_seat"
-                        android:maxLines="1"
-                        android:textSize="16sp"
-                        android:text="Jumlah Kursi Pesan "
+                        <TextView
+                            android:id="@+id/tv_order_id"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:maxLines="1"
+                            android:id="@+id/tv_destination"
+                            android:textSize="16sp"
+                            android:text="Tegal -> Semarang"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_total_seat"
+                            android:maxLines="1"
+                            android:textSize="16sp"
+                            android:text="Jumlah Kursi Pesan "
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_price"
+                            android:textStyle="bold"
+                            android:textSize="18sp"
+                            android:text="50.000"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:textSize="16sp"
+                            android:text="2020-05-01"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <TextView
+                            android:id="@+id/tv_hour"
+                            android:textSize="16sp"
+                            android:text="19:00"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <com.google.android.material.button.MaterialButton
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cornerRadius="8dp"
+                    android:id="@+id/btn_cancel"
+                    android:visibility="gone"
+                    android:backgroundTint="@android:color/holo_red_dark"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="cancel"
+                    android:layout_below="@id/linear_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:textStyle="bold"
-                        android:textSize="18sp"
-                        android:text="50.000"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                <com.google.android.material.button.MaterialButton
+                    android:visibility="gone"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:cornerRadius="8dp"
+                    android:id="@+id/btn_pay"
+                    android:backgroundTint="@android:color/holo_green_light"
+                    android:layout_marginEnd="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="Lanjutkan Pembayaran"
+                    android:layout_below="@id/linear_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:textSize="16sp"
-                        android:text="2020-05-01"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                <com.google.android.material.button.MaterialButton
+                    android:layout_marginStart="10dp"
+                    android:layout_below="@id/linear_detail"
+                    android:visibility="gone"
+                    android:text="konfirmasi"
+                    android:id="@+id/btn_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-                    <TextView
-                        android:id="@+id/tv_hour"
-                        android:textSize="16sp"
-                        android:text="19:00"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <com.google.android.material.button.MaterialButton
-                android:clickable="true"
-                android:focusable="true"
-                app:cornerRadius="8dp"
-                android:id="@+id/btn_cancel"
-                android:visibility="gone"
-                android:backgroundTint="@android:color/holo_red_dark"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                android:text="cancel"
-                android:layout_below="@id/linear_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:visibility="gone"
-                android:clickable="true"
-                android:focusable="true"
-                app:cornerRadius="8dp"
-                android:id="@+id/btn_pay"
-                android:backgroundTint="@android:color/holo_green_light"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentEnd="true"
-                android:text="Lanjutkan Pembayaran"
-                android:layout_below="@id/linear_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:visibility="gone"
-                android:id="@+id/tv_silahkan_di_bayar"
-                android:textStyle="bold"
-                android:layout_marginEnd="15dp"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/linear_detail"
-                android:textSize="18sp"
-                android:text="silahkan di bayar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        </RelativeLayout>
+            </RelativeLayout>
+        </LinearLayout>
 
     </LinearLayout>
 

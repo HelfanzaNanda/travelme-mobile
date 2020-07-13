@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.hour_activity.HourActivity">
+    tools:context=".activities.hour.HourActivity">
 
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
@@ -45,5 +45,27 @@
         android:id="@+id/pb_hour"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <ImageView
+        android:visibility="gone"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_undraw_searching_p5ux"
+        android:layout_centerInParent="true"
+        android:id="@+id/iv_empty_data"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp" />
+
+    <TextView
+        android:visibility="gone"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+        android:textColor="#26235B"
+        android:textSize="18sp"
+        android:layout_below="@id/iv_empty_data"
+        android:id="@+id/tv_empty_data"
+        android:text="@string/tidak_ada_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
 
 </RelativeLayout>

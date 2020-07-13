@@ -17,17 +17,17 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".activities.owner_activity.OwnerActivity"></activity>
-        <activity android:name=".activities.hour_activity.HourActivity" />
-        <activity android:name=".activities.forgot_password_activity.ForgotPasswordActivity" />
-        <activity android:name=".activities.maps_activity.MapsActivity" />
-        <activity android:name=".activities.detail_my_order_activity.DetailMyOrderActivity" />
-        <activity android:name=".activities.update_profile_activity.UpdateProfileActivity" />
-        <activity android:name=".activities.login_activity.LoginActivity" />
-        <activity android:name=".activities.register_activity.RegisterActivity" />
-        <activity android:name=".activities.order_activity.OrderActivity" />
+        <activity android:name=".activities.owner.OwnerActivity"></activity>
+        <activity android:name=".activities.hour.HourActivity" />
+        <activity android:name=".activities.forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".activities.maps.MapsActivity" />
+        <activity android:name=".activities.detail_my_order.DetailMyOrderActivity" />
+        <activity android:name=".activities.update_profile.UpdateProfileActivity" />
+        <activity android:name=".activities.login.LoginActivity" />
+        <activity android:name=".activities.register.RegisterActivity" />
+        <activity android:name=".activities.order.OrderActivity" />
         <activity
-            android:name=".activities.detail_owner_activity.DetailOwnerActivity"
+            android:name=".activities.detail_owner.DetailOwnerActivity"
             android:label="@string/title_activity_detail_owner"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

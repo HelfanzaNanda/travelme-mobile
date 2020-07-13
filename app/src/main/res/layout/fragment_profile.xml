@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.login_activity.LoginActivity">
+    tools:context=".activities.login.LoginActivity">
 
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/user" />
+                android:src="@drawable/ic_undraw_male_avatar_323b" />
 
             <LinearLayout
                 android:layout_width="match_parent"

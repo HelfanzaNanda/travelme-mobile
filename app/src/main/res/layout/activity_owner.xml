@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.owner_activity.OwnerActivity">
+    tools:context=".activities.owner.OwnerActivity">
 
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
@@ -34,65 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!--<LinearLayout
-        android:layout_marginEnd="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_below="@id/pilih_travel"
-        android:orientation="horizontal"
-        android:id="@+id/linear_search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.card.MaterialCardView
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
-            android:layout_below="@id/pilih_travel"
-            android:id="@+id/card_search"
-            app:cardElevation="2dp"
-            app:cardCornerRadius="20dp"
-            android:layout_width="170dp"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
-                android:textColorHint="@color/colorPrimaryDark"
-                android:textColor="@color/colorPrimaryDark"
-                android:hint="Mau Pergi Kapan?"
-                android:textStyle="bold"
-                android:textSize="18sp"
-                android:id="@+id/txt_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.button.MaterialButton
-            app:cornerRadius="56dp"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="cari"
-            android:layout_weight="2"
-            android:id="@+id/btn_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.button.MaterialButton
-            app:cornerRadius="56dp"
-            android:layout_marginStart="5dp"
-            android:backgroundTint="@android:color/white"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="reset"
-            android:layout_weight="2"
-            android:id="@+id/btn_reset"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-
-    </LinearLayout>-->
-
     <Spinner
-
         android:layout_marginEnd="10dp"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="10dp"
@@ -117,7 +59,9 @@
 
     <ImageView
         android:visibility="gone"
-        android:src="@drawable/undraw_empty_street"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_undraw_searching_p5ux"
         android:layout_centerInParent="true"
         android:id="@+id/iv_empty_data"
         android:layout_width="wrap_content"

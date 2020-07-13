@@ -15,12 +15,6 @@
         android:title="@string/title_order" />
 
     <item
-        android:id="@+id/navigation_notification"
-        android:icon="@drawable/ic_notifications"
-        android:iconTint="@color/colorSecondary"
-        android:title="@string/title_notification" />
-
-    <item
         android:id="@+id/navigation_profile"
         android:icon="@drawable/ic_profile"
         android:iconTint="@color/colorSecondary"

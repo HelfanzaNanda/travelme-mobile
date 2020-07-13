@@ -22,6 +22,7 @@
     </com.github.florent37.shapeofview.shapes.DiagonalView>
 
     <TextView
+        android:layout_marginBottom="30sp"
         android:textStyle="bold"
         android:id="@+id/tv_pesanan_saya"
         android:layout_marginTop="30sp"
@@ -47,7 +48,9 @@
 
     <ImageView
         android:visibility="gone"
-        android:src="@drawable/undraw_empty_street"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_undraw_searching_p5ux"
         android:layout_centerInParent="true"
         android:id="@+id/iv_empty_data"
         android:layout_width="wrap_content"
@@ -64,5 +67,4 @@
         android:text="@string/tidak_ada_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
 </RelativeLayout>

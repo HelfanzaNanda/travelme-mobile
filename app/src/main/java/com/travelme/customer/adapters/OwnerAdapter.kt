@@ -4,15 +4,13 @@ import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.travelme.customer.R
-import com.travelme.customer.activities.detail_owner_activity.DetailOwnerActivity
+import com.travelme.customer.activities.detail_owner.DetailOwnerActivity
 import com.travelme.customer.models.Car
 import com.travelme.customer.models.HourOfDeparture
 import com.travelme.customer.utilities.Constants

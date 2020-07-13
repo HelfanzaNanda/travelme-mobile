@@ -10,10 +10,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.travelme.customer.R
-import com.travelme.customer.fragments.home_fragment.HomeFragment
-import com.travelme.customer.fragments.notification_fragment.NotificationFragment
-import com.travelme.customer.fragments.order_fragment.OrderFragment
-import com.travelme.customer.fragments.profile_fragment.ProfileFragment
+import com.travelme.customer.fragments.home.HomeFragment
+import com.travelme.customer.fragments.order.OrderFragment
+import com.travelme.customer.fragments.profile.ProfileFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -64,17 +63,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            R.id.navigation_notification -> {
-                if(navStatus != 2){
-                    fragment = NotificationFragment()
-                    navStatus = 2
-                }
-            }
-
             R.id.navigation_profile -> {
-                if(navStatus != 3){
+                if(navStatus != 2){
                     fragment = ProfileFragment()
-                    navStatus = 3
+                    navStatus = 2
                 }
             }
         }
@@ -98,7 +90,6 @@ class MainActivity : AppCompatActivity() {
             manager.createNotificationChannel(channel)
         }
     }
-
 
 
     private fun toast(message: String) = Toast.makeText(this, message, Toast.LENGTH_LONG).show()

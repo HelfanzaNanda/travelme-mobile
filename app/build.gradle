@@ -83,6 +83,4 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'
     // implementation 'com.github.AppIntro:AppIntro:6.0.0-alpha3'
-
-
 }

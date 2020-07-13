@@ -61,8 +61,12 @@ interface ApiService{
     ) : Call<WrappedResponse<User>>
 
 
-    @GET("domicile")
-    fun domicile() : Call<WrappedListResponse<Owner>>
+    @GET("domicile/destination/other")
+    fun domicileForDestinationOther() : Call<WrappedListResponse<Owner>>
+
+
+    @GET("domicile/destination/tegal")
+    fun domicileForDestinationTegal() : Call<WrappedListResponse<Owner>>
 
     @FormUrlEncoded
     @POST("hour")
@@ -105,6 +109,12 @@ interface ApiService{
 
     @GET("order/{id}/cancel")
     fun cancelorder(
+        @Header("Authorization") token : String,
+        @Path("id") id : Int
+    ) : Call<WrappedResponse<Order>>
+
+    @GET("order/{id}/confirm")
+    fun confirmOrder(
         @Header("Authorization") token : String,
         @Path("id") id : Int
     ) : Call<WrappedResponse<Order>>

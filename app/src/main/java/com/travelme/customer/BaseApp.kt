@@ -1,16 +1,15 @@
 package com.travelme.customer
 
 import android.app.Application
-import com.travelme.customer.activities.hour_activity.HourViewModel
-import com.travelme.customer.activities.login_activity.LoginViewModel
-import com.travelme.customer.activities.order_activity.OrderActivityViewModel
-import com.travelme.customer.activities.owner_activity.OwnerViewModel
-import com.travelme.customer.activities.register_activity.RegisterViewModel
-import com.travelme.customer.fragments.home_fragment.destination_other_fragment.DestinationOtherViewModel
-import com.travelme.customer.fragments.home_fragment.destination_tegal_fragment.DestinationTegalViewModel
-import com.travelme.customer.fragments.notification_fragment.NotificationViewModel
-import com.travelme.customer.fragments.order_fragment.OrderFragmentViewModel
-import com.travelme.customer.fragments.profile_fragment.ProfileViewModel
+import com.travelme.customer.activities.hour.HourViewModel
+import com.travelme.customer.activities.login.LoginViewModel
+import com.travelme.customer.activities.order.OrderActivityViewModel
+import com.travelme.customer.activities.owner.OwnerViewModel
+import com.travelme.customer.activities.register.RegisterViewModel
+import com.travelme.customer.fragments.home.destination_other_fragment.DestinationOtherViewModel
+import com.travelme.customer.fragments.home.destination_tegal_fragment.DestinationTegalViewModel
+import com.travelme.customer.fragments.order.OrderFragmentViewModel
+import com.travelme.customer.fragments.profile.ProfileViewModel
 import com.travelme.customer.repositories.*
 import com.travelme.customer.webservices.ApiClient
 import org.koin.android.ext.koin.androidContext
@@ -55,6 +54,5 @@ val viewModelModules = module {
     viewModel { DestinationTegalViewModel(get()) }
 
     viewModel { OrderFragmentViewModel(get()) }
-    viewModel { NotificationViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
 }
