@@ -13,3 +13,9 @@ data class Departure(
     @SerializedName("price") var price: Int? = null,
     @SerializedName("owner") var owner: Owner
 ) : Parcelable
+
+@Parcelize
+data class Destination(
+    @SerializedName("destination") var destination: String? = null
+) : Parcelable
+

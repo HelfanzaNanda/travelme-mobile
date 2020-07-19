@@ -2,12 +2,15 @@ package com.travelme.customer.fragments.home.destination_tegal_fragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.travelme.customer.models.Destination
 import com.travelme.customer.models.Owner
+import com.travelme.customer.repositories.DepartureRepository
 import com.travelme.customer.repositories.OwnerRepository
+import com.travelme.customer.utilities.ArrayResponse
 import com.travelme.customer.utilities.SingleLiveEvent
 
-class DestinationTegalViewModel (private val ownerRepository: OwnerRepository) : ViewModel(){
-    private val owners = MutableLiveData<List<Owner>>()
+class DestinationTegalViewModel (private val departureRepository: DepartureRepository) : ViewModel(){
+    private val destinations = MutableLiveData<List<Destination>>()
     private var state: SingleLiveEvent<DestinationTegalState> = SingleLiveEvent()
 
     private fun setLoading() { state.value = DestinationTegalState.IsLoading(true) }
@@ -24,15 +27,22 @@ class DestinationTegalViewModel (private val ownerRepository: OwnerRepository) :
 
     fun domicile(){
         setLoading()
-        ownerRepository.domicileForDestinationTegal{listOwner, error->
-            hideLoading()
-            error?.let { it.message?.let { message->toast(message) } }
-            listOwner?.let { owners.postValue(it) }
-        }
+        departureRepository.fetchDestination(object : ArrayResponse<Destination> {
+            override fun onSuccess(datas: List<Destination>?) {
+                hideLoading()
+                datas?.let { destinations.postValue(it) }
+            }
+
+            override fun onFailure(err: Error?) {
+                hideLoading()
+                err?.let { toast(it.message.toString()) }
+            }
+
+        })
     }
 
     fun listenToState() = state
-    fun listenToOwners() = owners
+    fun listenToDestinations() = destinations
 }
 
 sealed class DestinationTegalState{

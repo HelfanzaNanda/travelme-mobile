@@ -40,6 +40,7 @@ val repositoryModules = module {
     factory { UserRepository(get()) }
     factory { OwnerRepository(get()) }
     factory { HourRepository(get()) }
+    factory { DepartureRepository(get()) }
 }
 
 val viewModelModules = module {

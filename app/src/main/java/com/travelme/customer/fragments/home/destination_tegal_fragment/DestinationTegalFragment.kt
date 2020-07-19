@@ -13,6 +13,7 @@ import com.travelme.customer.R
 import com.travelme.customer.activities.hour.HourActivity
 import com.travelme.customer.extensions.gone
 import com.travelme.customer.extensions.visible
+import com.travelme.customer.models.Destination
 import com.travelme.customer.models.Owner
 import kotlinx.android.synthetic.main.fragment_destination_tegal.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,8 +24,7 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
     private val destinationTegalViewModel : DestinationTegalViewModel by viewModel()
 
     private lateinit var from : String
-    private lateinit var destination : String
-    private lateinit var domicilies : List<Owner>
+    private lateinit var destinations : List<Destination>
     private lateinit var domicile : List<String>
 
 
@@ -32,7 +32,7 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
         super.onViewCreated(view, savedInstanceState)
 
         destinationTegalViewModel.listenToState().observer(requireActivity(), Observer {handleUI(it)})
-        destinationTegalViewModel.listenToOwners().observe(requireActivity(), Observer { handleData(it) })
+        destinationTegalViewModel.listenToDestinations().observe(requireActivity(), Observer { handleData(it) })
 
         setDate()
         btn_search.setOnClickListener {
@@ -60,9 +60,9 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
         }
     }
 
-    private fun handleData(it : List<Owner>){
-        domicilies = it.distinctBy { owner -> owner.domicile }
-        domicile = domicilies.map { owner -> owner.domicile!! }
+    private fun handleData(it : List<Destination>){
+        destinations = it.distinctBy { destination -> destination.destination }
+        domicile = destinations.map { destination -> destination.destination!! }
         spinnerFrom()
     }
 
@@ -97,7 +97,9 @@ class DestinationTegalFragment : Fragment(R.layout.fragment_destination_tegal){
             DatePickerDialog(requireActivity(), dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH)).apply {
+                datePicker.minDate = cal.timeInMillis
+            }.show()
         }
     }
 

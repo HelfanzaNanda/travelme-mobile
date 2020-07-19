@@ -14,6 +14,7 @@ import com.travelme.customer.R
 import com.travelme.customer.activities.hour.HourActivity
 import com.travelme.customer.extensions.gone
 import com.travelme.customer.extensions.visible
+import com.travelme.customer.models.Destination
 import com.travelme.customer.models.Owner
 import kotlinx.android.synthetic.main.fragment_destination_other.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,7 +25,7 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
 
     private val destinationOtherViewModel : DestinationOtherViewModel by viewModel()
     private lateinit var destination : String
-    private lateinit var domicilies : List<Owner>
+    private lateinit var domicilies : List<Destination>
     private lateinit var domicile : List<String>
 
     @SuppressLint("SetTextI18n")
@@ -32,7 +33,7 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
         super.onViewCreated(view, savedInstanceState)
 
         destinationOtherViewModel.listenToState().observer(requireActivity(), Observer {handleUI(it)})
-        destinationOtherViewModel.listenToOwners().observe(requireActivity(), Observer { handleData(it) })
+        destinationOtherViewModel.listenToDestinations().observe(requireActivity(), Observer { handleData(it) })
 
         setDate()
         requireView().btn_search?.setOnClickListener {
@@ -62,9 +63,9 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
         }
     }
 
-    private fun handleData(it : List<Owner>){
-        domicilies = it.distinctBy { owner -> owner.domicile }
-        domicile = domicilies.map { owner -> owner.domicile!! }
+    private fun handleData(it : List<Destination>){
+        domicilies = it.distinctBy { destination -> destination.destination }
+        domicile = domicilies.map { destination -> destination.destination!! }
         spinnerDestination()
     }
 
@@ -93,11 +94,14 @@ class DestinationOtherFragment : Fragment(R.layout.fragment_destination_other){
             val simpleDateFormat = SimpleDateFormat(myFormat, Locale.US)
             requireView().txt_date.text = simpleDateFormat.format(cal.time)
         }
+
         requireView().label_date.setOnClickListener {
             DatePickerDialog(requireActivity(), dateSetListener,
                 cal.get(Calendar.YEAR),
                 cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)).show()
+                cal.get(Calendar.DAY_OF_MONTH)).apply {
+                datePicker.minDate = cal.timeInMillis
+            }.show()
         }
     }
 

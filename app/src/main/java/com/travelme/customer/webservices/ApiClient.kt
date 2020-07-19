@@ -61,12 +61,9 @@ interface ApiService{
     ) : Call<WrappedResponse<User>>
 
 
-    @GET("domicile/destination/other")
-    fun domicileForDestinationOther() : Call<WrappedListResponse<Owner>>
+    @GET("domicile")
+    fun destination() : Call<WrappedListResponse<Destination>>
 
-
-    @GET("domicile/destination/tegal")
-    fun domicileForDestinationTegal() : Call<WrappedListResponse<Owner>>
 
     @FormUrlEncoded
     @POST("hour")
