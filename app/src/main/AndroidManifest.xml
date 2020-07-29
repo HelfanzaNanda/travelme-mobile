@@ -8,6 +8,7 @@
     <application
         android:name=".BaseApp"
         android:allowBackup="true"
+        android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_travelme"
         android:label="@string/app_name"
@@ -16,8 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
-        <activity android:name=".activities.owner.OwnerActivity"></activity>
+        tools:replace="android:allowBackup"
+        tools:targetApi="m">
+        <activity android:name=".activities.owner.OwnerActivity"/>
         <activity android:name=".activities.hour.HourActivity" />
         <activity android:name=".activities.forgot_password.ForgotPasswordActivity" />
         <activity android:name=".activities.maps.MapsActivity" />

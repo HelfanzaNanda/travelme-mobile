@@ -4,6 +4,7 @@ import com.travelme.customer.models.*
 import com.travelme.customer.utilities.Constants
 import com.travelme.customer.utilities.WrappedListResponse
 import com.travelme.customer.utilities.WrappedResponse
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -60,6 +61,26 @@ interface ApiService{
         @Field("password") password : String
     ) : Call<WrappedResponse<User>>
 
+    @FormUrlEncoded
+    @POST("user/profile/update")
+    fun updateProfile(
+        @Header("Authorization") token : String,
+        @Field("name") name : String,
+        @Field("password") password : String
+    ) : Call<WrappedResponse<User>>
+
+    @Multipart
+    @POST("user/profile/update/photo")
+    fun updatePhotoProfile(
+        @Header("Authorization") token : String,
+        @Part image : MultipartBody.Part
+    ) :Call<WrappedResponse<User>>
+
+    @FormUrlEncoded
+    @POST("user/password/email")
+    fun forgotPassword(
+        @Field("email") email : String
+    ) :Call<WrappedResponse<User>>
 
     @GET("domicile")
     fun destination() : Call<WrappedListResponse<Destination>>

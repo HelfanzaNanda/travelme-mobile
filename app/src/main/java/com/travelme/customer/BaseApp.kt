@@ -1,11 +1,13 @@
 package com.travelme.customer
 
 import android.app.Application
+import com.travelme.customer.activities.forgot_password.ForgotPasswordViewModel
 import com.travelme.customer.activities.hour.HourViewModel
 import com.travelme.customer.activities.login.LoginViewModel
 import com.travelme.customer.activities.order.OrderActivityViewModel
 import com.travelme.customer.activities.owner.OwnerViewModel
 import com.travelme.customer.activities.register.RegisterViewModel
+import com.travelme.customer.activities.update_profile.UpdateProfilViewModel
 import com.travelme.customer.fragments.home.destination_other_fragment.DestinationOtherViewModel
 import com.travelme.customer.fragments.home.destination_tegal_fragment.DestinationTegalViewModel
 import com.travelme.customer.fragments.order.OrderFragmentViewModel
@@ -56,4 +58,6 @@ val viewModelModules = module {
 
     viewModel { OrderFragmentViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
+    viewModel { UpdateProfilViewModel(get()) }
+    viewModel { ForgotPasswordViewModel(get()) }
 }

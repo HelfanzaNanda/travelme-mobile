@@ -62,6 +62,8 @@ class OrderRepository (private val api : ApiService){
     }
 
     fun canceloroder(token: String, id : String, result: (Boolean, Error?) -> Unit){
+        println(token)
+        println(id)
         api.cancelorder(token, id.toInt()).enqueue(object : Callback<WrappedResponse<Order>> {
             override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) = result(false, Error(t.message))
 
@@ -69,6 +71,7 @@ class OrderRepository (private val api : ApiService){
                 if (response.isSuccessful){
                     val body = response.body()
                     if (body?.status!!){
+                        println(body)
                         result(true, null)
                     }else{
                         result(false, Error(body.message))

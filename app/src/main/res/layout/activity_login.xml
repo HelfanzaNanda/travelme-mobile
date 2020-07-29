@@ -47,7 +47,7 @@
                 android:layout_marginBottom="10dp"
                 android:id="@+id/txt_login"
                 android:textStyle="bold"
-                android:textSize="28dp"
+                android:textSize="28sp"
                 android:text="Login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -87,6 +87,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/txt_forgot_password"
                 android:layout_marginBottom="20dp"
                 android:textStyle="bold"
                 android:gravity="end"

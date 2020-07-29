@@ -33,24 +33,39 @@ class OrderActivity : AppCompatActivity() {
     private var lngDestinationLocation : String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
         //supportActionBar?.hide()
-
-        orderActivityViewModel.listenToUser().observe(this, Observer { setUser(it) })
-        orderActivityViewModel.getUserLogin(Constants.getToken(this@OrderActivity))
-        orderActivityViewModel.listenToState().observer(this, Observer { handleUI(it) })
+        observe()
         btn_order.setOnClickListener { order() }
+        pickupLocationOnClick()
+        destinationLocatinOnClick()
+        fetchUserWhoLoggedIn()
+    }
+
+    private fun pickupLocationOnClick(){
         et_pickup_location.notfocusable()
         et_pickup_location.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_PICKUP_LOCATION)
         }
+    }
+
+    private fun destinationLocatinOnClick(){
         et_destination_location.notfocusable()
         et_destination_location.setOnClickListener {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_DESTINATION_LOCATION)
         }
     }
+
+    private fun observe() {
+        observeState()
+        observeUser()
+    }
+
+
+    private fun observeUser() = orderActivityViewModel.listenToUser().observe(this, Observer { setUser(it) })
+    private fun observeState() = orderActivityViewModel.listenToState().observer(this, Observer { handleUI(it) })
+    private fun fetchUserWhoLoggedIn() = orderActivityViewModel.getUserLogin(Constants.getToken(this@OrderActivity))
 
     @SuppressLint("SetTextI18n")
     private fun setUser(it : User){
@@ -58,10 +73,8 @@ class OrderActivity : AppCompatActivity() {
             tv_name.text = "Nama Pemesan : ${it.name}"
             tv_date.text = "Tanggal : ${getPassedHourDeparture()?.date!!.date}"
             txt_hour.text = getPassedHourDeparture()?.hour
-            txt_departure.text =
-                "${getPassedHourDeparture()?.date!!.departure.from} -> ${getPassedHourDeparture()?.date!!.departure.destination}"
-            txt_price.text =
-                Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price!!.toInt())
+            txt_departure.text = "${getPassedHourDeparture()?.date!!.departure.from} -> ${getPassedHourDeparture()?.date!!.departure.destination}"
+            txt_price.text = Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price!!.toInt())
             totalSeat()
         }
     }
@@ -137,27 +150,38 @@ class OrderActivity : AppCompatActivity() {
     }
 
     private fun toast(message: String) = Toast.makeText(this@OrderActivity, message, Toast.LENGTH_SHORT).apply {
-            setGravity(Gravity.CENTER, 0, 0)
-            show()
-        }
+        setGravity(Gravity.CENTER, 0, 0)
+        show()
+    }
 
     private fun setPickupPointError(err : String?){ tip_pickup_location.error = err }
     private fun setDestinationPointError(err : String?){ tip_destination_location.error = err }
 
+    private fun onPickupLocationOnReturned(data : Intent?){
+        data?.let {
+            et_pickup_location.setText(getPassedResultMaps(it)!!.address)
+            pickupPoint = getPassedResultMaps(it)!!.address
+            latPickupLocation = getPassedResultMaps(it)!!.lat
+            lngPickupLocation = getPassedResultMaps(it)!!.lng
+        }
+    }
+
+    private fun onDestinationOnReturned(data: Intent?){
+        data?.let {
+            et_destination_location.setText(getPassedResultMaps(it)!!.address)
+            destinationPoint = getPassedResultMaps(it)!!.address
+            latDestinationLocation = getPassedResultMaps(data)!!.lat
+            lngDestinationLocation = getPassedResultMaps(data)!!.lng
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICKUP_LOCATION && data != null){
-            et_pickup_location.setText(getPassedResultMaps(data)!!.address)
-            pickupPoint = getPassedResultMaps(data)!!.address
-            latPickupLocation = getPassedResultMaps(data)!!.lat
-            lngPickupLocation = getPassedResultMaps(data)!!.lng
-
+            onPickupLocationOnReturned(data)
         }
         if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_DESTINATION_LOCATION && data != null){
-            et_destination_location.setText(getPassedResultMaps(data)!!.address)
-            destinationPoint = getPassedResultMaps(data)!!.address
-            latDestinationLocation = getPassedResultMaps(data)!!.lat
-            lngDestinationLocation = getPassedResultMaps(data)!!.lng
+            onDestinationOnReturned(data)
         }
     }
 

@@ -8,10 +8,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-interface DepartureContract{
+interface DepartureContract {
     fun fetchDestination(listener : ArrayResponse<Destination>)
 }
-class DepartureRepository (private val api : ApiService) : DepartureContract{
+class DepartureRepository (private val api : ApiService) : DepartureContract {
     override fun fetchDestination(listener: ArrayResponse<Destination>) {
         api.destination().enqueue(object : Callback<WrappedListResponse<Destination>>{
             override fun onFailure(call: Call<WrappedListResponse<Destination>>, t: Throwable) {

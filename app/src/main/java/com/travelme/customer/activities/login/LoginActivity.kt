@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
 import com.travelme.customer.activities.MainActivity
+import com.travelme.customer.activities.forgot_password.ForgotPasswordActivity
 import com.travelme.customer.activities.register.RegisterActivity
 import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.activity_login.*
@@ -21,7 +22,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
-        
+
+        txt_forgot_password.setOnClickListener {startActivity(Intent(this, ForgotPasswordActivity::class.java)) }
         
         loginViewModel.listenToState().observer(this@LoginActivity, Observer { handleUI(it) })
         doLogin()

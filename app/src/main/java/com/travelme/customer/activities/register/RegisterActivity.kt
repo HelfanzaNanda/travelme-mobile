@@ -63,11 +63,10 @@ class RegisterActivity : AppCompatActivity() {
             is RegisterState.IsLoading -> {
                 if (it.state){
                     pb_register.visible()
-                    btn_register.isEnabled = false
                 }else{
-                    btn_register.isEnabled = true
                     pb_register.gone()
                 }
+                btn_register.isEnabled = !it.state
             }
             is RegisterState.Success -> success(it.message)
         }

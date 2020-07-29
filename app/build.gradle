@@ -23,7 +23,7 @@ android {
         sandBox {
             applicationId "com.travelme.customer"
             buildConfigField "String", "CLIENT_KEY", '"SB-Mid-client-7K--shtrxuEafxZp"'
-            buildConfigField "String", "SNAP_TOKEN", '"https://travelme-project.herokuapp.com/"'
+            buildConfigField "String", "SNAP_TOKEN", '"https://travelme.tugas-akhir.com/"'
         }
     }
     buildTypes {
@@ -83,4 +83,14 @@ dependencies {
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-places-v9:0.12.0'
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-markerview-v9:0.4.0'
     // implementation 'com.github.AppIntro:AppIntro:6.0.0-alpha3'
+
+    testImplementation "org.koin:koin-test:2.0.1"
+    androidTestImplementation "org.koin:koin-test:2.0.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+
+    //implementation  'com.fxn769:pix:1.5.3'
 }

@@ -76,6 +76,7 @@
                         android:layout_height="wrap_content"/>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:id="@+id/tip_pickup_location"
                         android:layout_width="match_parent"
                         app:errorEnabled="true"
@@ -91,6 +92,7 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                         android:id="@+id/tip_destination_location"
                         android:layout_width="match_parent"
                         app:errorEnabled="true"

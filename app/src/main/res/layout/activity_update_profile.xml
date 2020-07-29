@@ -24,20 +24,21 @@
     </com.github.florent37.shapeofview.shapes.DiagonalView>
 
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/img_user"
-        android:layout_above="@id/card_profile"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/ic_undraw_male_avatar_323b"
-        android:layout_width="96dp"
-        android:layout_height="96dp" />
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/img_user"-->
+<!--        android:layout_above="@id/card_profile"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:src="@drawable/ic_undraw_male_avatar_323b"-->
+<!--        android:layout_width="96dp"-->
+<!--        android:layout_height="96dp" />-->
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_alignBottom="@id/img_user"
-        android:layout_alignEnd="@id/img_user"
-        android:src="@drawable/ic_camera"
-        android:layout_width="30dp"
-        android:layout_height="30dp"/>
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/img_change_image"-->
+<!--        android:layout_alignBottom="@id/img_user"-->
+<!--        android:layout_alignEnd="@id/img_user"-->
+<!--        android:src="@drawable/ic_camera"-->
+<!--        android:layout_width="30dp"-->
+<!--        android:layout_height="30dp"/>-->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/card_profile"
@@ -66,11 +67,12 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_name"
                 app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:textSize="18sp"
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -78,13 +80,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:id="@+id/til_email"
                 app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:focusableInTouchMode="false"
+                    android:textSize="18sp"
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -92,13 +96,17 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                app:passwordToggleEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:id="@+id/til_password"
+                android:hint="Masukkan Password Anda"
                 app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:inputType="textPassword"
+                    android:textSize="18sp"
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -108,11 +116,13 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/til_telp"
                 app:errorEnabled="true"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:focusableInTouchMode="false"
+                    android:textSize="18sp"
                     android:id="@+id/et_telp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -120,6 +130,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_update"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="update"
                 android:layout_margin="10dp"

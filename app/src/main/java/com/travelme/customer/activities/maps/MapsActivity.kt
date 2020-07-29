@@ -33,6 +33,7 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 import com.travelme.customer.R
+import com.travelme.customer.extensions.gone
 import com.travelme.customer.extensions.visible
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.synthetic.main.activity_maps.*
@@ -55,23 +56,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Mapbox.getInstance(this@MapsActivity, getString(R.string.map_box_access_token))
+        supportActionBar?.hide()
         setContentView(R.layout.activity_maps)
         mapView.getMapAsync(this)
 
-        btn_done_selected_maps.setOnClickListener {
-            if (coordinate != LatLng(0.0, 0.0)){
-                val intent = Intent()
-                intent.putExtra("RESULT_MAPS",
-                    ResultMaps(
-                        coordinate.latitude.toString(),
-                        coordinate.longitude.toString(),
-                        result_address
-                    )
-                )
-                setResult(Activity.RESULT_OK, intent)
-                finish()
-            }
-        }
+//        btn_done_selected_maps.setOnClickListener {
+//            if (coordinate != LatLng(0.0, 0.0)){
+//                val intent = Intent()
+//                intent.putExtra("RESULT_MAPS",
+//                    ResultMaps(
+//                        coordinate.latitude.toString(),
+//                        coordinate.longitude.toString(),
+//                        result_address
+//                    )
+//                )
+//                setResult(Activity.RESULT_OK, intent)
+//                finish()
+//            }
+//        }
     }
 
     override fun onMapReady(mapboxMap: MapboxMap) {
@@ -87,8 +89,24 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             }
             marker = MarkerView(point, imageView)
             markerViewManager?.addMarker(marker!!)
-
+            coordinate = LatLng(point.latitude, point.longitude)
+//                point.latitude
+//                LatLng(point.geometry() as Point).latitude(), (point.geometry() as Point).longitude())
             reverseGeocode(Point.fromLngLat(point.longitude, point.latitude))
+            btn_done_selected_maps.setOnClickListener {
+                if (coordinate != LatLng(0.0, 0.0)){
+                    val intent = Intent()
+                    intent.putExtra("RESULT_MAPS",
+                        ResultMaps(
+                            coordinate.latitude.toString(),
+                            coordinate.longitude.toString(),
+                            result_address
+                        )
+                    )
+                    setResult(Activity.RESULT_OK, intent)
+                    finish()
+                }
+            }
             true
         }
         mapboxMap.setStyle(Style.MAPBOX_STREETS) {
@@ -135,7 +153,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (style != null) {
                 val source = style.getSourceAs<GeoJsonSource>(geojsonSourceLayerId)
                 source?.setGeoJson(FeatureCollection.fromFeatures(arrayOf(Feature.fromJson(selectedPoint.toJson()))))
-                coordinate = LatLng((selectedPoint.geometry() as Point).latitude(), (selectedPoint.geometry() as Point).longitude())
+                //coordinate = LatLng((selectedPoint.geometry() as Point).latitude(), (selectedPoint.geometry() as Point).longitude())
 
                 mapboxMap.animateCamera(
                     CameraUpdateFactory.newCameraPosition(
@@ -175,6 +193,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 btn_done_selected_maps.visible()
                             }
                         }else{
+                            btn_done_selected_maps.gone()
                             popup("alamat tidak di temukan")
                         }
                     }else{

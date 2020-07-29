@@ -20,7 +20,7 @@ class OwnerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_owner)
-
+        supportActionBar?.hide()
         rv_owner.apply {
             adapter = OwnerAdapter(mutableListOf(), this@OwnerActivity)
             layoutManager = LinearLayoutManager(this@OwnerActivity)

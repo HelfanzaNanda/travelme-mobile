@@ -31,7 +31,7 @@ class OwnerAdapter (private var hours : MutableList<HourOfDeparture>, private va
         fun bind(hour : HourOfDeparture, context: Context){
             with(itemView){
                 tv_name_owner.text = hour.date.departure.owner.business_name
-                iv_car.load(hour.date.departure.owner.cars.joinToString { car -> car.photo.toString() })
+                iv_car.load(hour.date.departure.owner.cars[0].photo)
                 tv_destination.text = "${hour.date.departure.from} -> ${hour.date.departure.destination}"
                 tv_price.text = Constants.setToIDR(hour.date.departure.price!!)
                 tv_date.text = hour.date.date!!

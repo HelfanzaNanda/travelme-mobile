@@ -96,18 +96,13 @@ class MyOrderAdapter(
                     btn_confirm.gone()
                     btn_pay.visible()
                     btn_pay.setOnClickListener {
-                        AlertDialog.Builder(context).apply {
-                            setMessage("jangan lupa screenshot id pembayaran")
-                            setPositiveButton("oke") { _, _ ->
-                                showPayment(
-                                    context,
-                                    order.id.toString(),
-                                    order.price!!,
-                                    order.total_seat!!,
-                                    order.departure.destination!!
-                                )
-                            }
-                        }.create().show()
+                        showPayment(
+                            context,
+                            order.id.toString(),
+                            order.price!!,
+                            order.total_seat!!,
+                            order.departure.destination!!
+                        )
                     }
                 } else if (order.verify!!.equals("2") && order.status.equals("pending")) {
                     txt_content.text = "silahkan di bayar"
@@ -120,11 +115,29 @@ class MyOrderAdapter(
                             putExtra("MY_ORDER", order)
                         })*/
                     }
+                }else if(order.verify!!.equals("2") && order.status.equals("deny")){
+                    txt_content.text = "sudah di bayar"
+                } else if(order.verify!!.equals("2") && order.status.equals("settlement")){
+                    txt_content.text = "settlement"
                 } else {
                     btn_cancel.gone()
                     btn_pay.gone()
                     if (order.additional_price!! > 0){
                         btn_cancel.visible()
+                        btn_cancel.setOnClickListener {
+                            AlertDialog.Builder(context).apply {
+                                setMessage("apakah anda ingin membatalkan pesanan ini?")
+                                setNegativeButton("tidak") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                setPositiveButton("ya") { _, _ ->
+                                    orderFragmentViewModel.cancel(
+                                        Constants.getToken(context),
+                                        order.id.toString()
+                                    )
+                                }
+                            }.create().show()
+                        }
                         btn_confirm.visible()
                         btn_confirm.setOnClickListener {
                             orderFragmentViewModel.confirm(Constants.getToken(context), order.id.toString())
@@ -133,6 +146,10 @@ class MyOrderAdapter(
                                 "${Constants.setToIDR(order.additional_price!!)}, karena lokasi penjemputan atau lokasi tujuan terlalu jauh"
                     }else if (order.reason_for_refusing != null){
                         txt_content.text = "pesanan anda di tolak karena ${order.reason_for_refusing}"
+                    }else if(order.verify!!.equals("0") && order.additional_price == 0){
+                        txt_content.text = "pesanan tertolak";
+                        btn_cancel.gone()
+                        btn_confirm.gone()
                     }
                 }
             }

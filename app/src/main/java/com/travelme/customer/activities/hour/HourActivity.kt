@@ -23,6 +23,7 @@ class HourActivity : AppCompatActivity(), MyOnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_hour)
+        supportActionBar?.hide()
         rv_hour.apply {
             adapter = HourAdapter(mutableListOf(), this@HourActivity)
             layoutManager = LinearLayoutManager(this@HourActivity)
