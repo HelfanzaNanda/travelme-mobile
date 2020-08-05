@@ -8,5 +8,13 @@ import kotlinx.android.parcel.Parcelize
 data class Seat(
     @SerializedName("id") var id : Int? = null,
     @SerializedName("name") var name : String? = null,
+    @SerializedName("status") var status : String? = null,
+    var selected : Boolean = false
+) : Parcelable
+
+@Parcelize
+data class SelectSeat(
+    @SerializedName("id") var id : Int? = null,
+    @SerializedName("name") var name : String? = null,
     @SerializedName("status") var status : String? = null
 ) : Parcelable

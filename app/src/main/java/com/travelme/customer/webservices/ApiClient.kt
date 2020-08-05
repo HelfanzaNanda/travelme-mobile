@@ -6,6 +6,7 @@ import com.travelme.customer.utilities.WrappedListResponse
 import com.travelme.customer.utilities.WrappedResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -104,23 +105,12 @@ interface ApiService{
     ) : Call<WrappedListResponse<HourOfDeparture>>
 
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @POST("order/store")
     fun storeOrder(
         @Header("Authorization") token : String,
-        @Field("owner_id") owner_id : Int,
-        @Field("departure_id") departure_id : Int,
-        @Field("date") date : String,
-        @Field("hour") hour : String,
-        @Field("price") price : Int,
-        @Field("total_seat") total_seat : Int,
-        @Field("pickup_point") pickup_point : String,
-        @Field("lat_pickup_point") lat_pickup_point : String,
-        @Field("lng_pickup_point") lng_pickup_point : String,
-        @Field("destination_point") destination_point : String,
-        @Field("lat_destination_point") lat_destination_point : String,
-        @Field("lng_destination_point") lng_destination_point : String
-    ) : Call<WrappedResponse<Order>>
+        @Body requestBody: RequestBody
+    ) : Call<WrappedResponse<CreateOrder>>
 
     @GET("order")
     fun fetchMyOrders(@Header("Authorization") token : String) : Call<WrappedListResponse<Order>>

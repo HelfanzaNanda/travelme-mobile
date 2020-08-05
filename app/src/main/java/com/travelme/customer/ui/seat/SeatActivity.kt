@@ -1,7 +1,10 @@
 package com.travelme.customer.ui.seat
 
+import android.app.Activity
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -24,6 +27,23 @@ class SeatActivity : AppCompatActivity() {
         setUpUI()
         observer()
         observe()
+        onFinishSelectSeat()
+    }
+
+    private fun onFinishSelectSeat() {
+        btn_ok.setOnClickListener {
+            val seats = seatViewModel.listenToSeats().value
+            val selectedSeats : MutableList<Seat> = mutableListOf()
+            seats!!.map {
+                if (it.selected){
+                    selectedSeats.add(it)
+                }
+            }
+            val i = Intent()
+            i.putParcelableArrayListExtra("selected_seats", selectedSeats as ArrayList<out Parcelable>)
+            setResult(Activity.RESULT_OK, i)
+            finish()
+        }
     }
 
     private fun observer() = seatViewModel.listenToState().observer(this, Observer { handleUiState(it) })
@@ -54,7 +74,7 @@ class SeatActivity : AppCompatActivity() {
 
     private fun setUpUI() {
         recycler_view.apply {
-            adapter = SeatAdapter(mutableListOf(), this@SeatActivity)
+            adapter = SeatAdapter(mutableListOf(), this@SeatActivity, seatViewModel)
             layoutManager = GridLayoutManager(this@SeatActivity, 3)
         }
     }

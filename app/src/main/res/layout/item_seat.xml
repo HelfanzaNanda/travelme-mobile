@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
+        app:cardCornerRadius="8dp"
         android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/card_seat"
-        android:clickable="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:focusable="true">
+        android:layout_width="110dp"
+        android:layout_height="110dp">
 
-        <ImageView
-            android:id="@+id/img_seat"
-            android:src="@drawable/ic_seat"
-            android:layout_width="100dp"
-            android:layout_height="100dp"/>
+        <LinearLayout
+            android:gravity="center"
+            android:background="?attr/selectableItemBackground"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <ImageView
+                android:id="@+id/img_seat"
+                android:src="@drawable/ic_seat"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

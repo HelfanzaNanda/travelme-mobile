@@ -2,7 +2,9 @@ package com.travelme.customer.ui.order
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.travelme.customer.models.CreateOrder
 import com.travelme.customer.models.Order
+import com.travelme.customer.models.Seat
 import com.travelme.customer.models.User
 import com.travelme.customer.repositories.OrderRepository
 import com.travelme.customer.repositories.UserRepository
@@ -20,34 +22,37 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
     private fun reset() { state.value = OrderActivityState.Reset }
     private fun alert() { state.value = OrderActivityState.Alert}
 
-    fun validate(pickup_location: String, destination_location: String): Boolean{
+    fun validate(pickup_location: String, destination_location: String, seats : List<Seat>): Boolean{
         reset()
         if (pickup_location.isEmpty()){
-            toast("lokasi penjemputan silahkan di isi")
+            state.value = OrderActivityState.Validate(pickup_location = "lokasi penjemputan silahkan di isi")
             return false
         }
         if (destination_location.isEmpty()){
-            toast("lokasi tujuan silahkan di isi")
+            state.value = OrderActivityState.Validate(destination_location = "lokasi tujuan silahkan di isi")
+            return false
+        }
+
+        if (seats.isEmpty()){
+            toast("harus pilih kursi dahulu")
             return false
         }
         return true
     }
 
-    fun storeOrder(token : String, owner_id : Int, departure_id : Int, date : String,
-                   hour : String, price : Int, total_seat: Int, pickup_point: String, lat_pickup_point : String, lng_pickup_point : String,
-                   destination_point: String, lat_destination_point: String, lng_destination_point: String){
+    fun storeOrder(token : String, createOrder: CreateOrder){
         setLoading()
-        orderRepository.createorder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_point, lat_pickup_point,
-            lng_pickup_point, destination_point, lat_destination_point, lng_destination_point){resultBool, error->
-            hideLoading()
-            error?.let { it.message?.let { mesage->
-                toast(mesage)
-                println(mesage)
-            }}
-            if (resultBool){
-                alert()
+        orderRepository.createOrder(token, createOrder, object : SingleResponse<CreateOrder>{
+            override fun onSuccess(data: CreateOrder?) {
+                hideLoading()
+                data?.let { alert() }
             }
-        }
+
+            override fun onFailure(err: Error?) {
+                err?.let { toast(it.message.toString()) }
+            }
+
+        })
     }
 
     fun getUserLogin(token: String){

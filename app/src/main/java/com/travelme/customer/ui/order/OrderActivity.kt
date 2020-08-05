@@ -10,16 +10,19 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.travelme.customer.R
+import com.travelme.customer.models.CreateOrder
 import com.travelme.customer.ui.main.MainActivity
 import com.travelme.customer.ui.maps.MapsActivity
 import com.travelme.customer.ui.maps.ResultMaps
 import com.travelme.customer.utilities.extensions.notfocusable
 import com.travelme.customer.models.HourOfDeparture
+import com.travelme.customer.models.Seat
 import com.travelme.customer.models.User
 import com.travelme.customer.ui.seat.SeatActivity
 import com.travelme.customer.utilities.Constants
 import kotlinx.android.synthetic.main.activity_order.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.ArrayList
 
 class OrderActivity : AppCompatActivity() {
 
@@ -32,17 +35,17 @@ class OrderActivity : AppCompatActivity() {
     private var destinationPoint : String? = null
     private var latDestinationLocation : String? = null
     private var lngDestinationLocation : String? = null
+    companion object{ const val REQ_SELECT_SEAT = 101 }
+
+    private var seats : ArrayList<Seat> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order)
-        //supportActionBar?.hide()
         observe()
         btn_order.setOnClickListener { order() }
-        //pickupLocationOnClick()
-        //destinationLocatinOnClick()
         fetchUserWhoLoggedIn()
-        checkSeat()
+        selectSeatForResult()
     }
 
     private fun pickupLocationOnClick(){
@@ -51,7 +54,6 @@ class OrderActivity : AppCompatActivity() {
             startActivityForResult(Intent(this@OrderActivity, MapsActivity::class.java), REQUEST_CODE_PICKUP_LOCATION)
         }
     }
-
     private fun destinationLocatinOnClick(){
         et_destination_location.notfocusable()
         et_destination_location.setOnClickListener {
@@ -72,12 +74,12 @@ class OrderActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun setUser(it : User){
         it.let {
+            val price = getPassedHourDeparture()?.date!!.departure.price
             tv_name.text = "Nama Pemesan : ${it.name}"
             tv_date.text = "Tanggal : ${getPassedHourDeparture()?.date!!.date}"
-            txt_hour.text = getPassedHourDeparture()?.hour
+            txt_hour.text = "${getPassedHourDeparture()?.hour} WIB"
             txt_departure.text = "${getPassedHourDeparture()?.date!!.departure.from} -> ${getPassedHourDeparture()?.date!!.departure.destination}"
-            txt_price.text = Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price!!.toInt())
-            //totalSeat()
+            txt_price.text = Constants.setToIDR(price!!)
         }
     }
 
@@ -87,14 +89,12 @@ class OrderActivity : AppCompatActivity() {
         val departureId = getPassedHourDeparture()?.date!!.departure.id!!
         val date = getPassedHourDeparture()?.date!!.date!!
         val hour = getPassedHourDeparture()?.hour!!
-        val price = getPassedHourDeparture()?.date!!.departure.price!!
-        //val totalSeat = txt_seat.text.toString().toInt()
         val pickupPoint = et_pickup_location.text.toString().trim()
         val destinationPoint = et_destination_location.text.toString().trim()
-        if (orderActivityViewModel.validate(pickupPoint, destinationPoint)){
-//            orderActivityViewModel.storeOrder(token, ownerId, departureId, date, hour, price, totalSeat,
-//                pickupPoint, latPickupLocation!!, lngPickupLocation!!, destinationPoint,
-//                latDestinationLocation!!, lngDestinationLocation!!)
+        if (orderActivityViewModel.validate(pickupPoint, destinationPoint, seats)){
+            val createOrder = CreateOrder(owner_id = ownerId, departure_id = departureId, date = date,
+                hour = hour, pickup_point = pickupPoint, destination_point = destinationPoint, seats = seats)
+            orderActivityViewModel.storeOrder(token, createOrder)
         }
     }
 
@@ -102,15 +102,19 @@ class OrderActivity : AppCompatActivity() {
         when (it) {
             is OrderActivityState.ShowToast -> toast(it.message)
             is OrderActivityState.Alert -> popup("terima kasih telah memesan travel ini lanjutkan pembayaran jika sudah di konfirmasi")
-            is OrderActivityState.Reset -> {
-                setPickupPointError(null)
-                setDestinationPointError(null)
-            }
-            is OrderActivityState.Validate -> {
-                it.pickup_location?.let { setPickupPointError(it) }
-                it.destination_location?.let { setDestinationPointError(it) }
-            }
+            is OrderActivityState.Reset -> handleReset()
+            is OrderActivityState.Validate -> handleValidate(it)
         }
+    }
+
+    private fun handleReset() {
+        setPickupPointError(null)
+        setDestinationPointError(null)
+    }
+
+    private fun handleValidate(validate: OrderActivityState.Validate) {
+        validate.pickup_location?.let { setPickupPointError(it) }
+        validate.destination_location?.let { setDestinationPointError(it) }
     }
 
     private fun popup(message: String){
@@ -122,34 +126,6 @@ class OrderActivity : AppCompatActivity() {
             }
         }.show()
     }
-
-//    private fun totalSeat() {
-//        var count = 1
-//        val remaining_seat = getPassedHourDeparture()?.remaining_seat
-//
-//        btn_plus_seat.setOnClickListener {
-//            if (count >= remaining_seat!!) {
-//                toast("sisa kursi hanya $remaining_seat")
-//                txt_seat.text = remaining_seat.toString()
-//                txt_total_seat.text = remaining_seat.toString()
-//                txt_total_price.text =
-//                    Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price.toString().toInt() * remaining_seat)
-//            } else {
-//                count++
-//                txt_seat.text = count.toString()
-//                txt_total_seat.text = count.toString()
-//                txt_total_price.text =
-//                    Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price.toString().toInt() * count)
-//            }
-//        }
-//        btn_min_seat.setOnClickListener {
-//            if (count > 1) count-- else count = 1
-//            txt_seat.text = count.toString()
-//            txt_total_seat.text = count.toString()
-//            txt_total_price.text =
-//                Constants.setToIDR(getPassedHourDeparture()?.date!!.departure.price.toString().toInt() * count)
-//        }
-//    }
 
     private fun toast(message: String) = Toast.makeText(this@OrderActivity, message, Toast.LENGTH_SHORT).apply {
         setGravity(Gravity.CENTER, 0, 0)
@@ -177,22 +153,33 @@ class OrderActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICKUP_LOCATION && data != null){
-            onPickupLocationOnReturned(data)
-        }
-        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_DESTINATION_LOCATION && data != null){
-            onDestinationOnReturned(data)
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_PICKUP_LOCATION && data != null){
+//            onPickupLocationOnReturned(data)
+//        }
+//        if (resultCode == Activity.RESULT_OK && requestCode == REQUEST_CODE_DESTINATION_LOCATION && data != null){
+//            onDestinationOnReturned(data)
+//        }
+//    }
+
+
+    private fun selectSeatForResult() {
+        btn_choose_seat.setOnClickListener {
+            startActivityForResult(Intent(this, SeatActivity::class.java).apply {
+                putExtra("DEPARTURE_DETAIL", getPassedHourDeparture())
+            }, REQ_SELECT_SEAT)
         }
     }
 
-
-    private fun checkSeat() {
-        btn_choose_seat.setOnClickListener {
-            startActivity(Intent(this, SeatActivity::class.java).apply {
-                putExtra("DEPARTURE_DETAIL", getPassedHourDeparture())
-            })
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == REQ_SELECT_SEAT){
+            seats = data?.getParcelableArrayListExtra<Seat>("selected_seats")!!
+            println(seats.size)
+            val price = getPassedHourDeparture()?.date!!.departure.price
+            txt_total_seat.text = seats.size.toString()
+            txt_total_price.text = Constants.setToIDR(price!!.times(seats.size))
         }
     }
 

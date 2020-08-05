@@ -1,19 +1,22 @@
 package com.travelme.customer.repositories
 
+import com.google.gson.GsonBuilder
+import com.travelme.customer.models.CreateOrder
 import com.travelme.customer.models.Order
 import com.travelme.customer.utilities.ArrayResponse
 import com.travelme.customer.utilities.SingleResponse
 import com.travelme.customer.utilities.WrappedListResponse
 import com.travelme.customer.utilities.WrappedResponse
-import com.travelme.customer.webservices.ApiClient
 import com.travelme.customer.webservices.ApiService
+import okhttp3.MediaType
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
 interface OrderContract {
-    fun createOrder(token: String,order: Order , listener : SingleResponse<Order>)
+    fun createOrder(token: String, createOrder: CreateOrder , listener : SingleResponse<CreateOrder>)
     fun fetchMyOrders(token: String, listener: ArrayResponse<Order>)
     fun cancelOrder(token: String, id: String, listener: SingleResponse<Order>)
     fun confirmOrder(token: String, id: String, listener: SingleResponse<Order>)
@@ -22,36 +25,12 @@ interface OrderContract {
 
 class OrderRepository (private val api : ApiService) : OrderContract{
 
-    fun createorder(token : String, owner_id : Int, departure_id : Int, date : String, hour : String, price : Int,
-                    total_seat: Int, pickup_point: String, lat_pickup_point : String, lng_pickup_point : String,
-                    destination_point: String, lat_destination_point : String, lng_destination_point : String,
-                    result : (Boolean, Error?)-> Unit){
 
-        api.storeOrder(token, owner_id, departure_id, date, hour, price, total_seat, pickup_point, lat_pickup_point, lng_pickup_point,
-            destination_point, lat_destination_point, lng_destination_point)
-            .enqueue(object : Callback<WrappedResponse<Order>> {
-                override fun onFailure(call: Call<WrappedResponse<Order>>, t: Throwable) {
-                    result(false, Error(t.message))
-                }
-
-                override fun onResponse(call: Call<WrappedResponse<Order>>, response: Response<WrappedResponse<Order>>) {
-                    if (response.isSuccessful){
-                        val body = response.body()
-                        if (body?.status!!){
-                            result(true, null)
-                        }else{
-                            result(false, Error(body.message))
-                        }
-                    }else{
-                        result(false, Error(response.message()))
-                    }
-                }
-
-            })
-    }
-
-    override fun createOrder(token: String, order: Order, listener: SingleResponse<Order>) {
-        TODO("Not yet implemented")
+    override fun createOrder(token: String, createOrder: CreateOrder, listener: SingleResponse<CreateOrder>) {
+        val g = GsonBuilder().create()
+        val json = g.toJson(createOrder)
+        println(json)
+        val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)
     }
 
     override fun fetchMyOrders(token: String, listener: ArrayResponse<Order>) {

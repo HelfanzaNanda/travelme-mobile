@@ -30,6 +30,32 @@ class SeatViewModel (private val seatRepository: SeatRepository) : ViewModel(){
         })
     }
 
+    fun addSelectedSeat(s : Seat){
+        val tempSelectedSeat = if(seats.value == null){
+            mutableListOf()
+        } else {
+            seats.value as MutableList<Seat>
+        }
+        val sameSeat = tempSelectedSeat.find { same ->same.id == s.id }
+        sameSeat?.let { seat ->
+            seat.selected = true
+        }
+        seats.postValue(tempSelectedSeat)
+    }
+
+    fun removeSelectedSeat(s : Seat) {
+        val tempSelectedSeat = if(seats.value == null){
+            mutableListOf()
+        } else {
+            seats.value as MutableList<Seat>
+        }
+        val sameSeat = tempSelectedSeat.find { same ->same.id == s.id }
+        sameSeat?.let { seat ->
+            seat.selected = false
+        }
+        seats.postValue(tempSelectedSeat)
+    }
+
     fun listenToState() = state
     fun listenToSeats() = seats
 }
