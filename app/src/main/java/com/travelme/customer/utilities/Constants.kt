@@ -39,6 +39,7 @@ class Constants {
 
         fun isValidEmail(email : String) = android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
         fun isValidPassword(pass : String) = pass.length >= 8
+        fun isAlpha(name : String) = Pattern.matches("[a-zA-Z]+", name)
 
         fun setToIDR(num : Int) : String {
             val localeID = Locale("in", "ID")
@@ -49,13 +50,9 @@ class Constants {
         @RequiresApi(Build.VERSION_CODES.O)
         fun changeFormatDate(date : String) : String{
             val current = LocalDateTime.now()
-
             val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
             val formatted = current.format(formatter)
-
             return formatted
         }
-
-        fun isAlpha(name : String) = Pattern.matches("[a-zA-Z]+", name)
     }
 }

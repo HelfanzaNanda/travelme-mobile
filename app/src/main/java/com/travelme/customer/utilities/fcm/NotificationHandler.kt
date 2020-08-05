@@ -6,7 +6,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.travelme.customer.R
-import com.travelme.customer.activities.MainActivity
+import com.travelme.customer.ui.main.MainActivity
 
 object NotificationHandler {
 

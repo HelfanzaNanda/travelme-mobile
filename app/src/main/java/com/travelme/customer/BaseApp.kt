@@ -1,18 +1,19 @@
 package com.travelme.customer
 
 import android.app.Application
-import com.travelme.customer.activities.forgot_password.ForgotPasswordViewModel
-import com.travelme.customer.activities.hour.HourViewModel
-import com.travelme.customer.activities.login.LoginViewModel
-import com.travelme.customer.activities.order.OrderActivityViewModel
-import com.travelme.customer.activities.owner.OwnerViewModel
-import com.travelme.customer.activities.register.RegisterViewModel
-import com.travelme.customer.activities.update_profile.UpdateProfilViewModel
-import com.travelme.customer.fragments.home.destination_other_fragment.DestinationOtherViewModel
-import com.travelme.customer.fragments.home.destination_tegal_fragment.DestinationTegalViewModel
-import com.travelme.customer.fragments.order.OrderFragmentViewModel
-import com.travelme.customer.fragments.profile.ProfileViewModel
+import com.travelme.customer.ui.forgot_password.ForgotPasswordViewModel
+import com.travelme.customer.ui.hour.HourViewModel
+import com.travelme.customer.ui.login.LoginViewModel
+import com.travelme.customer.ui.order.OrderActivityViewModel
+import com.travelme.customer.ui.owner.OwnerViewModel
+import com.travelme.customer.ui.register.RegisterViewModel
+import com.travelme.customer.ui.update_profile.UpdateProfilViewModel
+import com.travelme.customer.ui.main.home.destination_other_fragment.DestinationOtherViewModel
+import com.travelme.customer.ui.main.home.destination_tegal_fragment.DestinationTegalViewModel
+import com.travelme.customer.ui.main.order.OrderFragmentViewModel
+import com.travelme.customer.ui.main.profile.ProfileViewModel
 import com.travelme.customer.repositories.*
+import com.travelme.customer.ui.seat.SeatViewModel
 import com.travelme.customer.webservices.ApiClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -40,9 +41,9 @@ val retrofitModule = module {
 val repositoryModules = module {
     factory { OrderRepository(get()) }
     factory { UserRepository(get()) }
-    factory { OwnerRepository(get()) }
     factory { HourRepository(get()) }
     factory { DepartureRepository(get()) }
+    factory { SeatRepository(get()) }
 }
 
 val viewModelModules = module {
@@ -52,6 +53,7 @@ val viewModelModules = module {
     viewModel { HourViewModel(get()) }
     viewModel { OwnerViewModel(get()) }
     viewModel { OrderActivityViewModel(get(), get()) }
+    viewModel { SeatViewModel(get()) }
 
     viewModel { DestinationOtherViewModel(get()) }
     viewModel { DestinationTegalViewModel(get()) }

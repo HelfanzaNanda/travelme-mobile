@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.detail_owner.DetailOwnerActivity">
+    tools:context=".ui.detail_owner.DetailOwnerActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -24,16 +24,10 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:toolbarId="@+id/toolbar">
 
-            <com.synnapps.carouselview.CarouselView
+            <ImageView
                 android:id="@+id/iv_photo_detail_owner"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:fillColor="#FFFFFFFF"
-                app:pageColor="#00000000"
-                app:radius="6dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"/>
+                android:layout_height="match_parent"/>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"

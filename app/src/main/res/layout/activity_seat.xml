@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.seat.SeatActivity">
+
+    <com.github.florent37.shapeofview.shapes.DiagonalView
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        app:shape_diagonal_angle="10"
+        app:shape_diagonal_direction="right"
+        app:shape_diagonal_position="bottom">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
+
+        </FrameLayout>
+
+    </com.github.florent37.shapeofview.shapes.DiagonalView>
+
+    <TextView
+        android:id="@+id/pilih_kursi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30sp"
+        android:gravity="center"
+        android:text="Pilih Kursi"
+        android:textColor="#FFF"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    
+    <com.google.android.material.button.MaterialButton
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        app:cornerRadius="8dp"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</RelativeLayout>

@@ -10,5 +10,6 @@ data class HourOfDeparture(
     @SerializedName("hour") var hour: String? = null,
     @SerializedName("seat") var seat: Int? = null,
     @SerializedName("remaining_seat") var remaining_seat: Int? = null,
-    @SerializedName("date") var date: DateOfDeparture
+    @SerializedName("date") var date: DateOfDeparture,
+    @SerializedName("car") var car : Car
 ) : Parcelable

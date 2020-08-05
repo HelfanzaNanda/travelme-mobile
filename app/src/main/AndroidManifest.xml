@@ -8,32 +8,33 @@
     <application
         android:name=".BaseApp"
         android:allowBackup="true"
-        android:requestLegacyExternalStorage="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher_travelme"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_travelme_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup"
         tools:targetApi="m">
-        <activity android:name=".activities.owner.OwnerActivity"/>
-        <activity android:name=".activities.hour.HourActivity" />
-        <activity android:name=".activities.forgot_password.ForgotPasswordActivity" />
-        <activity android:name=".activities.maps.MapsActivity" />
-        <activity android:name=".activities.detail_my_order.DetailMyOrderActivity" />
-        <activity android:name=".activities.update_profile.UpdateProfileActivity" />
-        <activity android:name=".activities.login.LoginActivity" />
-        <activity android:name=".activities.register.RegisterActivity" />
-        <activity android:name=".activities.order.OrderActivity" />
+        <activity android:name=".ui.seat.SeatActivity"></activity>
+        <activity android:name=".ui.owner.OwnerActivity" />
+        <activity android:name=".ui.hour.HourActivity" />
+        <activity android:name=".ui.forgot_password.ForgotPasswordActivity" />
+        <activity android:name=".ui.maps.MapsActivity" />
+        <activity android:name=".ui.detail_my_order.DetailMyOrderActivity" />
+        <activity android:name=".ui.update_profile.UpdateProfileActivity" />
+        <activity android:name=".ui.login.LoginActivity" />
+        <activity android:name=".ui.register.RegisterActivity" />
+        <activity android:name=".ui.order.OrderActivity" />
         <activity
-            android:name=".activities.detail_owner.DetailOwnerActivity"
+            android:name=".ui.detail_owner.DetailOwnerActivity"
             android:label="@string/title_activity_detail_owner"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".activities.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,9 +42,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name=".utilities.fcm.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
     </application>

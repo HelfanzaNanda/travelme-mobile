@@ -123,10 +123,10 @@ interface ApiService{
     ) : Call<WrappedResponse<Order>>
 
     @GET("order")
-    fun getMyOrders(@Header("Authorization") token : String) : Call<WrappedListResponse<Order>>
+    fun fetchMyOrders(@Header("Authorization") token : String) : Call<WrappedListResponse<Order>>
 
     @GET("order/{id}/cancel")
-    fun cancelorder(
+    fun cancelOrder(
         @Header("Authorization") token : String,
         @Path("id") id : Int
     ) : Call<WrappedResponse<Order>>
@@ -139,29 +139,18 @@ interface ApiService{
 
     @FormUrlEncoded
     @POST("order/{id}/update")
-    fun updatestatusorder(
+    fun updateStatusOrder(
         @Header("Authorization") token : String,
         @Path("id") id : Int,
         @Field("status") status : String
     ) : Call<WrappedResponse<Order>>
 
-    @GET("order/arrived")
-    fun driverArriver(
-        @Header("Authorization") token : String
-    ) : Call<WrappedListResponse<Order>>
-
-    @GET("order/verify")
-    fun orderVerify(
-        @Header("Authorization") token : String
-    ) : Call<WrappedListResponse<Order>>
 
     @FormUrlEncoded
-    @POST("snap")
-    fun snap(
-        @Header("Authorization") token : String,
-        @Field("departure_id") departure_id : String,
-        @Field("price") price : Int,
-        @Field("total_seat") total_seat : Int,
-        @Field("date") date : String
-    ) : Call<WrappedResponse<Order>>
+    @POST("check/seat")
+    fun checkSeat(
+        @Field("car_id") car_id : Int,
+        @Field("date") date : String,
+        @Field("hour") hour : String
+    ) : Call<WrappedListResponse<Seat>>
 }

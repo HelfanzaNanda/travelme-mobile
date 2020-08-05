@@ -11,8 +11,8 @@ import androidx.test.rule.ActivityTestRule
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import com.travelme.customer.R
-import com.travelme.customer.activities.login.LoginActivity
-import com.travelme.customer.activities.login.LoginViewModel
+import com.travelme.customer.ui.login.LoginActivity
+import com.travelme.customer.ui.login.LoginViewModel
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher

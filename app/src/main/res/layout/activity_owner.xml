@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.owner.OwnerActivity">
+    tools:context=".ui.owner.OwnerActivity">
 
     <com.github.florent37.shapeofview.shapes.DiagonalView
         android:layout_width="match_parent"
