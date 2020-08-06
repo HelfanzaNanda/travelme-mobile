@@ -35,9 +35,11 @@ data class CreateOrder(
     @SerializedName("id") var id : Int?= null,
     @SerializedName("owner_id") var owner_id : Int? = null,
     @SerializedName("departure_id") var departure_id : Int? = null,
+    @SerializedName("car_id") var car_id : Int? = null,
     @SerializedName("date") var date : String? = null,
     @SerializedName("hour") var hour : String? = null,
     @SerializedName("pickup_point") var pickup_point : String? = null,
     @SerializedName("destination_point") var destination_point : String? = null,
+    @SerializedName("payment") var payment : Boolean? = null,
     @SerializedName("seats") var seats : MutableList<Seat> = mutableListOf()
 ) : Parcelable

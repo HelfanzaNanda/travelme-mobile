@@ -9,6 +9,7 @@ data class Seat(
     @SerializedName("id") var id : Int? = null,
     @SerializedName("name") var name : String? = null,
     @SerializedName("status") var status : String? = null,
+    @SerializedName("price") var price : Int? = null,
     var selected : Boolean = false
 ) : Parcelable
 

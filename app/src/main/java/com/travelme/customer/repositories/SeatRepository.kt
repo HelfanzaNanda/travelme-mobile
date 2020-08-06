@@ -21,7 +21,10 @@ class SeatRepository (private val api : ApiService) : SeatContract{
 
             override fun onResponse(call: Call<WrappedListResponse<Seat>>, response: Response<WrappedListResponse<Seat>>) {
                 when{
-                    response.isSuccessful -> listener.onSuccess(response.body()!!.data)
+                    response.isSuccessful -> {
+                        listener.onSuccess(response.body()!!.data)
+                        println(response.body()!!.data)
+                    }
                     !response.isSuccessful-> listener.onFailure(Error(response.message()))
                 }
             }

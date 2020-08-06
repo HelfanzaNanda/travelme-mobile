@@ -14,7 +14,9 @@ import com.travelme.customer.utilities.SingleResponse
 class OrderActivityViewModel(private val orderRepository: OrderRepository, private val userRepository: UserRepository) : ViewModel(){
 
     private val user = MutableLiveData<User>()
-    private var state : SingleLiveEvent<OrderActivityState> = SingleLiveEvent()
+    private val state : SingleLiveEvent<OrderActivityState> = SingleLiveEvent()
+    private var createOrder = MutableLiveData<CreateOrder>()
+    private val seats =  MutableLiveData<ArrayList<Seat>>()
 
     private fun setLoading() { state.value = OrderActivityState.IsLoading(true) }
     private fun hideLoading() { state.value = OrderActivityState.IsLoading(false) }
@@ -22,7 +24,7 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
     private fun reset() { state.value = OrderActivityState.Reset }
     private fun alert() { state.value = OrderActivityState.Alert}
 
-    fun validate(pickup_location: String, destination_location: String, seats : List<Seat>): Boolean{
+    fun validate(pickup_location: String, destination_location: String, seats : ArrayList<Seat>?, payment : Boolean?): Boolean{
         reset()
         if (pickup_location.isEmpty()){
             state.value = OrderActivityState.Validate(pickup_location = "lokasi penjemputan silahkan di isi")
@@ -33,8 +35,13 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
             return false
         }
 
-        if (seats.isEmpty()){
+        if (seats.isNullOrEmpty()){
             toast("harus pilih kursi dahulu")
+            return false
+        }
+
+        if (payment == null){
+            toast("harus pilih metode pembayaran")
             return false
         }
         return true
@@ -51,9 +58,15 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
             override fun onFailure(err: Error?) {
                 err?.let { toast(it.message.toString()) }
             }
-
         })
     }
+
+    fun selectPayment(b : Boolean){
+        val c = CreateOrder(payment = b)
+        createOrder.postValue(c)
+    }
+
+    fun resultSelectSeat(s : ArrayList<Seat>) = seats.postValue(s)
 
     fun getUserLogin(token: String){
         setLoading()
@@ -72,6 +85,8 @@ class OrderActivityViewModel(private val orderRepository: OrderRepository, priva
 
     fun listenToState() = state
     fun listenToUser() = user
+    fun listenToSelectPayment() = createOrder
+    fun listenToResultSelectSeat() = seats
 }
 
 sealed class OrderActivityState{

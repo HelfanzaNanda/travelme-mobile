@@ -38,8 +38,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_below="@id/pilih_kursi"
         android:id="@+id/recycler_view"
+        android:layoutDirection="rtl"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"/>
 
     <ProgressBar
         android:layout_centerInParent="true"

@@ -25,12 +25,29 @@ interface OrderContract {
 
 class OrderRepository (private val api : ApiService) : OrderContract{
 
-
     override fun createOrder(token: String, createOrder: CreateOrder, listener: SingleResponse<CreateOrder>) {
         val g = GsonBuilder().create()
         val json = g.toJson(createOrder)
-        println(json)
         val body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), json)
+        api.storeOrder(token, body).enqueue(object : Callback<WrappedResponse<CreateOrder>>{
+            override fun onFailure(call: Call<WrappedResponse<CreateOrder>>, t: Throwable) = listener.onFailure(
+                Error(t.message)
+            )
+
+            override fun onResponse(call: Call<WrappedResponse<CreateOrder>>, response: Response<WrappedResponse<CreateOrder>>) {
+                when{
+                    response.isSuccessful -> {
+                        val b = response.body()
+                        if (b?.status!!){
+                            listener.onSuccess(b.data)
+                        }else{
+                            listener.onFailure(Error(b.message))
+                        }
+                    }
+                    !response.isSuccessful -> listener.onFailure(Error(response.message()))
+                }
+            }
+        })
     }
 
     override fun fetchMyOrders(token: String, listener: ArrayResponse<Order>) {

@@ -58,8 +58,6 @@
                     android:layout_marginTop="5dp"
                     android:layout_width="match_parent" />
 
-
-
                 <LinearLayout
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -190,6 +188,48 @@
 
                     </LinearLayout>
 
+
+                    <View
+                        android:background="@android:color/darker_gray"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_width="match_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_marginBottom="5dp"
+                            android:id="@+id/txt_payment"
+                            android:textSize="18sp"
+                            android:text="Metode Pembayaran"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <RadioGroup
+                            android:orientation="horizontal"
+                            android:id="@+id/rbgrup"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:layout_marginEnd="10dp"
+                                android:id="@+id/payment_offline"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Bayar Ke Supir"/>
+                            <RadioButton
+                                android:id="@+id/payment_online"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Online"/>
+                        </RadioGroup>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <View
@@ -308,5 +348,11 @@
         android:layout_width="match_parent"
         android:text="@string/pesan" />
 
+    <ProgressBar
+        android:visibility="gone"
+        android:layout_centerInParent="true"
+        android:id="@+id/loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

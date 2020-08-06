@@ -2,12 +2,13 @@ package com.travelme.customer.ui.seat
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager.SpanSizeLookup
 import com.travelme.customer.R
 import com.travelme.customer.models.HourOfDeparture
 import com.travelme.customer.models.Seat
@@ -31,11 +32,12 @@ class SeatActivity : AppCompatActivity() {
     }
 
     private fun onFinishSelectSeat() {
-        btn_ok.setOnClickListener {
+        btn_ok.setOnClickListener { _->
             val seats = seatViewModel.listenToSeats().value
             val selectedSeats : MutableList<Seat> = mutableListOf()
             seats!!.map {
                 if (it.selected){
+                    it.price = getPassedHourDeparture()!!.date.departure.price
                     selectedSeats.add(it)
                 }
             }
